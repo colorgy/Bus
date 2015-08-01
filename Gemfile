@@ -69,6 +69,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'spring-commands-rspec'
+  gem 'shoulda'
   gem 'shoulda-matchers', require: false
   gem 'simplecov', '~> 0.9.1', require: false
 
