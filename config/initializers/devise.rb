@@ -233,6 +233,11 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  config.omniauth :colorgy, ENV['APP_ID'], ENV['APP_SECRET'],
+                     scope: 'public email identity offline_access',
+                     fields: [:id, :uuid, :email, :name, :avatar_url, :primary_identity, :cover_photo_url, :gender, :fbid, :organization_code, :department_code],
+                     includes: [:primary_identity],
+                     client_options: { site: 'https://colorgy.io' }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

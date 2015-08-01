@@ -128,6 +128,11 @@ ActiveRecord::Schema.define(version: 20150801065613) do
     t.string   "department_code"
     t.string   "invoice_subsume_token"
     t.datetime "invoice_subsume_token_created_at"
+    t.integer  "cart_items_count",                 default: 0
+    t.datetime "refreshed_at"
+    t.string   "core_access_token"
+    t.string   "core_refresh_token"
+    t.string   "uuid"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -13,6 +13,21 @@ ActiveAdmin.register User do
   #   permitted << :other if resource.something?
   #   permitted
   # end
+  permit_params do
+    permitted = [:email, :username, :name, :avatar_url, :cover_photo_url, :gender, :fbid, :uid, :identity, :organization_code, :department_code]
+  end
+
+  index do
+    selectable_column
+    id_column
+    column :email
+    column :name
+    column :username
+    column :current_sign_in_at
+    column :sign_in_count
+    column :created_at
+    actions
+  end
 
 
 end

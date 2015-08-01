@@ -1,10 +1,11 @@
-.route-panel
+.container
   - @routes.each do |route|
-    h1= "從 #{route.origin} 到 #{route.destination}"
-    p
-      = route.description
-    p
-      = "NT$ #{route.price}"
+    .routes-container
+      h1= "從 #{route.origin} 到 #{route.destination}"
+      p
+        = route.description
+      p
+        = "NT$ #{route.price}"
 
-    - route.schedules.each do |schedule|
-      li= schedule.departure_time
+      - route.schedules.each do |schedule|
+        li= link_to schedule.departure_time, schedule_path(schedule.id)
