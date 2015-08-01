@@ -1,11 +1,12 @@
 FactoryGirl.define do
   factory :route do
-    direction "MyString"
-    departure_time "2015-07-31 22:12:36"
-    price 1
-    description "MyText"
-    announcement "MyText"
-    route_map_url "MyString"
+    direction %w(South North).sample
+    origin { Faker::Address.city }
+    destination { Faker::Address.city }
+    price 200
+    description { Faker::Lorem.paragraph }
+    announcement { Faker::Lorem.paragraph(2) }
+    route_map_url { Faker::Avatar.image }
   end
 
 end

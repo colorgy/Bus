@@ -1,8 +1,7 @@
 FactoryGirl.define do
   factory :vehicle do
-    capacity 1
-description "MyText"
-seat_info "MyText"
+    capacity { [35, 50].sample }
+    description "MyText"
+    seat_info "MyText"
   end
-
 end
