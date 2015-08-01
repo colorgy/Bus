@@ -1,7 +1,7 @@
 class CreateSchedules < ActiveRecord::Migration
   def change
     create_table :schedules do |t|
-      t.datetime :departure_time
+      t.datetime :departure_time, null: false
       t.integer :route_id
       t.string :registration_number
       t.string :contact

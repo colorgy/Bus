@@ -55,6 +55,10 @@ gem 'awesome_print', :require => false
 gem 'hirb', :require => false
 gem 'hirb-unicode', :require => false
 
+gem 'activeadmin', '~> 1.0.0.pre1'
+gem 'cancancan'
+gem 'draper'
+gem 'pundit'
 
 group :development do
   gem 'better_errors', '~> 2.0.0'
