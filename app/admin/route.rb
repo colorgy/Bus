@@ -4,7 +4,6 @@ ActiveAdmin.register Route do
     schedules_attributes: [
       :departure_time,
       :route_id,
-      :registration_number,
       :contact,
       :vehicle_id
     ]
@@ -34,7 +33,6 @@ ActiveAdmin.register Route do
     panel '時程' do
       table_for route.schedules do
         column :departure_time
-        column :registration_number
         column :contact
         column :vehicle_id
         #
@@ -57,7 +55,6 @@ ActiveAdmin.register Route do
     panel '時程設定' do
       f.has_many :schedules, allow_destroy: true, new_record: true do |schedule|
         schedule.input :departure_time
-        schedule.input :registration_number
         schedule.input :contact
         schedule.input :vehicle_id, as: :select, collection: Vehicle.all.map{|veh| [veh.capacity, veh.id]}
       end

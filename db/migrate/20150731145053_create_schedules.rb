@@ -3,7 +3,6 @@ class CreateSchedules < ActiveRecord::Migration
     create_table :schedules do |t|
       t.datetime :departure_time, null: false
       t.integer :route_id
-      t.string :registration_number
       t.string :contact
       t.integer :vehicle_id
 

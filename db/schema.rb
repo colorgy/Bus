@@ -92,13 +92,12 @@ ActiveRecord::Schema.define(version: 20150802030809) do
   end
 
   create_table "schedules", force: :cascade do |t|
-    t.datetime "departure_time",      null: false
+    t.datetime "departure_time", null: false
     t.integer  "route_id"
-    t.string   "registration_number"
     t.string   "contact"
     t.integer  "vehicle_id"
-    t.datetime "created_at",          null: false
-    t.datetime "updated_at",          null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "seats", force: :cascade do |t|
@@ -158,11 +157,13 @@ ActiveRecord::Schema.define(version: 20150802030809) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
   create_table "vehicles", force: :cascade do |t|
+    t.string   "name"
+    t.string   "registration_number"
     t.integer  "capacity"
     t.text     "description"
     t.text     "seat_info"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
 end
