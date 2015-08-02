@@ -56,6 +56,7 @@ gem 'hirb', :require => false
 gem 'hirb-unicode', :require => false
 
 gem 'activeadmin', '~> 1.0.0.pre1'
+gem 'just-datetime-picker'
 gem 'cancancan'
 gem 'draper'
 gem 'pundit'

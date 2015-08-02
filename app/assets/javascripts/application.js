@@ -15,4 +15,5 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require materialize-sprockets
+//= require just_datetime_picker/nested_form_workaround
 //= require_tree .
