@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150801065613) do
+ActiveRecord::Schema.define(version: 20150802030809) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -70,10 +70,14 @@ ActiveRecord::Schema.define(version: 20150801065613) do
     t.integer  "price"
     t.integer  "schedule_id"
     t.integer  "bill_id"
+    t.integer  "vehicle_id"
+    t.integer  "seat_id"
     t.string   "state"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  add_index "orders", ["schedule_id", "bill_id", "vehicle_id", "seat_id"], name: "order_uniq_id", unique: true
 
   create_table "routes", force: :cascade do |t|
     t.string   "origin"
@@ -97,13 +101,26 @@ ActiveRecord::Schema.define(version: 20150801065613) do
     t.datetime "updated_at",          null: false
   end
 
+  create_table "seats", force: :cascade do |t|
+    t.integer  "vehicle_id"
+    t.integer  "priority"
+    t.string   "row_no"
+    t.string   "seat_no"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "user_cart_items", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "schedule_id"
     t.integer  "route_id"
+    t.integer  "schedule_id"
+    t.integer  "seat_id"
+    t.integer  "price"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end
+
+  add_index "user_cart_items", ["user_id", "seat_id", "schedule_id"], name: "index_user_cart_items_on_user_id_and_seat_id_and_schedule_id", unique: true
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                            default: "", null: false

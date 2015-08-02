@@ -5,5 +5,7 @@ RSpec.describe Order, type: :model do
     it { should belong_to(:schedule) }
     it { should belong_to(:bill) }
     it { should belong_to(:user) }
+    it { should belong_to(:vehicle) }
+    it { should belong_to(:seat) }
   end
 end
