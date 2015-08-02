@@ -22,5 +22,11 @@ module Bus
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # assets pipeline config to work on Heroku
+    config.assets.initialize_on_precompile = false
+
+    # add active admin assets to precompile list, loaded from vendor/assets
+    config.assets.precompile += %w( active_admin.js active_admin.css.scss )
   end
 end

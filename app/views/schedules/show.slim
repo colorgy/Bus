@@ -1,1 +1,10 @@
+h3 = @schedule.route.display_name
+br
 = @schedule.departure_time
+= "NT$ #{@schedule.route.price}"
+br
+= simple_form_for(@vehicle, url: cart_items_path, method: 'POST') do |f|
+  = f.collection_check_boxes :seats, @vehicle.seats, :id, :seat_no
+  = f.input :schedule_id, as: :hidden, input_html: { name: "schedule_id", id: "schedule_id", value: @schedule.id }
+  br
+  = f.submit "放入購物車"

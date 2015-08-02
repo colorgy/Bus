@@ -1,17 +1,21 @@
 ActiveAdmin.register Vehicle do
 
-  permit_params :capacity, :description, :seat_info, :registration_number, :name,
+  permit_params :capacity, :description, :seat_info, :registration_number, :name, :_destroy, :id,
     schedules_attributes: [
       :departure_time,
       :route_id,
       :contact,
-      :vehicle_id
+      :vehicle_id,
+      :_destroy,
+      :id,
     ],
     seats_attributes: [
       :vehicle_id,
       :priority,
       :row_no,
-      :seat_no
+      :seat_no,
+      :_destroy,
+      :id
     ]
 
   index do
@@ -60,7 +64,8 @@ ActiveAdmin.register Vehicle do
 
     panel '座位表' do
       f.has_many :seats, allow_destroy: true, new_record: true do |seat|
-        seat.input :vehicle_id, as: :select, collection: Vehicle.all.map{|veh| [veh.capacity, veh.id]}
+        # seat.input :vehicle_id, as: :select, collection: Vehicle.all.map{|veh| ["#{veh.id}: #{veh.name}", veh.id]}
+        seat.input :vehicle_id, input_html: { value: vehicle.id }, as: :hidden
         seat.input :priority
         seat.input :row_no
         seat.input :seat_no
@@ -74,7 +79,7 @@ ActiveAdmin.register Vehicle do
         schedule.input :vehicle_id, as: :select, collection: Vehicle.all.map{|veh| [veh.capacity, veh.id]}
       end
     end
-
+    f.actions
   end
 
 end

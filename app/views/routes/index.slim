@@ -1,7 +1,19 @@
 .container
+  - current_user.cart_items.each do |cart_item|
+    = cart_item.user_id
+    br
+    = cart_item.route_id
+    br
+    = cart_item.schedule_id
+    br
+    = cart_item.seat_id
+    br
+    = cart_item.price
+    hr
+
   - @routes.each do |route|
     .routes-container
-      h1= "從 #{route.origin} 到 #{route.destination}"
+      h3= route.display_name
       p
         = route.description
       p

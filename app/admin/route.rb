@@ -1,11 +1,13 @@
 ActiveAdmin.register Route do
 
-  permit_params :origin, :destination, :direction, :price, :description, :announcement, :route_map_url,
+  permit_params :origin, :destination, :direction, :price, :description, :announcement, :route_map_url, :_destroy, :id,
     schedules_attributes: [
       :departure_time,
       :route_id,
       :contact,
-      :vehicle_id
+      :vehicle_id,
+      :_destroy,
+      :id,
     ]
 
   index do

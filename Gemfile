@@ -84,11 +84,22 @@ group :development, :test do
   gem 'spring'
 end
 
-gem 'kaminari'
-gem 'bootstrap-kaminari-views'
-
 group :production do
   gem 'pg'
   gem 'rails_12factor'
 end
 
+gem 'kaminari'
+gem 'bootstrap-kaminari-views'
+
+gem 'simple_form', '~> 3.1.0'
+
+gem 'materialize-sass'
+gem 'bootstrap-sass', '~> 3.3.4'
+
+# Logger
+gem 'remote_syslog_logger'
+gem 'rails_stdout_logging', :require => false
+
+# Monitoring Tools
+gem 'newrelic_rpm'
