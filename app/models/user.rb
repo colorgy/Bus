@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
     return user
   end
 
-  def add_to_cart!(schedule: schedule, seat: seat)
+  def add_to_cart!(schedule: nil, seat: nil)
     raise "Type Error" unless seat.is_a?(Seat) && schedule.is_a?(Schedule)
     cart_items.create!(
       seat: seat,
@@ -38,4 +38,5 @@ class User < ActiveRecord::Base
       price: schedule.route.price
     )
   end
+
 end
