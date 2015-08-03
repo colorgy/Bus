@@ -1,7 +1,7 @@
 Bus
 ===
 
-Colorgy 專車，讓你自在回家（之類的）
+Colorgy 專車，便利你的交通生活
 
 ## Development Setup
 

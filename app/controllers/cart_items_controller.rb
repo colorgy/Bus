@@ -20,4 +20,9 @@ class CartItemsController < ApplicationController
 
     redirect_to :back
   end
+
+  def destroy
+    @cart_item = current_user.cart_items.find(params[:id]).destroy!
+    redirect_to :back
+  end
 end
