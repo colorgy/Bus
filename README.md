@@ -43,7 +43,7 @@ For CI or continuous deployment servers, use the `bin/test` command to automatic
 
 ## Chat
 
-[![Join the chat at https://gitter.im/colorgy/Core](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/colorgy/Core?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join the chat at https://gitter.im/colorgy/Core](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/colorgy/Bus?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 
 ## License
