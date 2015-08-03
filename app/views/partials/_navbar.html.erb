@@ -1,9 +1,12 @@
-<nav class="colorgy-nav">
+<nav class="colorgy-nav nav-fixed">
     <div class="top">
         <div class="top-bar">
             <ul>
                 <li>
                   <a href="https://colorgy.io" target="_blank">回 Colorgy 首頁</a>
+                </li>
+                <li>
+                  <a href="<%= cart_items_path %>"><i class="material-icons list-icon">shopping_cart</i>購物車</a>
                 </li>
                 <% if current_user.blank? %>
                 <li class="login-btn"><%= link_to "Colorgy 登入", user_omniauth_authorize_path(:colorgy) %></li>
@@ -24,25 +27,13 @@
         </div>
     </div>
     <div class="nav-wrapper">
-      <a href="<%= root_path %>" class="brand-logo"><%= image_tag('TABLE.svg') %></a>
+      <a href="<%= root_path %>" class="brand-logo"><%= image_tag('BUS.svg') %></a>
       <a href="/" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">dehaze</i></a>
       <ul class="right hide-on-med-and-down main-nav">
         <li>
-          <a href="#" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="可以在這邊選課、排課，然後看有哪些同學跟你一起上課唷！">
-            <i class="material-icons list-icon">dashboard</i>
-            我要排課
-          </a>
-        </li>
-        <li>
-          <a href="#" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="可以在這邊尋找各校的同學，看他們選了哪些課或是追蹤他們唷！">
-            <i class="material-icons list-icon">face</i>
-            找同學們
-          </a>
-        </li>
-        <li>
-          <a href="#" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="課程評論列表，看同學們都推薦哪些課程！">
-            <i class="material-icons list-icon">comment</i>
-            課程評論
+          <a href="<%= routes_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="尋找你想要的路線、班次">
+            <i class="material-icons list-icon">directions_bus</i>
+            路線瀏覽
           </a>
         </li>
         <li class="nav-bar-drop-down">
