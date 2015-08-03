@@ -14,8 +14,9 @@ class CartItemsController < ApplicationController
           current_user.add_to_cart!(schedule: schedule, seat: Seat.find(seat_id))
         end
       end
+      flash[:success] = "成功加入購物車"
     rescue ActiveRecord::RecordNotUnique
-      # flash message
+      flash[:error] = "不能重複座位"
     end
 
     redirect_to :back
@@ -23,6 +24,7 @@ class CartItemsController < ApplicationController
 
   def destroy
     @cart_item = current_user.cart_items.find(params[:id]).destroy!
+    flash[:success] = "成功從購物車中移除"
     redirect_to :back
   end
 end

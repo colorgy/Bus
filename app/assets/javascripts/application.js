@@ -13,7 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require bootstrap-sprockets
+
+
+//= require replace_error_image_url
 //= require materialize-sprockets
+//= require ./colorgy/components/toast.js
+//= require ./colorgy/components/message_bar.js
 //= require just_datetime_picker/nested_form_workaround
 //= require_tree .

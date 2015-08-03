@@ -1,31 +1,24 @@
-<nav class="colorgy-nav">
+<nav class="colorgy-nav nav-fixed">
     <div class="top">
         <div class="top-bar">
             <ul>
                 <li>
-                  <a href="https://colorgy.io">回 Colorgy 首頁</a>
+                  <a href="https://colorgy.io" target="_blank">回 Colorgy 首頁</a>
+                </li>
+                <li>
+                  <a href="<%= cart_items_path %>"><i class="material-icons list-icon">shopping_cart</i>購物車</a>
                 </li>
                 <% if current_user.blank? %>
                 <li class="login-btn"><%= link_to "Colorgy 登入", user_omniauth_authorize_path(:colorgy) %></li>
                 <% else %>
-                <li>
-                  <a href="">
-                    個人頁面
-                  </a>
-                </li>
-                <li>
-                  <a href="">
-                    我追蹤的同學
-                  </a>
-                </li>
                 <li class="nav-bar-drop-down">
-                  <a href="">
-                    Hi, <%= current_user.name %><i class="material-icons list-icon">expand_more</i>
+                  <a href="#">
+                    Hi, <%= current_user.name %><i class="material-icons list-icon" style="color: #fff;">expand_more</i>
 
                   </a>
-                  <ul class="drop-down-list">
+                  <ul class="drop-down-list" style="margin-top: -1px;">
                     <li>
-                      <a href="<%= destroy_user_session_path %>">登出</a>
+                      <a href="#">登出</a>
                     </li>
                   </ul>
                 </li>
@@ -34,25 +27,13 @@
         </div>
     </div>
     <div class="nav-wrapper">
-      <a href="<%= root_path %>" class="brand-logo"><%= image_tag('TABLE.svg') %></a>
+      <a href="<%= root_path %>" class="brand-logo"><%= image_tag('BUS.svg') %></a>
       <a href="/" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">dehaze</i></a>
       <ul class="right hide-on-med-and-down main-nav">
         <li>
-          <a href="" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="可以在這邊選課、排課，然後看有哪些同學跟你一起上課唷！">
-            <i class="material-icons list-icon">dashboard</i>
-            我要排課
-          </a>
-        </li>
-        <li>
-          <a href="" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="可以在這邊尋找各校的同學，看他們選了哪些課或是追蹤他們唷！">
-            <i class="material-icons list-icon">face</i>
-            找同學們
-          </a>
-        </li>
-        <li>
-          <a href="" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="下載 APP 版的 TABLE ，把課表帶著走吧！">
-            <i class="material-icons list-icon">phone_iphone</i>
-            APP 下載
+          <a href="<%= routes_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="尋找你想要的路線、班次">
+            <i class="material-icons list-icon">directions_bus</i>
+            路線瀏覽
           </a>
         </li>
         <li class="nav-bar-drop-down">
@@ -66,27 +47,28 @@
         <% if current_user.blank? %>
           <li class="login-btn"><%= link_to "Colorgy 登入", user_omniauth_authorize_path(:colorgy) %></li>
         <% else %>
-          <li id="personal-menu">
+          <li id="personal-menu" style="background-color: rgb(151, 151, 151) !important;">
             <div class="personal-avatar"><%= image_tag current_user.avatar_url %></div>
-            <a href="#personal-menu">個人工具列<i class="material-icons personal-menu-trigger" style="display: inline-block;">keyboard_arrow_down</i></a>
+            <a href="#personal-menu">個人工具列<i class="material-icons personal-menu-trigger" style="display: inline-block; color: #fff;">keyboard_arrow_down</i></a>
           </li>
           <ul class="personal-menu-collapse" style="display: none;">
             <li>
-              <a href="">
-                個人頁面
+              <a href="#">
+                我追蹤的同學
               </a>
             </li>
             <li>
               <a href="#">
-                我的收藏
+                個人頁面
               </a>
             </li>
           </ul>
         <% end %>
-        <li><a href="">我要排課</a></li>
-        <li><a href="">找同學們</a></li>
-        <li><a href="">APP 下載</a></li>
-        <li><a href="<%= destroy_user_session_path %>">登出</a></li>
+        <li><a href="#">我要排課</a></li>
+        <li><a href="#">找同學們</a></li>
+        <li><a href="#">課程評論</a></li>
+        <li><a href="#">APP 下載</a></li>
+        <li><a href="#">登出</a></li>
       </ul>
       <div class="clear" style="clear:both;"></div>
     </div>

@@ -1,0 +1,20 @@
+<div class="container-fuild">
+  <div class="row row-inner-s">
+		<div class="schedule">
+			<div class="row">
+				<div class="col s12 m8">
+					<h5 class="route-display-name"><i class="material-icons">directions_bus</i><%= @schedule.route.display_name %></h5>
+					<h5 class="schedule-departure-time"><i class="material-icons">access_time</i><%= @schedule.departure_time %></h5>
+				</div>
+				<div class="col s12 m4">
+					<p class="route-price">團購價：<%= "NT$ #{@schedule.route.price}" %></p>
+				</div>
+			</div>
+			<%= simple_form_for(@vehicle, url: cart_items_path, method: 'POST') do |f| %>
+				<%= f.collection_check_boxes :seats, @vehicle.seats, :id, :seat_no %>
+				<%= f.input :schedule_id, as: :hidden, input_html: { name: "schedule_id", id: "schedule_id", value: @schedule.id } %>
+				<button class="btn btn--large" type="submit"><i class="material-icons list-icon" style="color: #fff;">shopping_cart</i>放入購物車</button>
+			<% end %>
+		</div>
+	</div>
+</div>

@@ -5,8 +5,12 @@ html
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
+    link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"
+    = favicon_link_tag 'favicon.png'
+
   body
-    /= render 'partials/navbar'
-    = link_to '購物車', cart_items_path
-    = yield
+    = render 'partials/navbar'
+    = render 'partials/flash_messages'
+    .wrapper
+      = yield
     = render 'partials/footer'
