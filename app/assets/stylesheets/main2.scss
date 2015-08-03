@@ -1,3 +1,6 @@
+*[type="submit"]{
+	margin-top: 32px;
+}
 .content-strip{
 	text-align: center;
 }
@@ -18,14 +21,15 @@
 		}
 	}
 }
-.route-display-name{
+.route-display-name, .schedule-departure-time{
 	margin: 0;
 	padding: 24px 16px 8px 16px;
-	color: $darker-gray;
+	color: $dark-gray;
 
 	> i{
 		font-size: 30px !important;
 		line-height: 1;
+		margin-right: 8px;
 	}
 }
 .route-description{
@@ -58,4 +62,30 @@
 .collapsible.popout > li{
 	box-shadow: none;
 	border: 1px solid #eee;
+}
+.schedule{
+	padding: 24px 16px;
+	background-color: #fff;
+	border: 1px solid #eee;
+	margin: 40px 0;
+
+	.route-price{
+		margin: 8px 16px 24px 16px;
+	}
+
+	form{
+		padding: 24px;
+	}
+}
+.cart-table{
+	background-color: #fff;
+	margin: 40px 0;
+	border-radius: 2px;
+	overflow: hidden;
+	thead{
+		background-color: $primary-color;
+		th{
+			color: #fff;
+		}
+	}
 }
