@@ -4,8 +4,8 @@ class SchedulesController < ApplicationController
   def show
     @schedule = Schedule.find_by_id(params[:id])
 
-    # TODO: add flash message route not found
     if @schedule.nil?
+      flash[:error] = "路線沒找到"
       redirect_to routes_path
     else
       @vehicle = @schedule.vehicle

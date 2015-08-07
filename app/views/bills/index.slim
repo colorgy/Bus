@@ -1,0 +1,4 @@
+ul.collection
+  - @bills.each_with_index do |bill, index|
+    li.collection-item.dismissable
+      = link_to "Bill No. #{index+1}", bill_path(bill)

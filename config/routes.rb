@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   get 'schedules/:id' => 'schedules#show', as: :schedule
 
   resources :cart_items
+  resources :orders
+  resources :bills
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

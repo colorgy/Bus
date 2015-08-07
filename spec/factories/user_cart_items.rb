@@ -1,8 +1,10 @@
 FactoryGirl.define do
   factory :user_cart_item do
-    user_id 1
-    schedule_id 1
-    route_id 1
+    user { create(:user) }
+    schedule { create(:schedule) }
+    route { schedule.route }
+    seat { create(:seat, vehicle: schedule.vehicle) }
+    price { route.price }
   end
 
 end

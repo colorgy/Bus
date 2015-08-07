@@ -6,7 +6,7 @@
                   <a href="https://colorgy.io" target="_blank">回 Colorgy 首頁</a>
                 </li>
                 <li>
-                  <a href="<%= cart_items_path %>"><i class="material-icons list-icon">shopping_cart</i>購物車</a>
+                  <a href="<%= cart_items_path %>"><i class="material-icons list-icon">shopping_cart</i>購物車<%= current_user && "(#{current_user.cart_items_count})" %></a>
                 </li>
                 <% if current_user.blank? %>
                 <li class="login-btn"><%= link_to "Colorgy 登入", user_omniauth_authorize_path(:colorgy) %></li>
@@ -34,6 +34,12 @@
           <a href="<%= routes_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="尋找你想要的路線、班次">
             <i class="material-icons list-icon">directions_bus</i>
             路線瀏覽
+          </a>
+        </li>
+        <li>
+          <a href="<%= bills_path %>" class="tooltipped" data-position="bottom" data-delay="0" data-tooltip="檢視你訂購的票券">
+            <i class="material-icons list-icon">list</i>
+            我的票券
           </a>
         </li>
         <li class="nav-bar-drop-down">
