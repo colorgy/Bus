@@ -1,26 +1,32 @@
 <div class="container-fuild">
   <div class="row row-inner-s">
-    <div class="cart">
-      <table class="cart-table">
-        <thead>
-          <tr>
-            <th>路線</th>
-            <th>出發時間</th>
-            <th>座位號碼</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @cart_items.each do |cart_item| %>
+    <%= form_tag(orders_path, method: :post) do |f|%>
+      <div class="cart">
+        <table class="cart-table">
+          <thead>
             <tr>
-              <td><%= cart_item.route.display_name %></td>
-              <td><%= cart_item.schedule.departure_time %></td>
-              <td><%= cart_item.seat.seat_no %></td>
-              <td><%= link_to '移除', cart_item_path(cart_item), method: :delete %></td>
+              <th>路線</th>
+              <th>出發時間</th>
+              <th>座位號碼</th>
+              <th></th>
             </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+          </thead>
+          <tbody>
+            <% @cart_items.each do |cart_item| %>
+              <tr>
+                <td><%= cart_item.route.display_name %></td>
+                <td><%= cart_item.schedule.departure_time %></td>
+                <td><%= cart_item.seat.seat_no %></td>
+                <td><%= link_to '移除', cart_item_path(cart_item), method: :delete %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+      <%= link_to '繼續查看路線', routes_path, class: 'btn btn--large' %>
+      <% unless current_user.cart_items_count.zero? %>
+        <%= submit_tag '確認訂位', class: 'btn btn--large' %>
+      <% end %>
+    <% end %>
   </div>
 </div>

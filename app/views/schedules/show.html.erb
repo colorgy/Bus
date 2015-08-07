@@ -10,9 +10,14 @@
 					<p class="route-price">團購價：<%= "NT$ #{@schedule.route.price}" %></p>
 				</div>
 			</div>
-			<%= simple_form_for(@vehicle, url: cart_items_path, method: 'POST') do |f| %>
-				<%= f.collection_check_boxes :seats, @vehicle.seats, :id, :seat_no %>
-				<%= f.input :schedule_id, as: :hidden, input_html: { name: "schedule_id", id: "schedule_id", value: @schedule.id } %>
+			<%= form_for(@vehicle, url: cart_items_path, method: 'POST') do |f| %>
+	      <% @vehicle.seats.reverse.each do |seat| %>
+	        <%= check_box 'vehicle', 'seats', {multiple: true, disabled: !seat.can_order?} , seat.id, nil %>
+	       	<%= seat_label_for(seat) %>
+	       	<br/>
+	      <% end %>
+				<%= hidden_field_tag 'schedule_id', @schedule.id %>
+				<br/>
 				<button class="btn btn--large" type="submit"><i class="material-icons list-icon" style="color: #fff;">shopping_cart</i>放入購物車</button>
 			<% end %>
 		</div>

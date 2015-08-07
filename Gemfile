@@ -23,12 +23,17 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem "rails-i18n"
+
 gem 'slim-rails'
 
 gem 'devise', '~> 3.4.0'
 gem 'omniauth-colorgy-oauth2'
 
 gem 'paper_trail', '~> 4.0.0.beta'
+
+gem 'aasm', '~> 4.2.0'
+gem "paranoia", "~> 2.0"
 
 gem 'sidekiq'
 gem 'clockwork'

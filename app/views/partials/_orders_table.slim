@@ -1,0 +1,14 @@
+h4 繳費資訊
+h5 繳款方式
+= t(@bill.type,  scope: :bill_types)
+
+table
+  tr
+    th 路線
+    th 出發時間
+    th 座位號碼
+  - @orders.each do |order|
+    tr
+      td= order.schedule.route.display_name
+      td= order.schedule.departure_time
+      td= order.seat.seat_no

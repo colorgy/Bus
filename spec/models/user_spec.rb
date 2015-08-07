@@ -45,9 +45,15 @@ RSpec.describe User, type: :model do
 
   end
 
-  describe "#checkout!" do
+  describe "#checkout" do
     it "can't checkout when seat conflict" do
+      seat = FactoryGirl.create(:seat, vehicle: schedule.vehicle)
+      user.add_to_cart!(schedule: schedule, seat: seat)
 
     end
+  end
+
+  describe "#checkout!" do
+
   end
 end

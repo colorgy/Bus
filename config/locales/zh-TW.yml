@@ -1,6 +1,34 @@
 zh-TW:
-  general:
-    comma: '、'
+  bill_types:
+    payment_code: '超商付款'
+    virtual_account: 'ATM 虛擬帳號匯款'
+    credit_card: '信用卡'
+    test_clickpay: '測試用付款方式 - 點擊即付款'
+    test_autopay: '測試用付款方式 - 十分鐘自動付款'
+  bill_type_descriptions:
+    payment_code: '超商付款 (金流手續費 35 元)'
+    virtual_account: 'ATM 虛擬帳號匯款'
+    credit_card: '信用卡'
+    test_clickpay: '測試用付款方式 - 點擊即付款'
+    test_autopay: '測試用付款方式 - 十分鐘自動付款'
+  invoice_types:
+    digital: 電子發票
+    paper: 索取紙本發票
+    code: 手機條碼
+    cert: 自然人憑證
+    love_code: 愛心碼
+    uni_num: 統一編號
+  bill_states:
+    payment_pending: 待付款
+    paid: 已付款
+  order_states:
+    payment_pending: 待付款
+    paid: 已付款
+    shipped: 已出貨
+    leader_received: 主揪已收到
+    delivered: 已交付
+    received: 已確認收到
+    cancelled: 已取消
   user:
     identity:
       student: 學生
