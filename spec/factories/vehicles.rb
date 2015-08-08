@@ -4,6 +4,6 @@ FactoryGirl.define do
     capacity { [35, 50].sample }
     registration_number { Faker::Address.postcode }
     description { Faker::Lorem.paragraph }
-    seat_info { Faker::Lorem.paragraph }
+    # seat_info { Faker::Lorem.paragraph }
   end
 end

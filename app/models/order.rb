@@ -6,12 +6,12 @@ class Order < ActiveRecord::Base
   belongs_to :user
   belongs_to :bill
   belongs_to :vehicle
-  belongs_to :seat
+  belongs_to :seat, foreign_key: :seat_no, primary_key: :seat_no
 
   validates :user, presence: true
   validates :schedule, presence: true
 
-  validates_uniqueness_of :seat_id, scope: [:schedule_id, :bill_id, :vehicle_id]
+  validates_uniqueness_of :seat_no, scope: [:schedule_id, :bill_id, :vehicle_id]
 
   # borrow codes from Colorgy Book
   aasm column: :state do

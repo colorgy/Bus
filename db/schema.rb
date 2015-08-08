@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150805045945) do
+ActiveRecord::Schema.define(version: 20150808073318) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(version: 20150805045945) do
     t.integer  "schedule_id"
     t.integer  "bill_id"
     t.integer  "vehicle_id"
-    t.integer  "seat_id"
+    t.string   "seat_no"
     t.string   "state",                    null: false
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
@@ -88,7 +88,7 @@ ActiveRecord::Schema.define(version: 20150805045945) do
   end
 
   add_index "orders", ["deleted_at"], name: "index_orders_on_deleted_at"
-  add_index "orders", ["schedule_id", "bill_id", "vehicle_id", "seat_id"], name: "order_uniq_id", unique: true
+  add_index "orders", ["schedule_id", "bill_id", "vehicle_id", "seat_no"], name: "order_uniq_id", unique: true
 
   create_table "routes", force: :cascade do |t|
     t.string   "origin"
