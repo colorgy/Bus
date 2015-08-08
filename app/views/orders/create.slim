@@ -1,79 +1,81 @@
-/ user_id
-/ price
-/ schedule_id
-/ bill_id
-/ vehicle_id
-/ seat_id
-/ state
-/ created_at
-/ updated_at
-/ deleted_at
-/ receiver_name
-/ receiver_email
-/ receiver_phone
-/ receiver_identity_number
-- if @dup_orders.any?
-  h3 不能訂的位子
-  p 這些位子已經被別人預訂了！，你可以回到上一步修改，或以可以訂的位子繼續
-  table
-    tr
-      th Id
-      th Price
-      th Route Name
-      th Seat No
-    - @dup_orders.each_with_index do |order, index|
-      tr
-        td= index+1
-        td= order.price
-        td= order.schedule.route.display_name
-        td= order.seat.seat_no
+.container-fuild.order-form
+  .row.row-inner-s
+    - if @dup_orders.any?
+      h3 不能訂的位子
+      p 這些位子已經被別人預訂了！，你可以回到上一步修改，或以可以訂的位子繼續
+      table.cart-table
+        thead
+          th 編號
+          th 價格
+          th 路線
+          th 座號
+        - @dup_orders.each_with_index do |order, index|
+          tr
+            td= index+1
+            td= order.price
+            td= order.schedule.route.display_name
+            td= order.seat.seat_no
 
-h3 確認您的訂位
-= form_tag orders_path, method: 'POST'
-  = hidden_field_tag :confirmed, true
+    h3 確認您的訂位
+    .col.s12.m12= form_tag orders_path
+      = hidden_field_tag :confirmed, true
 
-  - @orders.each_with_index do |order, index|
-    table
-      tr
-        th Id
-        th Price
-        th Route Name
-        th Seat No
-      tr
-        td= index+1
-        td= order.price
-        td= order.schedule.route.display_name
-        td= order.seat.seat_no
-      tr
-        td 取票人姓名
-        td= text_field_tag 'order[receiver_name][]', nil
-        td
-        td
-      tr
-        td 取票人 email
-        td= text_field_tag 'order[receiver_email][]', nil
-        td
-        td
-      tr
-        td 取票人聯絡電話
-        td= text_field_tag 'order[receiver_phone][]', nil
-        td
-        td
-      tr
-        td 取票人身份證字號
-        td= text_field_tag 'order[receiver_identity_number][]', nil
-        td
-        td
-  h4 付款方式
+      - @orders.each_with_index do |order, index|
+        table.cart-table
+          thead
+            th 編號
+            th 價格
+            th 路線
+            th 座號
+          tr
+            td= index+1
+            td= order.price
+            td= order.schedule.route.display_name
+            td= order.seat.seat_no
+        .row
+          .input-field.col.s11.m5
+            = text_field_tag 'order[receiver_name][]', nil
+            = content_tag 'label', "取票人-姓名"
 
-  = select_tag('bill[type]', options_for_select(Bill::TYPES[0..2].map{|type| [t(type,  scope: :bill_types), type] }))
+          .input-field.col.s11.m5
+            = text_field_tag 'order[receiver_email][]', nil
+            = content_tag 'label', "取票人-email"
 
-  = select_tag('bill[invoice_type]', options_for_select(Bill::INVOICE_TYPES.map{|invoice_type| [t(invoice_type, scope: :invoice_types), invoice_type]}))
+          .input-field.col.s11.m5
+            = text_field_tag 'order[receiver_phone][]', nil
+            = content_tag 'label', "取票人-聯絡電話"
 
-  = text_field_tag 'bill[invoice_uni_num]', nil, placeholder: '統一編號'
-  = text_field_tag 'bill[invoice_love_code]', nil, placeholder: '愛心碼'
-  = text_field_tag 'bill[invoice_code]', nil, placeholder: '手機條碼'
-  = text_field_tag 'bill[invoice_cert]', nil, placeholder: '自然人憑證'
+          .input-field.col.s11.m5
+            = text_field_tag 'order[receiver_identity_number][]', nil
+            = content_tag 'label', "取票人-身份證字號"
 
-  = link_to '上一步修改訂位', cart_items_path
-  = submit_tag '確認訂位'
+      h4 付款資料
+
+      .col.s12
+
+        .input-field.col.s7
+          = select_tag('bill[type]', options_for_select(Bill::TYPES[0..2].map{|type| [t(type,  scope: :bill_types), type] }))
+          = content_tag 'label', '付款方式'
+
+        .input-field.col.s4
+          = select_tag('bill[invoice_type]', options_for_select(Bill::INVOICE_TYPES.map{|invoice_type| [t(invoice_type, scope: :invoice_types), invoice_type]}))
+          = content_tag 'label', '發票種類'
+      .row
+        .input-field.col.s11.m5
+          = text_field_tag 'bill[invoice_uni_num]', nil
+          = content_tag 'label', "統一編號"
+
+        .input-field.col.s11.m5
+          = text_field_tag 'bill[invoice_love_code]', nil
+          = content_tag 'label', "愛心碼"
+
+        .input-field.col.s11.m5
+          = text_field_tag 'bill[invoice_code]', nil
+          = content_tag 'label', "手機條碼"
+
+        .input-field.col.s11.m5
+          = text_field_tag 'bill[invoice_cert]', nil
+          = content_tag 'label', "自然人憑證"
+
+      = link_to '上一步修改訂位', cart_items_path, {"class": 'btn btn--large orange lighten-1', 'style': "float: left;"}
+      = submit_tag '確認訂位',  {"class": 'btn btn--large blue lighten-1', 'style': "float: right;"}
