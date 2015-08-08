@@ -13,20 +13,22 @@
           p.route-price
             | 團購價：
             = "NT$ #{@schedule.route.price} "
-      = form_for(@vehicle, url: cart_items_path, method: 'POST') do |f|
+      = form_tag(cart_items_path)
         - nil_count = 1
-        - @vehicle.mapped_seats.each do |seat_row|
-          - seat_row.each do |seat|
-            - unless seat.nil?
-              = check_box 'vehicle', 'seats', {multiple: true, disabled: !seat.can_order?} , seat.id, nil
-              = seat_label_for(seat)
-            - else
-              = check_box nil, nil, {disabled: true}, nil_count, nil
-              = content_tag('label', 'null', 'for' => "vehicle_nil_seat_#{nil_count}")
-              - nil_count += 1
-          br
+        table
+          - @vehicle.mapped_seats.each do |seat_row|
+            tr
+              - seat_row.each do |seat|
+                td
+                  - unless seat.nil?
+                    = check_box 'vehicle', 'seats', {multiple: true, disabled: !seat.can_order?} , seat.id, nil
+                    = seat_label_for(seat)
+                  - else
+                    = check_box nil, nil, {disabled: true}, nil_count, nil
+                    = content_tag('label', '', 'for' => nil)
+                    - nil_count += 1
         = hidden_field_tag 'schedule_id', @schedule.id
-      br
-      button.btn.btn--large type="submit"
-        i.material-icons.list-icon style="color: #fff;" shopping_cart
-        | 放入購物車
+        br
+        button.btn.btn--large type="submit"
+          i.material-icons.list-icon style="color: #fff;" shopping_cart
+          | 放入購物車
