@@ -17,6 +17,14 @@ class Vehicle < ActiveRecord::Base
     self.seat_info = JSON.parse(string)
   end
 
+  def mapped_seats
+    self.seat_info[:seating] && self.seat_info[:seating].map {|row|
+      row.map { |seat_no|
+        seat_no && self.seats.find_by(seat_no: seat_no)
+      }
+    } || []
+  end
+
   # seat_info_string = {
   #   "seating": [
   #     [ "1",  "2", null, null],
