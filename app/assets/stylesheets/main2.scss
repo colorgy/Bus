@@ -4,6 +4,7 @@
 
 .content-strip{
 	text-align: center;
+  background-color: #444;
 }
 
 .routes-list{
@@ -106,4 +107,22 @@
 .order-form {
   padding-left: 10px;
   padding-right: 10px;
+}
+
+// overwrite side-nav
+.side-nav{
+  background-color: white;
+
+  li{
+    // border-top: solid 1px #fff;
+    &:nth-child(1){
+      border-top: 0px;
+    }
+    a{
+      color: black;
+      &:hover{
+        // opacity: 0.9;
+      }
+    }
+  }
 }
