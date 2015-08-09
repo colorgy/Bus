@@ -3,6 +3,7 @@ class CartItemsController < ApplicationController
 
   def index
     @cart_items = current_user.cart_items
+    @title = "購物車"
   end
 
   def create

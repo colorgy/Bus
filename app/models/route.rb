@@ -7,6 +7,6 @@ class Route < ActiveRecord::Base
   validates_inclusion_of :direction, in: %w(North South)
 
   def display_name
-    "從 #{origin} 到 #{destination}"
+    "#{origin} 到 #{destination}"
   end
 end

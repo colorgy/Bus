@@ -20,6 +20,7 @@ class OrdersController < ApplicationController
       @dup_orders = data[:dup_orders]
       @orders = data[:orders]
       @bill = data[:bill]
+      @title = "確認訂位"
     end
   end
 

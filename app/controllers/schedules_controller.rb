@@ -5,10 +5,11 @@ class SchedulesController < ApplicationController
     @schedule = Schedule.find_by_id(params[:id])
 
     if @schedule.nil?
-      flash[:error] = "路線沒找到"
+      flash[:error] = "找不到班次 #{params[:id]}"
       redirect_to routes_path
     else
       @vehicle = @schedule.vehicle
+      @title = @schedule.route.display_name
     end
   end
 end
