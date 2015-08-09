@@ -1,0 +1,34 @@
+.container-fuild
+  .row.row-inner-s
+    .schedule
+      .row
+        .col.s12.m8
+          h5.route-display-name
+            i.material-icons> directions_bus
+            = @schedule.route.display_name
+          h5.schedule-departure-time
+            i.material-icons> access_time
+            = @schedule.departure_time
+        .col.s12.m4
+          p.route-price
+            | 團購價：
+            = "NT$ #{@schedule.route.price} "
+      = form_tag(cart_items_path)
+        - nil_count = 1
+        table
+          - @vehicle.mapped_seats.each do |seat_row|
+            tr
+              - seat_row.each do |seat|
+                td
+                  - unless seat.nil?
+                    = check_box 'vehicle', 'seats', {multiple: true, disabled: !seat.can_order?} , seat.id, nil
+                    = seat_label_for(seat)
+                  - else
+                    = check_box nil, nil, {disabled: true}, nil_count, nil
+                    = content_tag('label', '', 'for' => nil)
+                    - nil_count += 1
+        = hidden_field_tag 'schedule_id', @schedule.id
+        br
+        button.btn.btn--large type="submit"
+          i.material-icons.list-icon style="color: #fff;" shopping_cart
+          | 放入購物車
