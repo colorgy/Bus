@@ -16,7 +16,7 @@ namespace :dev do
         end
       end
 
-      10.times { Schedule.first.vehicle.seats << create(:seat) }
+      # 10.times { Schedule.first.vehicle.seats << create(:seat) }
 
     end
   end

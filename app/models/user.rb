@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
 
     cart_items.each_with_index do |item, index|
 
-      dup_ord = Order.find_by(schedule: item.schedule, seat: item.seat)
+      dup_ord = Order.find_by(schedule: item.schedule, seat_no: item.seat.seat_no)
       # find duplicate order
       if dup_ord
         dup_orders << dup_ord
@@ -59,7 +59,7 @@ class User < ActiveRecord::Base
           price: item.price,
           schedule: item.schedule,
           vehicle: item.seat.vehicle,
-          seat: item.seat,
+          seat_no: item.seat.seat_no,
           receiver_name: order_attrs[:receiver_name] && empty_to_nil(order_attrs[:receiver_name][index]),
           receiver_email: order_attrs[:receiver_email] && empty_to_nil(order_attrs[:receiver_email][index]),
           receiver_phone: order_attrs[:receiver_phone] && empty_to_nil(order_attrs[:receiver_phone][index]),

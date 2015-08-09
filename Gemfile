@@ -55,7 +55,6 @@ gem 'dotenv-rails'
 # gem 'capistrano-rails', group: :development
 # Use Pry as the Rails console
 gem 'pry-rails'
-gem 'pry-byebug'
 gem 'awesome_print', :require => false
 gem 'hirb', :require => false
 gem 'hirb-unicode', :require => false
