@@ -1,0 +1,91 @@
+nav.colorgy-nav.nav-fixed
+  .top
+    .top-bar
+      ul
+        li
+          a href="https://colorgy.io" target="_blank" 回 Colorgy 首頁
+        li
+          a href="#{cart_items_path}"
+            i.material-icons.list-icon> shopping_cart
+            | 購物車
+            = current_user && "(#{current_user.cart_items_count})"
+        - if current_user.blank?
+          li.login-btn
+            a href="#{user_omniauth_authorize_path(:colorgy)}"
+              | Colorgy 登入
+        - else
+          li.nav-bar-drop-down
+            a href="#"
+              = "Hi, #{current_user.name}"
+              i.material-icons.list-icon style=("color: #fff;")  expand_more
+            ul.drop-down-list style=("margin-top: -1px;")
+              li
+                a href="#{sign_out_url}"
+                  | 登出
+
+  .nav-wrapper
+    a.brand-logo href="#{root_path}"
+      = image_tag 'BUS.svg'
+    a.button-collapse data-activates="mobile-demo" href="/"
+      i.material-icons dehaze
+
+    ul.right.hide-on-med-and-down.main-nav
+      li
+        a.tooltipped data-delay="0" data-position="bottom" data-tooltip="尋找你想要的路線、班次" href="#{routes_path}"
+          i.material-icons.list-icon directions_bus
+          | 路線瀏覽
+      li
+        a.tooltipped data-delay="0" data-position="bottom" data-tooltip="檢視你訂購的票券" href="#{bills_path}"
+          i.material-icons.list-icon list
+          | 我的票券
+      li.nav-bar-drop-down
+        a href="#"
+          i.material-icons.list-icon more_vert
+
+
+    ul#mobile-demo.side-nav
+      - if current_user.blank?
+        li.login-btn
+          a href="#{user_omniauth_authorize_path(:colorgy)}"
+            | Colorgy 登入
+      - else
+        li#personal-menu style="background-color: rgb(151), 151, 151) !important;"
+          .personal-avatar
+            = image_tag current_user.avatar_url
+          a href="#personal-menu"
+            | 個人工具列
+            i.material-icons.personal-menu-trigger style=("display: inline-block; color: #fff;")  keyboard_arrow_down
+      ul.personal-menu-collapse style=("display: none;")
+        li
+          a href="#"
+            | 我追蹤的同學
+        li
+          a href="#"
+            | 個人頁面
+      li
+        a href="#" 我要排課
+      li
+        a href="#" 找同學們
+      li
+        a href="#" 課程評論
+      li
+        a href="#" APP 下載
+      li
+        a href="#" 登出
+
+    .clear style="clear:both;"
+
+javascript:
+  $(".button-collapse").sideNav();
+  $('#personal-menu').click(function(){
+    $('.personal-menu-collapse').slideToggle(500);
+    if($('.personal-menu-trigger').html() == 'keyboard_arrow_down'){
+      $('.personal-menu-trigger').html('keyboard_arrow_up');
+    }
+    else{
+      $('.personal-menu-trigger').html('keyboard_arrow_down');
+    }
+  })
+  $('.login-btn').click(function(){
+    $('#perloader-wrapper').addClass('active');
+  })
