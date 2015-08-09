@@ -23,9 +23,9 @@
           </tbody>
         </table>
       </div>
-      <%= link_to '繼續查看路線', routes_path, class: 'btn btn--large' %>
+      <%= link_to '查看更多路線', routes_path, class: 'btn btn--large' %>
       <% unless current_user.cart_items_count.zero? %>
-        <%= submit_tag '確認訂位', class: 'btn btn--large' %>
+        <%= submit_tag '確認訂位', class: 'btn btn--large teal darken-1', style: "float: right;" %>
       <% end %>
     <% end %>
   </div>
