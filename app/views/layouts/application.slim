@@ -11,5 +11,6 @@ html
   body
     = render 'partials/navbar'
     = render 'partials/flash_messages'
-    = yield
+    .wrapper
+      = yield
     = render 'partials/footer'
