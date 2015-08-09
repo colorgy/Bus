@@ -3,7 +3,7 @@
 <header>
   <div class="header-mask"></div>
   <div class="header-slogan">
-    <h2>安排你的課表並查看一起上課的同學</h2>
+    <h2>直達學校的專屬客運服務</h2>
     <p>搶先體驗專屬學生的各種便利服務</p>
   </div>
   <div class="header-call-to-action">
@@ -13,23 +13,23 @@
   <div class="row row-inner-s" style="margin-top: 48px;">
     <div class="col m4 s12">
       <div class="service">
-        <i class="material-icons">dashboard</i>
-        <p>模擬你的選課</p>
-        <small>還在用紙筆安排你的課表嗎？簡單搜尋課程並直接加入你的課表吧！</small>
+        <i class="material-icons">directions_bus</i>
+        <p>直達學校</p>
+        <small>厭倦到了當地的車站或是轉運站，還要轉車嗎？我們提供直達學校的專車服務，幫你節省時間。</small>
       </div>
     </div>
     <div class="col m4 s12">
       <div class="service">
         <i class="material-icons">face</i>
-        <p>尋找一起上課的同學</p>
-        <small>想知道跟你一起上課的有誰嗎？想知道心儀的對象或是厲害的學長姐都修什麼課嗎？</small>
+        <p>一車都是學生</p>
+        <small>這是一個專屬學生的直達客運，也許你旁邊坐的就會是你未來的好麻吉或是親愛的哈尼、達令。</small>
       </div>
     </div>
     <div class="col m4 s12">
       <div class="service">
-        <i class="material-icons">person_add</i>
-        <p>蒐集想要關注的對象</p>
-        <small>關注你想要關注的人，加入你的關注清單！</small>
+        <i class="material-icons">attach_money</i>
+        <p>學生優惠</p>
+        <small>因為是學生專屬服務，我們能提供優惠學生的價格，也因為是直達，你可以省下轉車、轉捷運的錢。</small>
       </div>
     </div>
   </div>
@@ -44,16 +44,16 @@
       <div class="col m6 s12">
         <div class="info table" id="table-anchor">
           <div class="title table">
-            <h3>TABLE 行動課程表</h3>
+            <h3>BUS 學生直達學校專車</h3>
           </div>
-          <p class="description">排課表、課程提醒、課堂聊天室</p>
+          <p class="description">直達、便宜、都是同學，就像是出遊，好好玩。</p>
           <p>
-            <span class="sub-title"><i class="material-icons">view_quilt</i><font style="font-weight:700;">排課表</font></span>
-            同步各校課程資料，告訴你哪些課衝堂了，還能看到哪些帥哥美女選了什麼課，選完課匯入到 TABLE APP 帶著走，選課排課更輕鬆</br></br>
-            <span class="sub-title"><i class="material-icons">phonelink_ring</i><font style="font-weight:700;">課程提醒</font></span>
-            常常忘了在哪上課、老師是誰嗎？讓 Table 隨時提醒你，找教室沒煩惱</br></br>
-            <span class="sub-title"><i class="material-icons">chat</i><font style="font-weight:700;">課堂聊天室</font></span>
-            想跟同一堂課的同學們聊天嗎？課程聊天室讓你上課不再無聊，討論報告、上課內容更容易。</br></br>
+            <span class="sub-title"><i class="material-icons">directions_bus</i><font style="font-weight:700;">直達學校</font></span>
+            厭倦到了當地的車站或是轉運站，還要轉車嗎？我們提供直達學校的專車服務，幫你節省時間。</br></br>
+            <span class="sub-title"><i class="material-icons">face</i><font style="font-weight:700;">一車都是學生</font></span>
+            這是一個專屬學生的直達客運，也許你旁邊坐的就會是你未來的好麻吉或是親愛的哈尼、達令。</br></br>
+            <span class="sub-title"><i class="material-icons">attach_money</i><font style="font-weight:700;">學生優惠</font></span>
+            因為是學生專屬服務，我們能提供優惠學生的價格，也因為是直達，你可以省下轉車、轉捷運的錢。</br></br>
           </p>
           <div class="call-to-action">
             <%= link_to "立即註冊", user_omniauth_authorize_path(:colorgy), :class=>'btn' %>
@@ -72,6 +72,33 @@
   <div class="container">
     <div class="row">
       <div class="col m12 s12">
+      	<div class="colorgy-services">
+			<div class="service-item">
+				<a href="https://books.colorgy.io" target="_blank">
+					<%= image_tag ('books-white-text.png') %>
+				</a>
+			</div>
+			<div class="service-item">
+				<a href="https://table.colorgy.io" target="_blank">
+					<%= image_tag ('table-white-text.png') %>
+				</a>
+			</div>
+			<div class="service-item">
+				<a href="#" target="_blank">
+					<%= image_tag ('paper-white-text.png') %>
+				</a>
+			</div>
+			<div class="service-item">
+				<a href="http://colorgytasks.io" target="_blank">
+					<%= image_tag ('tasks-white-text.png') %>
+				</a>
+			</div>
+			<div class="service-item">
+				<a href="https://bus.colorgy.io" target="_blank">
+					<%= image_tag ('bus-white-text.png') %>
+				</a>
+			</div>
+      	</div>
         <h4>全台灣超過<span> 60 個系會</span> 跟 Colorgy 合作</h4>
         <p>強烈徵求各大學系會與我們合作，和我們ㄧ起努力，讓大學教科書市場越來越透明！<br>如果需要任何Colorgy的服務，也歡迎聯繫，讓我們了解你的需求！</p>
         <a href="https://www.facebook.com/pages/Colorgy/1529686803975150" target="_blank"><button class="btn" style="margin-top: 24px;">聯絡 Colorgy</button></a>
