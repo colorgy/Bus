@@ -25,10 +25,6 @@ It's also aimed to be Heroku deployable: [![Deploy](https://neson.github.io/GitH
 
 Visit `http(s)://url_of_your_app/admin` to access the control panel. The default account and password is `admin` / `password`. Please change it immediately after your first login by clicking your administration account name ("admin") located at the top-right corner.
 
-You can also type `bin/console` <kbd>Enter</kbd> in the terminal to enter the rails console.
-
-Feel free to check out the [wiki](https://github.com/colorgy/Core/wiki) for further information.
-
 
 ## Testing
 
