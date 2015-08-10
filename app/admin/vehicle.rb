@@ -59,6 +59,7 @@ ActiveAdmin.register Vehicle do
 
   form do |f|
     f.inputs '客運資料' do
+      f.input :name
       f.input :capacity
       f.input :description
       f.input :seat_info_string, as: :text
@@ -77,7 +78,7 @@ ActiveAdmin.register Vehicle do
 
     panel '時程設定' do
       f.has_many :schedules, allow_destroy: true, new_record: true do |schedule|
-        schedule.input :departure_time, as: :just_datetime_picker
+        schedule.input :departure_time
         schedule.input :contact
         schedule.input :vehicle_id, as: :select, collection: Vehicle.all.map{|veh| ["#{veh.id}. #{veh.registration_number}, #{veh.name}:#{veh.capacity}", veh.id]}
       end

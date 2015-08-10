@@ -1,5 +1,6 @@
 class Vehicle < ActiveRecord::Base
-  after_update :check_seats
+  after_update :check_seats!
+  after_create :check_seats
 
   has_many :schedules
   has_many :orders
@@ -41,10 +42,7 @@ class Vehicle < ActiveRecord::Base
   #   ]
   # }
   private
-    def check_seats
-      return unless self.seat_info_changed?
-      return unless self.seat_info[:seating] && self.seat_info[:seating].is_a?(Array)
-
+    def check_seat
       Seat.destroy_all(vehicle: self)
       # may need to handle orders
 
@@ -57,5 +55,12 @@ class Vehicle < ActiveRecord::Base
           i += 1
         end
       end
+    end
+
+    def check_seats!
+      return unless self.seat_info_changed?
+      return unless self.seat_info[:seating] && self.seat_info[:seating].is_a?(Array)
+
+      check_seat
     end
 end
