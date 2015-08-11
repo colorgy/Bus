@@ -21,7 +21,7 @@
               - seat_row.each do |seat|
                 td
                   - unless seat.nil?
-                    = check_box 'vehicle', 'seats', {multiple: true, disabled: !seat.can_order?} , seat.id, nil
+                    = check_box 'vehicle', 'seats', {multiple: true, disabled: !seat.can_order?(user: current_user)} , seat.id, nil
                     = seat_label_for(seat)
                   - else
                     = check_box nil, nil, {disabled: true}, nil_count, nil
