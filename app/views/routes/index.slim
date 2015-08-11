@@ -15,7 +15,7 @@
                     i.material-icons> directions_bus
                     = route.display_name
                   p.route-description
-                    = route.description
+                    = simple_format(route.description).html_safe
                 .col.s12.m4
                   h5.route-price = "團購價 NT$ #{route.price} "
                   div style="clear: both;"
