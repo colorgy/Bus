@@ -30,7 +30,7 @@ gem 'slim-rails'
 gem 'devise', '~> 3.4.0'
 gem 'omniauth-colorgy-oauth2'
 
-gem 'paper_trail', '~> 4.0.0.beta'
+gem 'paper_trail', '~> 4.0.0'
 
 gem 'aasm', '~> 4.2.0'
 gem "paranoia", "~> 2.0"

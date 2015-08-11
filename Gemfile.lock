@@ -428,7 +428,7 @@ DEPENDENCIES
   meta_request
   newrelic_rpm
   omniauth-colorgy-oauth2
-  paper_trail (~> 4.0.0.beta)
+  paper_trail (~> 4.0.0)
   paranoia (~> 2.0)
   pg
   pry-rails

@@ -36,19 +36,19 @@
         .row
           .input-field.col.s11.m5
             = text_field_tag 'order[receiver_name][]', nil, {required: '', 'class': 'validate'}
-            = content_tag 'label', "取票人-姓名", { 'data-error': "錯誤" }
+            = content_tag 'label', "取票人 - 姓名", { 'data-error': "錯誤" }
 
           .input-field.col.s11.m5
             = text_field_tag 'order[receiver_email][]', nil, {type: 'email', required: '', 'class': 'validate'}
-            = content_tag 'label', "取票人-email", { 'data-error': "錯誤" , 'class': 'validate'}
+            = content_tag 'label', "取票人 - email", { 'data-error': "錯誤" , 'class': 'validate'}
 
           .input-field.col.s11.m5
             = text_field_tag 'order[receiver_phone][]', nil, { required: '' }
-            = content_tag 'label', "取票人-聯絡電話", { 'data-error': "錯誤" }
+            = content_tag 'label', "取票人 - 手機", { 'data-error': "錯誤" }
 
           .input-field.col.s11.m5
             = text_field_tag 'order[receiver_identity_number][]', nil, {required: '', 'class': 'validate'}
-            = content_tag 'label', "取票人-身份證字號", { 'data-error': "錯誤" }
+            = content_tag 'label', "取票人 - 身份證字號", { 'data-error': "錯誤" }
 
       br
       br
