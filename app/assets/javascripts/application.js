@@ -12,8 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
-
 
 //= require replace_error_image_url
 //= require materialize-sprockets
