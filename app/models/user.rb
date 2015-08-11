@@ -1,8 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,
+  devise :trackable, :timeoutable,
          :omniauthable, :omniauth_providers => [:colorgy]
 
   has_many :cart_items, class_name: 'UserCartItem'
@@ -13,7 +12,7 @@ class User < ActiveRecord::Base
   def self.from_colorgy(auth)
     user = where(:id => auth.info.id).first_or_create! do |new_user|
       new_user.email = auth[:info][:email]
-      new_user.password = Devise.friendly_token[0,20]
+      # new_user.password = Devise.friendly_token[0,20]
     end
 
     attrs = %i(username name avatar_url cover_photo_url gender fbid uid identity organization_code department_code)
