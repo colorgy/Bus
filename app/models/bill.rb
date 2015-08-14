@@ -102,6 +102,19 @@ class Bill < ActiveRecord::Base
     SinoPacService.credit_card_pay_link(uuid, amount, text: text) if Time.now < deadline
   end
 
+  def pay_if_paid!
+    case type
+    when 'payment_code'
+      pay! if NewebPayService.reget_payment_code(uuid, amount)
+
+    when 'virtual_account'
+      pay! if SinoPacService.virtual_account_paid?(uuid)
+
+    when 'credit_card'
+      pay! if SinoPacService.credit_card_paid?(uuid)
+    end
+  end
+
   private
 
   # Initialize the uuid on creation
