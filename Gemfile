@@ -25,6 +25,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem "rails-i18n"
 
+gem 'iconv'
+gem 'rest-client'
+
 gem 'slim-rails'
 
 gem 'devise', '~> 3.4.0'
