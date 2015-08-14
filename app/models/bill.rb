@@ -37,6 +37,7 @@ class Bill < ActiveRecord::Base
   validates :deadline, presence: true
 
   after_initialize :init_uuid, :set_deadline #, :expire_if_deadline_passed
+  before_create :get_payment_info
 
   # aasm borrow from Colorg Book
   aasm column: :state do
@@ -62,16 +63,67 @@ class Bill < ActiveRecord::Base
     end
   end # end aasm
 
+  class << self
+    def allowed_types
+      return @allowed_types if @allowed_types.present?
+      @allowed_types = (ENV['ALLOWED_BILL_TYPES'].split(',') & TYPES)
+    end
+
+    def type_selections
+      @bill_type_selections ||= allowed_types.map { |bt| [I18n.t(bt, scope: :bill_types), bt] }
+    end
+
+    def type_label(bt)
+      I18n.t(bt, scope: :bill_types)
+    end
+
+    def invoice_type_label(bit)
+      I18n.t(bit, scope: :invoice_types)
+    end
+  end
+
+  # Get the payment information from 3rd services to make this bill payable
+  def get_payment_info
+    raise 'bill type not allowed' unless Bill.allowed_types.include?(type)
+    return if Rails.env.test?
+
+    self.deadline = 28.days.from_now if deadline > 28.days.from_now
+
+    case type
+    when 'payment_code'
+      self.payment_code = NewebPayService.get_payment_code(uuid, amount, payname: user.name, duedate: deadline)
+
+    when 'virtual_account'
+      self.virtual_account = SinoPacService.get_virtual_account(uuid, amount, payname: user.name, duedate: deadline)
+    end
+  end
+
+  def credit_card_pay_link(text = '按此進行信用卡付款')
+    SinoPacService.credit_card_pay_link(uuid, amount, text: text) if Time.now < deadline
+  end
+
+  def pay_if_paid!
+    case type
+    when 'payment_code'
+      pay! if NewebPayService.reget_payment_code(uuid, amount)
+
+    when 'virtual_account'
+      pay! if SinoPacService.virtual_account_paid?(uuid)
+
+    when 'credit_card'
+      pay! if SinoPacService.credit_card_paid?(uuid)
+    end
+  end
+
   private
 
-    # Initialize the uuid on creation
-    def init_uuid
-      return unless self.uuid.blank?
-      self.uuid = "bo#{SecureRandom.uuid[2..28]}"
-    end
+  # Initialize the uuid on creation
+  def init_uuid
+    return unless self.uuid.blank?
+    self.uuid = "ba#{SecureRandom.uuid[2..28]}"
+  end
 
-    def set_deadline
-      self.deadline = Time.now + PAYMENT_DEADLINE_ADJ
-    end
-
+  def set_deadline
+    self.deadline = Time.now + PAYMENT_DEADLINE_ADJ
+  end
 end

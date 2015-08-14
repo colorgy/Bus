@@ -5,6 +5,10 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.2'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', :groups => [:development, :test]
+gem 'pg'
+# Redis
+gem 'redis'
+gem 'redis-namespace'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -23,7 +27,12 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem 'sinatra', :require => nil
+
 gem "rails-i18n"
+
+gem 'iconv'
+gem 'rest-client'
 
 gem 'slim-rails'
 
@@ -49,7 +58,7 @@ gem 'dotenv-rails'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

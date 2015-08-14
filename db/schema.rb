@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150811130333) do
+ActiveRecord::Schema.define(version: 20150814102741) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -49,23 +49,24 @@ ActiveRecord::Schema.define(version: 20150811130333) do
   add_index "admin_users", ["username"], name: "index_admin_users_on_username", unique: true
 
   create_table "bills", force: :cascade do |t|
-    t.integer  "price",                    null: false
-    t.integer  "amount",                   null: false
+    t.integer  "price",                       null: false
+    t.integer  "amount",                      null: false
     t.integer  "invoice_id"
-    t.string   "invoice_type",             null: false
+    t.string   "invoice_type",                null: false
     t.text     "invoice_data"
     t.text     "data"
-    t.string   "state",                    null: false
+    t.string   "state",                       null: false
     t.string   "payment_code"
     t.datetime "paid_at"
-    t.integer  "used_credits", default: 0, null: false
+    t.integer  "used_credits",    default: 0, null: false
     t.datetime "deadline"
-    t.integer  "user_id",                  null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.integer  "user_id",                     null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.datetime "deleted_at"
-    t.string   "uuid",                     null: false
-    t.string   "type",                     null: false
+    t.string   "uuid",                        null: false
+    t.string   "type",                        null: false
+    t.string   "virtual_account"
   end
 
   add_index "bills", ["deleted_at"], name: "index_bills_on_deleted_at"
