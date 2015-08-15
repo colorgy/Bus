@@ -70,7 +70,15 @@ class User < ActiveRecord::Base
     end
 
     bill.price = total_price
-    bill.amount = total_price # 先這樣
+
+    case bill.type
+    when 'payment_code'
+      bill.amount = total_price + 35
+    when 'credit_card'
+      bill.amount = total_price * 1.018
+    else
+      bill.amount = total_price
+    end
 
     data = { dup_orders: dup_orders, orders: orders, total_price: total_price, bill: bill }
 
