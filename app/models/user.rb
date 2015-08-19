@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :orders
   has_many :ordered_schedules, class_name: 'Schedule', through: :orders, source: :user
   has_many :bills
+  has_many :route_requests
 
   def self.from_colorgy(auth)
     user = where(:id => auth.info.id).first_or_create! do |new_user|

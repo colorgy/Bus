@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   resources :orders
   resources :bills
 
+  resources 'requests', controller: :route_requests
+
   require 'sidekiq/web'
   authenticate :admin_user, ->(u) { u.present? } do
     mount Sidekiq::Web => '/sidekiq'

@@ -5,6 +5,8 @@ class Route < ActiveRecord::Base
   has_many :subroutes, class_name: 'Route', foreign_key: :parent_id
   belongs_to :parent, class_name: 'Route', foreign_key: :parent_id
 
+  has_many :route_requests
+
   scope :root, -> { where(parent: nil) }
   scope :not_root, -> { where.not(parent: nil) }
 
