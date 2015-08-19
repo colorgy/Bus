@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 
   resources 'requests', controller: :route_requests
 
+  get '/pay/credit_card/callback' => 'bills#credit_card_callback'
+
   require 'sidekiq/web'
   authenticate :admin_user, ->(u) { u.present? } do
     mount Sidekiq::Web => '/sidekiq'
