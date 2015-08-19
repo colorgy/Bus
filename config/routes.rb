@@ -8,7 +8,6 @@ Rails.application.routes.draw do
 
   get 'routes' => 'routes#index', as: :routes
   get 'routes/:id' => 'routes#show', as: :route
-  get 'schedules/:id' => 'schedules#show', as: :schedule
 
   resources :cart_items
   resources :orders

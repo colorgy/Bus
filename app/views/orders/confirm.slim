@@ -10,6 +10,7 @@
           th 價格
           th 路線
           / th 座號
+          th 發車時間
           th 張數
         - @orders.each_with_index do |order, index|
           tr
@@ -17,15 +18,16 @@
             td= order.price
             td= order.schedule.route.display_name
             / td= order.seat.seat_no
+            td= order.schedule.departure_time
             - cart_item = current_user.cart_items.find_by(schedule: order.schedule)
             td= cart_item.quantity
             input type="hidden" name="schedule[#{cart_item.schedule_id}]" min="0" max="3" value="#{cart_item.quantity}"
 
       .row
-        li= @order.receiver_name
-        li= @order.receiver_email
-        li= @order.receiver_phone
-        li= @order.receiver_identity_number
+        .col.s2= @order.receiver_name
+        .col.s2= @order.receiver_email
+        .col.s2= @order.receiver_phone
+        .col.s2= @order.receiver_identity_number
         input type="hidden" name="order[receiver_name]" value="#{@order.receiver_name}"
         input type="hidden" name="order[receiver_email]" value="#{@order.receiver_email}"
         input type="hidden" name="order[receiver_phone]" value="#{@order.receiver_phone}"
@@ -34,12 +36,12 @@
       h4 付款資料
 
       .col.s12
-        li= @bill.type
-        li= @bill.invoice_type
-        li= @bill.invoice_uni_num
-        li= @bill.invoice_love_code
-        li= @bill.invoice_code
-        li= @bill.invoice_cert
+        .col.s2= @bill.type
+        .col.s2= @bill.invoice_type
+        .col.s2= @bill.invoice_uni_num
+        .col.s2= @bill.invoice_love_code
+        .col.s2= @bill.invoice_code
+        .col.s2= @bill.invoice_cert
         input type="hidden" name="bill[type]" value="#{@bill.type}"
         input type="hidden" name="bill[invoice_type]" value="#{@bill.invoice_type}"
         input type="hidden" name="bill[invoice_uni_num]" value="#{@bill.invoice_uni_num}"
@@ -49,5 +51,5 @@
 
 
       a.btn.btn--large.orange.lighten-1 onclick="window.history.back();" style="float: left;"
-        | Shit!
-      = submit_tag '豪！',  {"class": 'btn btn--large blue lighten-1', 'style': "float: right;"}
+        | 上一步修改訂單
+      = submit_tag '我真的確定了',  {"class": 'btn btn--large blue lighten-1', 'style': "float: right;"}

@@ -1,6 +1,6 @@
 .content-strip
   .content-strip-inner
-    h4.strip-title 路線瀏覽
+    h4.strip-title= @h4 || "路線瀏覽"
     p.strip-description 點擊你想要的路線查看班次吧！
 .container-fuild
   .row.row-inner-s
@@ -13,7 +13,7 @@
                 .col.s12.m8
                   h5.route-display-name
                     i.material-icons> directions_bus
-                    = link_to route.display_name, route_path(route.id)
+                    = link_to route.short_name, routes_path(root_route: route.id)
                   p.route-description
                     = simple_format(route.description).html_safe
                 .col.s12.m4
