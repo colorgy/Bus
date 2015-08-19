@@ -3,12 +3,12 @@ class BillsController < ApplicationController
 
   def index
     @bills = current_user.bills
-    @title = "我的票卷"
+    @title = "我的帳單"
   end
 
   def show
     @bill = current_user.bills.find(params[:id])
     @orders = @bill.orders
-    @title = "檢視票卷"
+    @title = "檢視帳單"
   end
 end

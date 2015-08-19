@@ -1,0 +1,55 @@
+.container-fuild.order-form
+  .row.row-inner-s
+    h3 真的沒問題那就這樣啦！
+    .col.s12.m12= form_tag orders_path, { name: "orderForm" }
+      = hidden_field_tag :last_confirmed, true
+
+      table.cart-table
+        thead
+          th 編號
+          th 價格
+          th 路線
+          / th 座號
+          th 發車時間
+          th 張數
+        - @orders.each_with_index do |order, index|
+          tr
+            td= index+1
+            td= order.price
+            td= order.schedule.route.display_name
+            / td= order.seat.seat_no
+            td= order.schedule.departure_time
+            - cart_item = current_user.cart_items.find_by(schedule: order.schedule)
+            td= cart_item.quantity
+            input type="hidden" name="schedule[#{cart_item.schedule_id}]" min="0" max="3" value="#{cart_item.quantity}"
+
+      .row
+        .col.s2= @order.receiver_name
+        .col.s2= @order.receiver_email
+        .col.s2= @order.receiver_phone
+        .col.s2= @order.receiver_identity_number
+        input type="hidden" name="order[receiver_name]" value="#{@order.receiver_name}"
+        input type="hidden" name="order[receiver_email]" value="#{@order.receiver_email}"
+        input type="hidden" name="order[receiver_phone]" value="#{@order.receiver_phone}"
+        input type="hidden" name="order[receiver_identity_number]" value="#{@order.receiver_identity_number}"
+
+      h4 付款資料
+
+      .col.s12
+        .col.s2= @bill.type
+        .col.s2= @bill.invoice_type
+        .col.s2= @bill.invoice_uni_num
+        .col.s2= @bill.invoice_love_code
+        .col.s2= @bill.invoice_code
+        .col.s2= @bill.invoice_cert
+        input type="hidden" name="bill[type]" value="#{@bill.type}"
+        input type="hidden" name="bill[invoice_type]" value="#{@bill.invoice_type}"
+        input type="hidden" name="bill[invoice_uni_num]" value="#{@bill.invoice_uni_num}"
+        input type="hidden" name="bill[invoice_love_code]" value="#{@bill.invoice_love_code}"
+        input type="hidden" name="bill[invoice_code]" value="#{@bill.invoice_code}"
+        input type="hidden" name="bill[invoice_cert]" value="#{@bill.invoice_cert}"
+
+
+      a.btn.btn--large.orange.lighten-1 onclick="window.history.back();" style="float: left;"
+        | 上一步修改訂單
+      = submit_tag '我真的確定了',  {"class": 'btn btn--large blue lighten-1', 'style': "float: right;"}

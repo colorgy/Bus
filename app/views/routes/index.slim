@@ -1,6 +1,6 @@
 .content-strip
   .content-strip-inner
-    h4.strip-title 路線瀏覽
+    h4.strip-title= @h4 || "路線瀏覽"
     p.strip-description 點擊你想要的路線查看班次吧！
 .container-fuild
   .row.row-inner-s
@@ -13,7 +13,7 @@
                 .col.s12.m8
                   h5.route-display-name
                     i.material-icons> directions_bus
-                    = route.display_name
+                    = link_to route.short_name, routes_path(root_route: route.id)
                   p.route-description
                     = simple_format(route.description).html_safe
                 .col.s12.m4
@@ -22,12 +22,12 @@
                   a.view-schedules-btn
                     | 查看班次
                     i.material-icons keyboard_arrow_down
-            .collapsible-body
-              .collection
-                - route.schedules.each do |schedule|
-                  a.collection-item href="#{schedule_path(schedule.id)}"
-                    = "路線時間： #{schedule.departure_time}"
-                    i.material-icons.secondary-content forward
+            / .collapsible-body
+            /   .collection
+            /     - route.schedules.each do |schedule|
+            /       a.collection-item href="#{schedule_path(schedule.id)}"
+            /         = "路線時間： #{schedule.departure_time}"
+            /         i.material-icons.secondary-content forward
 
 javascript:
   $(document).ready(function(){

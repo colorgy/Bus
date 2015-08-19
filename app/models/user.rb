@@ -28,45 +28,45 @@ class User < ActiveRecord::Base
     return user
   end
 
-  def add_to_cart!(schedule: nil, seat: nil)
-    raise "Type Error" unless seat.is_a?(Seat) && schedule.is_a?(Schedule)
-    cart_items.create!(
-      seat: seat,
-      schedule: schedule,
-      route: schedule.route,
-      price: schedule.route.price
-    )
+  def add_to_cart!(schedule: nil, quantity: nil)
+    raise "Type Error" unless schedule.is_a?(Schedule) # seat.is_a?(Seat) &&
+
+    cart_item = self.cart_items.find_or_create_by(schedule: schedule)
+
+    if quantity == 0
+      cart_item.destroy
+    else
+      cart_item.update_attributes!(
+        quantity: quantity,
+        route: schedule.route,
+        price: schedule.route.price
+      )
+    end
+
   end
 
   def checkout bill_attrs={}, order_attrs={}
     return { dup_orders: [], orders: [] } if cart_items.blank?
 
-    dup_orders = []
     orders = []
     total_price = 0
     bill = self.bills.build(bill_attrs)
 
     cart_items.each_with_index do |item, index|
 
-      dup_ord = Order.find_by(schedule: item.schedule, seat_no: item.seat.seat_no)
-      # find duplicate order
-      if dup_ord
-        dup_orders << dup_ord
-      else
-        order = self.orders.build(
-          bill: bill,
-          price: item.price,
-          schedule: item.schedule,
-          vehicle: item.seat.vehicle,
-          seat_no: item.seat.seat_no,
-          receiver_name: order_attrs[:receiver_name] && empty_to_nil(order_attrs[:receiver_name][index]),
-          receiver_email: order_attrs[:receiver_email] && empty_to_nil(order_attrs[:receiver_email][index]),
-          receiver_phone: order_attrs[:receiver_phone] && empty_to_nil(order_attrs[:receiver_phone][index]),
-          receiver_identity_number: order_attrs[:receiver_identity_number] && empty_to_nil(order_attrs[:receiver_identity_number][index])
-        )
-        total_price += item.price
-        orders << order
-      end
+      order = self.orders.build(
+        bill: bill,
+        price: item.price,
+        schedule: item.schedule,
+        vehicle: item.schedule.vehicle,
+        # seat_no: item.seat.seat_no,
+        receiver_name: order_attrs[:receiver_name] && empty_to_nil(order_attrs[:receiver_name]),
+        receiver_email: order_attrs[:receiver_email] && empty_to_nil(order_attrs[:receiver_email]),
+        receiver_phone: order_attrs[:receiver_phone] && empty_to_nil(order_attrs[:receiver_phone]),
+        receiver_identity_number: order_attrs[:receiver_identity_number] && empty_to_nil(order_attrs[:receiver_identity_number])
+      )
+      total_price += item.price
+      orders << order
     end
 
     bill.price = total_price
@@ -80,22 +80,63 @@ class User < ActiveRecord::Base
       bill.amount = total_price
     end
 
-    data = { dup_orders: dup_orders, orders: orders, total_price: total_price, bill: bill }
-
-    data
+    { orders: orders, total_price: total_price, bill: bill }
   end
 
   def checkout! bill_attrs={}, order_attrs={}
-    checkouts = checkout(bill_attrs, order_attrs)
-    return checkouts if checkouts[:bill].blank?
+
+    orders = []
+    total_price = 0
+    bill = nil
 
     transaction do
-      checkouts[:bill].save!
-      checkouts[:orders].each(&:save!)
+      bill = self.bills.build(bill_attrs)
+
+      order_params = {
+        bill: bill,
+        # seat_no: item.seat.seat_no,
+        receiver_name: order_attrs[:receiver_name] && empty_to_nil(order_attrs[:receiver_name]),
+        receiver_email: order_attrs[:receiver_email] && empty_to_nil(order_attrs[:receiver_email]),
+        receiver_phone: order_attrs[:receiver_phone] && empty_to_nil(order_attrs[:receiver_phone]),
+        receiver_identity_number: order_attrs[:receiver_identity_number] && empty_to_nil(order_attrs[:receiver_identity_number])
+      }
+
+      cart_items.each do |item, index|
+        available_seats = item.schedule.vehicle.seats.select{|st| st.can_order?(user: self, schedule: item.schedule)}.map(&:seat_no)
+
+        raise StandardError if item.quantity > available_seats.count
+
+        random_seats = available_seats.sample(item.quantity)
+        random_seats.each do |seat_no|
+          order = self.orders.create!(order_params.merge({
+            seat_no: seat_no,
+            price: item.price,
+            schedule: item.schedule,
+            vehicle: item.schedule.vehicle,
+          }))
+          total_price += item.price
+          orders << order
+        end
+      end
+
+      bill.price = total_price
+
+      case bill.type
+      when 'payment_code'
+        bill.amount = total_price + 15
+      when 'credit_card'
+        bill.amount = total_price * 1.018
+      else
+        bill.amount = total_price
+      end
+
+      bill.save!
+      orders.each{|order| order.bill = bill; order.save!}
       clear_cart!
     end
 
-    checkouts
+
+    { orders: orders, total_price: total_price, bill: bill }
   end
 
 

@@ -17,3 +17,11 @@
 @import "main";
 @import "main2";
 @import "just_datetime_picker/base";
+
+
+.input-field {
+
+  label {
+    pointer-events: none;
+  }
+}

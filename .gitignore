@@ -19,6 +19,7 @@
 # Local config env
 .env
 .powder
+.foreman
 
 # Simplecov
 /coverage

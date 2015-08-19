@@ -5,7 +5,7 @@ class Bill < ActiveRecord::Base
   has_paper_trail
 
   belongs_to :user
-  has_many :orders
+  has_many :orders, dependent: :destroy
 
   # All allowed payment types
   TYPES = %w(payment_code credit_card virtual_account test_clickpay test_autopay)

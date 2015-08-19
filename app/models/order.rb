@@ -13,7 +13,7 @@ class Order < ActiveRecord::Base
   validates :user, presence: true
   validates :schedule, presence: true
 
-  validates_uniqueness_of :seat_no, scope: [:schedule_id, :bill_id, :vehicle_id]
+  validates_uniqueness_of :seat_no, scope: [:schedule_id, :bill_id, :vehicle_id, :deleted_at]
 
   # borrow codes from Colorgy Book
   aasm column: :state do

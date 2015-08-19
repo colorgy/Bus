@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150814102741) do
+ActiveRecord::Schema.define(version: 20150819031123) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -101,6 +101,7 @@ ActiveRecord::Schema.define(version: 20150814102741) do
     t.string   "route_map_url"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "parent_id"
   end
 
   create_table "schedules", force: :cascade do |t|
@@ -127,8 +128,9 @@ ActiveRecord::Schema.define(version: 20150814102741) do
     t.integer  "schedule_id"
     t.integer  "seat_id"
     t.integer  "price"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "quantity",    default: 1, null: false
   end
 
   add_index "user_cart_items", ["user_id", "seat_id", "schedule_id"], name: "index_user_cart_items_on_user_id_and_seat_id_and_schedule_id", unique: true

@@ -2,9 +2,10 @@ table.cart-table
   thead
     th 路線
     th 出發時間
-    th 座號
+    th 單價
+    / th
   - @orders.each do |order|
     tr
       td= order.schedule.route.display_name
       td= order.schedule.departure_time
-      td= order.seat.seat_no
+      td= order.schedule.route.price

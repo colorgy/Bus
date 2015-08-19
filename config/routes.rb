@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get '/' => 'pages#index', as: :root
 
   get 'routes' => 'routes#index', as: :routes
-  get 'schedules/:id' => 'schedules#show', as: :schedule
+  get 'routes/:id' => 'routes#show', as: :route
 
   resources :cart_items
   resources :orders
