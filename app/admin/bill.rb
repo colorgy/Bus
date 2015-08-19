@@ -1,5 +1,5 @@
 ActiveAdmin.register Bill do
-  menu priority: 119
+  menu priority: 119, label: '帳單'
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
