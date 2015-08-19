@@ -26,7 +26,8 @@ RSpec.describe User, type: :model do
 
     it "can't add_to_cart if quantity greater than 3 or less than 1" do
       expect{ user.add_to_cart!(schedule: schedule, quantity: 4) }.to raise_error(ActiveRecord::RecordInvalid)
-      expect{ user.add_to_cart!(schedule: schedule, quantity: 0) }.to raise_error(ActiveRecord::RecordInvalid)
+      user.add_to_cart!(schedule: schedule, quantity: 0)
+      expect(user.cart_items.find_by(schedule: schedule)).to eq(nil)
     end
 
     it "#add_to_cart can update cart_item quantity if schedule is the same" do
