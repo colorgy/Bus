@@ -1,13 +1,28 @@
 ActiveAdmin.register Route do
 
-  permit_params :origin, :destination, :direction, :price, :description, :announcement, :route_map_url, :_destroy, :id, :parent_id,
-    schedules_attributes: [
-      :departure_time,
-      :route_id,
-      :contact,
-      :vehicle_id,
+  scope :root
+  scope :not_root
+
+  permit_params :origin, :destination, :direction, :price, :description, :announcement, :route_map_url, :_destroy, :id, :parent_id, subroutes_attributes: [
+      :origin,
+      :destination,
+      :direction,
+      :price,
+      :description,
+      :announcement,
+      :route_map_url,
       :_destroy,
       :id,
+      :parent_id,
+      # That's real nested Zzz
+      schedules_attributes: [
+        :departure_time,
+        :route_id,
+        :contact,
+        :vehicle_id,
+        :_destroy,
+        :id,
+      ]
     ]
 
   index do
@@ -34,14 +49,27 @@ ActiveAdmin.register Route do
       row(:parent) {|rout| rout.parent && rout.parent.short_name }
     end
 
-    panel '時程' do
-      table_for route.schedules do
-        column :departure_time
-        column :contact
-        column :vehicle_id
-        #
+    route.subroutes.each do |subroute|
+      panel "#{subroute.short_name}" do
+        attributes_table_for subroute do
+          row :origin
+          row :destination
+          row :direction
+          row :price
+          row :description
+          row :announcement
+          row :route_map_url
+        end
+
+        panel '時程' do
+          table_for subroute.schedules do
+            column :departure_time
+            column :contact
+            column :vehicle_id
+            #
+          end
+        end
       end
-      active_admin_comments
     end
   end
 
@@ -66,16 +94,16 @@ ActiveAdmin.register Route do
         route.input :description
         route.input :announcement
         route.input :route_map_url
+
+        route.has_many :schedules, allow_destroy: true, new_record: true do |schedule|
+          schedule.input :departure_time
+          schedule.input :contact
+          schedule.input :vehicle_id, as: :select, collection: Vehicle.all.map{|veh| ["#{veh.id}. #{veh.registration_number}, #{veh.name}:#{veh.capacity}", veh.id]}
+        end
+
       end
     end
 
-    panel '時程設定' do
-      f.has_many :schedules, allow_destroy: true, new_record: true do |schedule|
-        schedule.input :departure_time
-        schedule.input :contact
-        schedule.input :vehicle_id, as: :select, collection: Vehicle.all.map{|veh| ["#{veh.id}. #{veh.registration_number}, #{veh.name}:#{veh.capacity}", veh.id]}
-      end
-    end # end schedule panel
     f.actions
   end # end form
 end
