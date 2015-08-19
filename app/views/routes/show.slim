@@ -17,6 +17,11 @@
           / 剩餘座位數，處裡已滿位的
 
       br
+
+      - if current_user.cart_items_count != 0
+        a.btn.btn--large.teal.darken-1 href="#{cart_items_path}" style="float: right;"
+          | 前往購物車結帳
+
       button.btn.btn--large type="submit"
         i.material-icons.list-icon style="color: #fff;" shopping_cart
         | 放入購物車

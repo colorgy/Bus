@@ -1,0 +1,53 @@
+.container-fuild.order-form
+  .row.row-inner-s
+    h3 真的沒問題那就這樣啦！
+    .col.s12.m12= form_tag orders_path, { name: "orderForm" }
+      = hidden_field_tag :last_confirmed, true
+
+      table.cart-table
+        thead
+          th 編號
+          th 價格
+          th 路線
+          / th 座號
+          th 張數
+        - @orders.each_with_index do |order, index|
+          tr
+            td= index+1
+            td= order.price
+            td= order.schedule.route.display_name
+            / td= order.seat.seat_no
+            - cart_item = current_user.cart_items.find_by(schedule: order.schedule)
+            td= cart_item.quantity
+            input type="hidden" name="schedule[#{cart_item.schedule_id}]" min="0" max="3" value="#{cart_item.quantity}"
+
+      .row
+        li= @order.receiver_name
+        li= @order.receiver_email
+        li= @order.receiver_phone
+        li= @order.receiver_identity_number
+        input type="hidden" name="order[receiver_name]" value="#{@order.receiver_name}"
+        input type="hidden" name="order[receiver_email]" value="#{@order.receiver_email}"
+        input type="hidden" name="order[receiver_phone]" value="#{@order.receiver_phone}"
+        input type="hidden" name="order[receiver_identity_number]" value="#{@order.receiver_identity_number}"
+
+      h4 付款資料
+
+      .col.s12
+        li= @bill.type
+        li= @bill.invoice_type
+        li= @bill.invoice_uni_num
+        li= @bill.invoice_love_code
+        li= @bill.invoice_code
+        li= @bill.invoice_cert
+        input type="hidden" name="bill[type]" value="#{@bill.type}"
+        input type="hidden" name="bill[invoice_type]" value="#{@bill.invoice_type}"
+        input type="hidden" name="bill[invoice_uni_num]" value="#{@bill.invoice_uni_num}"
+        input type="hidden" name="bill[invoice_love_code]" value="#{@bill.invoice_love_code}"
+        input type="hidden" name="bill[invoice_code]" value="#{@bill.invoice_code}"
+        input type="hidden" name="bill[invoice_cert]" value="#{@bill.invoice_cert}"
+
+
+      a.btn.btn--large.orange.lighten-1 onclick="window.history.back();" style="float: left;"
+        | Shit!
+      = submit_tag '豪！',  {"class": 'btn btn--large blue lighten-1', 'style': "float: right;"}

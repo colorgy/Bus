@@ -1,54 +1,58 @@
 = javascript_include_tag 'validate.min'
 .container-fuild.order-form
   .row.row-inner-s
-    - if @dup_orders.any?
-      h3 不能訂的位子
-      p 這些位子已經被別人預訂了！，你可以回到上一步修改，或以可以訂的位子繼續
-      table.cart-table
-        thead
-          th 編號
-          th 價格
-          th 路線
-          th 座號
-        - @dup_orders.each_with_index do |order, index|
-          tr
-            td= index+1
-            td= order.price
-            td= order.schedule.route.display_name
-            td= order.seat.seat_no
+    / - if @dup_orders.any?
+    /   h3 不能訂的位子
+    /   p 這些位子已經被別人預訂了！，你可以回到上一步修改，或以可以訂的位子繼續
+    /   table.cart-table
+    /     thead
+    /       th 編號
+    /       th 價格
+    /       th 路線
+    /       th 座號
+    /     - @dup_orders.each_with_index do |order, index|
+    /       tr
+    /         td= index+1
+    /         td= order.price
+    /         td= order.schedule.route.display_name
+    /         td= order.seat.seat_no
 
     h3 確認您的訂位
     .col.s12.m12= form_tag orders_path, { name: "orderForm" }
       = hidden_field_tag :confirmed, true
 
-      - @orders.each_with_index do |order, index|
-        table.cart-table
-          thead
-            th 編號
-            th 價格
-            th 路線
-            th 座號
+      table.cart-table
+        thead
+          th 編號
+          th 價格
+          th 路線
+          / th 座號
+          th 張數
+        - @orders.each_with_index do |order, index|
           tr
             td= index+1
             td= order.price
             td= order.schedule.route.display_name
-            td= order.seat.seat_no
-        .row
-          .input-field.col.s11.m5
-            = text_field_tag 'order[receiver_name][]', nil, {required: '', 'class': 'validate'}
-            = content_tag 'label', "取票人 - 姓名", { 'data-error': "錯誤" }
+            / td= order.seat.seat_no
+            td
+              - cart_item = current_user.cart_items.find_by(schedule: order.schedule)
+              input type="number" name="schedule[#{cart_item.schedule_id}]" min="0" max="3" value="#{cart_item.quantity}"
+      .row
+        .input-field.col.s11.m5
+          = text_field_tag 'order[receiver_name]', nil, {required: '', 'class': 'validate'}
+          = content_tag 'label', "取票人 - 姓名", { 'data-error': "錯誤" }
 
-          .input-field.col.s11.m5
-            = text_field_tag 'order[receiver_email][]', nil, {type: 'email', required: '', 'class': 'validate'}
-            = content_tag 'label', "取票人 - email", { 'data-error': "錯誤" , 'class': 'validate'}
+        .input-field.col.s11.m5
+          = text_field_tag 'order[receiver_email]', nil, {type: 'email', required: '', 'class': 'validate'}
+          = content_tag 'label', "取票人 - email", { 'data-error': "錯誤" , 'class': 'validate'}
 
-          .input-field.col.s11.m5
-            = text_field_tag 'order[receiver_phone][]', nil, { required: '' }
-            = content_tag 'label', "取票人 - 手機", { 'data-error': "錯誤" }
+        .input-field.col.s11.m5
+          = text_field_tag 'order[receiver_phone]', nil, { required: '' }
+          = content_tag 'label', "取票人 - 手機", { 'data-error': "錯誤" }
 
-          .input-field.col.s11.m5
-            = text_field_tag 'order[receiver_identity_number][]', nil, {required: '', 'class': 'validate'}
-            = content_tag 'label', "取票人 - 身份證字號", { 'data-error': "錯誤" }
+        .input-field.col.s11.m5
+          = text_field_tag 'order[receiver_identity_number]', nil, {required: '', 'class': 'validate'}
+          = content_tag 'label', "取票人 - 身份證字號", { 'data-error': "錯誤" }
 
       br
       br
