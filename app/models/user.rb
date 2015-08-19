@@ -123,7 +123,7 @@ class User < ActiveRecord::Base
 
       case bill.type
       when 'payment_code'
-        bill.amount = total_price + 35
+        bill.amount = total_price + 15
       when 'credit_card'
         bill.amount = total_price * 1.018
       else
