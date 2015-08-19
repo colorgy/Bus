@@ -1,5 +1,7 @@
 ActiveAdmin.register Route do
 
+  menu label: '路線'
+
   scope :root
   scope :not_root
 

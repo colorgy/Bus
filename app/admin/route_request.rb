@@ -1,5 +1,6 @@
-ActiveAdmin.register Order do
-  menu priority: 120, label: '訂單'
+ActiveAdmin.register RouteRequest do
+
+  menu label: 'THE 表單'
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters

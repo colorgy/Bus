@@ -1,5 +1,5 @@
 ActiveAdmin.register AdminUser do
-  menu priority: 140
+  menu priority: 140, label: '管理員'
 
   permit_params :email, :password, :password_confirmation
 
