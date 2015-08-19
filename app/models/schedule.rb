@@ -8,4 +8,9 @@ class Schedule < ActiveRecord::Base
 
   just_define_datetime_picker :departure_time, :add_to_attr_accessor => true
   validates :departure_time, presence: true
+
+  def available?
+    # or one schedule have some limited
+    Order.where(schedule: self, vehicle: self.vehicle).count < self.vehicle.seats.count
+  end
 end

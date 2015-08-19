@@ -28,45 +28,48 @@ class User < ActiveRecord::Base
     return user
   end
 
-  def add_to_cart!(schedule: nil, seat: nil)
-    raise "Type Error" unless seat.is_a?(Seat) && schedule.is_a?(Schedule)
-    cart_items.create!(
-      seat: seat,
-      schedule: schedule,
+  def add_to_cart!(schedule: nil, quantity: nil)
+    raise "Type Error" unless schedule.is_a?(Schedule) # seat.is_a?(Seat) &&
+
+    cart_item = self.cart_items.find_or_create_by(schedule: schedule)
+
+    cart_item.update_attributes!(
+      quantity: quantity,
       route: schedule.route,
       price: schedule.route.price
     )
+
   end
 
   def checkout bill_attrs={}, order_attrs={}
     return { dup_orders: [], orders: [] } if cart_items.blank?
 
-    dup_orders = []
+    # dup_orders = []
     orders = []
     total_price = 0
     bill = self.bills.build(bill_attrs)
 
     cart_items.each_with_index do |item, index|
 
-      dup_ord = Order.find_by(schedule: item.schedule, seat_no: item.seat.seat_no)
-      # find duplicate order
-      if dup_ord
-        dup_orders << dup_ord
-      else
-        order = self.orders.build(
-          bill: bill,
-          price: item.price,
-          schedule: item.schedule,
-          vehicle: item.seat.vehicle,
-          seat_no: item.seat.seat_no,
-          receiver_name: order_attrs[:receiver_name] && empty_to_nil(order_attrs[:receiver_name][index]),
-          receiver_email: order_attrs[:receiver_email] && empty_to_nil(order_attrs[:receiver_email][index]),
-          receiver_phone: order_attrs[:receiver_phone] && empty_to_nil(order_attrs[:receiver_phone][index]),
-          receiver_identity_number: order_attrs[:receiver_identity_number] && empty_to_nil(order_attrs[:receiver_identity_number][index])
-        )
-        total_price += item.price
-        orders << order
-      end
+      # dup_ord = Order.find_by(schedule: item.schedule, seat_no: item.seat.seat_no)
+      # # find duplicate order
+      # if dup_ord
+      #   dup_orders << dup_ord
+      # else
+      order = self.orders.build(
+        bill: bill,
+        price: item.price,
+        schedule: item.schedule,
+        vehicle: item.seat.vehicle,
+        # seat_no: item.seat.seat_no,
+        receiver_name: order_attrs[:receiver_name] && empty_to_nil(order_attrs[:receiver_name][index]),
+        receiver_email: order_attrs[:receiver_email] && empty_to_nil(order_attrs[:receiver_email][index]),
+        receiver_phone: order_attrs[:receiver_phone] && empty_to_nil(order_attrs[:receiver_phone][index]),
+        receiver_identity_number: order_attrs[:receiver_identity_number] && empty_to_nil(order_attrs[:receiver_identity_number][index])
+      )
+      total_price += item.price
+      orders << order
+      # end
     end
 
     bill.price = total_price

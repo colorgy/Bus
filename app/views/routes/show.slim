@@ -1,0 +1,22 @@
+.container-fuild
+  .row.row-inner-s
+    h2= @route.short_name
+    p
+      | 另外位子都是隨緣哦哦哦 XDDD
+    - unless current_user.cart_items.empty?
+      / 結帳標語？
+
+    = form_tag(cart_items_path)
+      - @route.subroutes.each do |subroute|
+        h4= subroute.short_name
+        - subroute.schedules.each do |schedule|
+          / = check_box 'subroute', 'schedule', {multiple: true, disabled: !schedule.available?}, schedule.id, nil
+          /= content_tag('label', "路線時間： #{schedule.departure_time}", 'for' => "subroute_schedule_#{schedule.id}")
+          input type="number" name="quantity[#{schedule.id}]" min="0" max="3"
+          = content_tag('label', "路線時間： #{schedule.departure_time}", 'for' => "quantity[#{schedule.id}]")
+          / 剩餘座位數，處裡已滿位的
+
+      br
+      button.btn.btn--large type="submit"
+        i.material-icons.list-icon style="color: #fff;" shopping_cart
+        | 放入購物車

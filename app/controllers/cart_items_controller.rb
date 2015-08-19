@@ -7,17 +7,19 @@ class CartItemsController < ApplicationController
   end
 
   def create
-    schedule = Schedule.find(params[:schedule_id])
+    quantity_h = params[:quantity].reject{|k,v| v.empty?}
+    schedules = Schedule.where(id: quantity_h.keys)
 
     begin
       ActiveRecord::Base.transaction do
-        params[:vehicle][:seats].reject(&:empty?).each do |seat_id|
-          current_user.add_to_cart!(schedule: schedule, seat: Seat.find(seat_id))
+        schedules.each do |schedule|
+          current_user.add_to_cart!(schedule: schedule, quantity: quantity_h[schedule.id.to_s].to_i)
         end
       end
       flash[:success] = "成功加入購物車"
-    rescue ActiveRecord::RecordNotUnique
-      flash[:error] = "不能重複座位"
+    rescue ActiveRecord::RecordInvalid
+      # 基本不會發生，前端被亂改的時候
+      flash[:error] = "不能坐太多哦"
     end
 
     redirect_to :back

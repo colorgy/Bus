@@ -18,6 +18,7 @@ ActiveAdmin.register Route do
     column :direction
     column :price
     column :route_map_url
+    column :parent
     actions
   end
 

@@ -1,6 +1,6 @@
 class Route < ActiveRecord::Base
-  has_many :schedules
-  has_many :cart_items, class_name: 'UserCartItem'
+  has_many :schedules, dependent: :destroy
+  has_many :cart_items, class_name: 'UserCartItem', dependent: :destroy
 
   has_many :subroutes, class_name: 'Route', foreign_key: :parent_id
   belongs_to :parent, class_name: 'Route', foreign_key: :parent_id
