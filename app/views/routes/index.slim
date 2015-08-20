@@ -5,8 +5,10 @@
     .routes-field
       .routes-field-bg
       .routes-field-skew-bg
-      h4.routes-field-title = '主路線選擇'
-      p.routes-field-description = '目前有以下主路線可以選擇，挑一個你想要的吧！'
+      h4.routes-field-title
+        i.material-icons> directions_bus
+        = '精選路線'
+      p.routes-field-description = '以下是 Colorgy Bus 目前提供之精選路線，挑一個你想要的吧！'
       .line
       - @routes.each do |route|
         li.route-list-item
@@ -16,6 +18,6 @@
               i.material-icons> keyboard_arrow_right
       .line
       .apply-add-field
-        p = '沒有你想要的主路線？連署加開吧！'
+        p = '沒有你想要的路線？連署加開吧！'
         br
         = link_to '我要申請加開路線' , '#', class: 'btn btn--large'

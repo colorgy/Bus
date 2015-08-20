@@ -1,7 +1,7 @@
 .container
 	- if @bills.count == 0
 		.page-sorry-message
-			i.material-icons.large-icon>directions_bus
+			i.material-icons.large-icon>list
 			p = '您目前沒有帳單'
 			= link_to "前往購買車票", routes_path, class: 'btn btn--large'
 	- else
