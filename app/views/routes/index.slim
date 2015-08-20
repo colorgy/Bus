@@ -4,15 +4,14 @@
     p.strip-description 點擊你想要的區域主線，並進入查看支線！
 .container-fuild
   .row.row-inner-s
-    .routes-container
+    .routes-container.bg-white
       ul.popout
         - @routes.each do |route|
           li
-            a.row.card href=routes_path(root_route: route.id)
-              .col.s12.m8
-                h5.route-list-header
-                  i.material-icons> directions_bus
-                  = route.short_name
+            a href=routes_path(root_route: route.id)
+              h5.route-list-header
+                i.material-icons> directions_bus
+                = route.short_name
                 / p.route-description
                 /   = simple_format(route.description).html_safe
               / .col.s12.m4
@@ -29,7 +28,7 @@
           /         i.material-icons.secondary-content forward
 
       a.btn.btn--large.teal.darken-1.tooltipped href="#{new_request_path(route_id: (@root_route && @root_route.id))}" data-delay="0" data-position="top" data-tooltip="想搭的路線自己申請！"
-        | 我要申請路線
+        | 我要申請新路線
 
 javascript:
   // $(document).ready(function(){
