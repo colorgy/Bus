@@ -1,5 +1,12 @@
 .container
-  ul.collection
-    - @bills.each_with_index do |bill, index|
-      li.collection-item.dismissable
-        = link_to "Bill No. #{index+1}", bill_path(bill)
+	- if @bills.count == 0
+		.page-sorry-message
+			i.material-icons.large-icon>directions_bus
+			p = '您目前沒有帳單'
+			= link_to "前往購買車票", routes_path, class: 'btn btn--large'
+	- else
+	  ul.collection
+	    - @bills.each_with_index do |bill, index|
+	      li.collection-item.dismissable
+	        = link_to "Bill No. #{index+1}", bill_path(bill)
+
