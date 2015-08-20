@@ -35,11 +35,19 @@ class CartItemsController < ApplicationController
 
   def update_cart
     quantity_h = params[:schedule]
-    Schedule.where(id: params[:schedule].keys).each do |schedule|
-      current_user.add_to_cart!(schedule: schedule, quantity: quantity_h[schedule.id.to_s].to_i)
+    total_count = Hash[ current_user.cart_items.map{|ci| [ci.schedule_id.to_s, ci.quantity.to_s] } ].merge(quantity_h).values.map(&:to_i).sum
+
+    if total_count > 3
+      flash[:error] = "一人限買三張車票"
+      redirect_to :back
+    else
+
+      Schedule.where(id: params[:schedule].keys).each do |schedule|
+        current_user.add_to_cart!(schedule: schedule, quantity: quantity_h[schedule.id.to_s].to_i)
+      end
+      flash[:notice] = "購物車更新成功"
+      redirect_to cart_items_path
     end
-    flash[:notice] = "購物車更新成功"
-    redirect_to cart_items_path
   end
 
   def destroy

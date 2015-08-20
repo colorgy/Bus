@@ -2,10 +2,19 @@ class RouteRequestsController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    @route_request = RouteRequest.new
-    route_id = params[:route_id]
-    if route_id
-      @route = Route.find_by(id: route_id)
+    quantity_h = params[:schedule]
+    total_count = Hash[ current_user.cart_items.map{|ci| [ci.schedule_id.to_s, ci.quantity.to_s] } ].merge(quantity_h).values.map(&:to_i).sum
+    asdf
+    if total_count > 3
+      flash[:error] = "一人限買三張車票"
+      redirect_to cart_items_path
+    else
+
+      @route_request = RouteRequest.new
+      route_id = params[:route_id]
+      if route_id
+        @route = Route.find_by(id: route_id)
+      end
     end
   end
 
