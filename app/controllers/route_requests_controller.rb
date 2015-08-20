@@ -3,8 +3,10 @@ class RouteRequestsController < ApplicationController
 
   def new
     quantity_h = params[:schedule]
+    quantity_h = {} if quantity_h.nil?
+
     total_count = Hash[ current_user.cart_items.map{|ci| [ci.schedule_id.to_s, ci.quantity.to_s] } ].merge(quantity_h).values.map(&:to_i).sum
-    asdf
+
     if total_count > 3
       flash[:error] = "一人限買三張車票"
       redirect_to cart_items_path

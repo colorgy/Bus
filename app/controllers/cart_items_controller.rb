@@ -7,7 +7,9 @@ class CartItemsController < ApplicationController
   end
 
   def create
+    quantity_h = {} if quantity_h.nil?
     quantity_h = params[:quantity].reject{|k,v| v.empty?}
+
     schedules = Schedule.where(id: quantity_h.keys)
 
     total_count = Hash[ current_user.cart_items.map{|ci| [ci.schedule_id.to_s, ci.quantity.to_s] } ].merge(quantity_h).values.map(&:to_i).sum
