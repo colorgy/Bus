@@ -15,6 +15,10 @@ class Schedule < ActiveRecord::Base
   end
 
   def available_seats_count
+    self.vehicle.seats.count - Order.where(schedule: self, vehicle: self.vehicle).count
+  end
 
+  def seat_count
+    self.vehicle.seats.count
   end
 end

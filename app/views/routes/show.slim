@@ -10,13 +10,15 @@
       = form_tag(cart_items_path)
         - @route.schedules.each do |schedule|
           .row
-            .col.s9
+            .col.s6
               p= "路線時間: #{departure_time_format(schedule.departure_time)}"
 
             .col.s3
               - item = current_user.cart_items.find_by(schedule: schedule)
               input type="number" name="quantity[#{schedule.id}]" min="0" max="3" value="#{item && item.quantity || 0}"
-          / 剩餘座位數，處裡已滿位的
+
+            .col.s3
+              = "還剩 #{schedule.available_seats_count}/#{schedule.seat_count} 位"
 
         br
 

@@ -87,5 +87,7 @@
           = text_field_tag 'bill[invoice_cert]', nil
           = content_tag 'label', "自然人憑證"
 
+      input type="hidden" name="user_agreement" value="#{@user_agreement}"
+
       = link_to '上一步修改訂位', cart_items_path, {"class": 'btn btn--large orange lighten-1', 'style': "float: left;"}
       = submit_tag '確認訂位',  {"class": 'btn btn--large blue lighten-1', 'style': "float: right;"}

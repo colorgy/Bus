@@ -12,6 +12,8 @@ class OrdersController < ApplicationController
       return
     end
 
+    @user_agreement = params[:user_agreement]
+
     quantity_h = params[:schedule]
     total_count = Hash[ current_user.cart_items.map{|ci| [ci.schedule_id.to_s, ci.quantity.to_s] } ].merge(quantity_h).values.map(&:to_i).sum
 
