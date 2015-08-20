@@ -4,17 +4,15 @@
       h4= @route.short_name
       p
         | 本車次不劃位入座，採上車看到空位即可入座
-      - unless current_user.cart_items.empty?
-        / 結帳標語？
+      p
+        = @route.description
 
       = form_tag(cart_items_path)
         - @route.schedules.each do |schedule|
-          / = check_box 'subroute', 'schedule', {multiple: true, disabled: !schedule.available?}, schedule.id, nil
-          /= content_tag('label', "路線時間： #{schedule.departure_time}", 'for' => "subroute_schedule_#{schedule.id}")
           .row
             .col.s9
-              p= "路線時間: #{schedule.departure_time}"
-            / = content_tag('label', "路線時間： #{schedule.departure_time}", 'for' => "quantity[#{schedule.id}]")
+              p= "路線時間: #{departure_time_format(schedule.departure_time)}"
+
             .col.s3
               - item = current_user.cart_items.find_by(schedule: schedule)
               input type="number" name="quantity[#{schedule.id}]" min="0" max="3" value="#{item && item.quantity || 0}"
@@ -27,7 +25,7 @@
           | 放入購物車
         br
         br
-        - if current_user.cart_items_count != 0
+        - unless current_user.cart_items.empty?
           a.btn.btn--large.teal.darken-1 href="#{cart_items_path}"
             i.material-icons.list-icon style="color: #fff;" forward
             | 前往結帳去

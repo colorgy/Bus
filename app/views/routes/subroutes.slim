@@ -30,7 +30,7 @@
               .collection
                 - route.schedules.each do |schedule|
                   a.collection-item href=routes_path(root_route: route.id)
-                    = "發車時間： #{schedule.departure_time}"
+                    = "發車時間： #{departure_time_format(schedule.departure_time)}"
                     i.material-icons.seco
                 a.collection-item href=routes_path(root_route: route.id)
                   | 我要訂票

@@ -14,7 +14,7 @@
             - @cart_items.each do |cart_item|
               tr
                 td = cart_item.route.short_name
-                td = cart_item.schedule.departure_time
+                td = departure_time_format(cart_item.schedule.departure_time)
                 / td = cart_item.seat.seat_no
                 / td = cart_item.quantity
                 td

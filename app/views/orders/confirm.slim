@@ -18,7 +18,7 @@
             td= order.price
             td= order.schedule.route.display_name
             / td= order.seat.seat_no
-            td= order.schedule.departure_time
+            td= departure_time_format(order.schedule.departure_time)
             - cart_item = current_user.cart_items.find_by(schedule: order.schedule)
             td= cart_item.quantity
             input type="hidden" name="schedule[#{cart_item.schedule_id}]" min="0" max="3" value="#{cart_item.quantity}"

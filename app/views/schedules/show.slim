@@ -8,7 +8,7 @@
             = @schedule.route.display_name
           h5.schedule-departure-time
             i.material-icons> access_time
-            = @schedule.departure_time
+            = departure_time_format(@schedule.departure_time)
         .col.s12.m4
           p.route-price
             | 團購價：

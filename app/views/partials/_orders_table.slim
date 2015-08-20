@@ -7,5 +7,5 @@ table.cart-table
   - @orders.each do |order|
     tr
       td= order.schedule.route.display_name
-      td= order.schedule.departure_time
+      td= departure_time_format(order.schedule.departure_time)
       td= order.schedule.route.price

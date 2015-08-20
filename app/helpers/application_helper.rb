@@ -43,4 +43,8 @@ module ApplicationHelper
     }
     Redcarpet::Markdown.new(renderer, extensions).render(text).html_safe
   end
+
+  def departure_time_format (time)
+    time.strftime('%Y 年 %_m 月 %_d 日 %H:%I')
+  end
 end
