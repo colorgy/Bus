@@ -6,6 +6,12 @@ class OrdersController < ApplicationController
   end
 
   def create
+    if !params[:schedule]
+      redirect_to routes_path
+      flash[:error] = "您的購物車仍舊空空如也"
+      return
+    end
+
     quantity_h = params[:schedule]
     Schedule.where(id: params[:schedule].keys).each do |schedule|
       current_user.add_to_cart!(schedule: schedule, quantity: quantity_h[schedule.id.to_s].to_i)

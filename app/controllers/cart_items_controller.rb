@@ -10,19 +10,27 @@ class CartItemsController < ApplicationController
     quantity_h = params[:quantity].reject{|k,v| v.empty?}
     schedules = Schedule.where(id: quantity_h.keys)
 
-    begin
-      ActiveRecord::Base.transaction do
-        schedules.each do |schedule|
-          current_user.add_to_cart!(schedule: schedule, quantity: quantity_h[schedule.id.to_s].to_i)
-        end
-      end
-      flash[:success] = "成功加入購物車"
-    rescue ActiveRecord::RecordInvalid
-      # 基本不會發生，前端被亂改的時候
-      flash[:error] = "不能坐太多哦"
-    end
+    total_count = Hash[ current_user.cart_items.map{|ci| [ci.schedule_id.to_s, ci.quantity.to_s] } ].merge(quantity_h).values.map(&:to_i).sum
 
-    redirect_to :back
+    if total_count > 3
+      flash[:error] = "一人限買三張車票"
+      redirect_to :back
+    else
+
+      begin
+        ActiveRecord::Base.transaction do
+          schedules.each do |schedule|
+            current_user.add_to_cart!(schedule: schedule, quantity: quantity_h[schedule.id.to_s].to_i)
+          end
+        end
+        flash[:success] = "成功加入購物車"
+      rescue ActiveRecord::RecordInvalid
+        # 基本不會發生，前端被亂改的時候
+        flash[:error] = "不能坐太多哦"
+      end
+
+      redirect_to :back
+    end
   end
 
   def update_cart
