@@ -13,4 +13,8 @@ class Schedule < ActiveRecord::Base
     # or one schedule have some limited
     Order.where(schedule: self, vehicle: self.vehicle).count < self.vehicle.seats.count
   end
+
+  def available_seats_count
+
+  end
 end

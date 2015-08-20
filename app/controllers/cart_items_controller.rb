@@ -25,6 +25,15 @@ class CartItemsController < ApplicationController
     redirect_to :back
   end
 
+  def update_cart
+    quantity_h = params[:schedule]
+    Schedule.where(id: params[:schedule].keys).each do |schedule|
+      current_user.add_to_cart!(schedule: schedule, quantity: quantity_h[schedule.id.to_s].to_i)
+    end
+    flash[:notice] = "購物車更新成功"
+    redirect_to cart_items_path
+  end
+
   def destroy
     @cart_item = current_user.cart_items.find(params[:id]).destroy!
     flash[:success] = "成功從購物車中移除"

@@ -142,3 +142,14 @@
     }
   }
 }
+
+.user-agreement-card {
+  padding: 20px;
+
+  .user-agreement {
+    max-height: 400px;
+    overflow-y: visible;
+    overflow: scroll;
+    margin-bottom: 30px;
+  }
+}

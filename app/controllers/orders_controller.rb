@@ -13,28 +13,41 @@ class OrdersController < ApplicationController
 
     @cart_items = current_user.cart_items
 
-    if params[:confirmed]
-      # TODOs: more exception handling here
-      # @data = current_user.checkout!(bill_params, order_params)
-      @data = current_user.checkout(bill_params, order_params)
-      @bill = @data[:bill]
-      @orders = @data[:orders]
-      @order = @data[:orders].first
-      @title = "最後確認訂單"
-      render :confirm
-      # redirect_to @data[:bill] and return if @data[:bill].id.present?
-    elsif params[:last_confirmed]
-      @data = current_user.checkout!(bill_params, order_params)
-      redirect_to @data[:bill] and return if @data[:bill].id.present?
-    elsif @cart_items.blank?
-      redirect_to root_path and return
-    else
-      data = current_user.checkout
-      @dup_orders = data[:dup_orders]
-      @orders = data[:orders]
-      @bill = data[:bill]
-      @title = "確認訂位"
+    if params[:user_agreement].present? && params[:user_agreement] == "on"
+
+      if params[:confirmed]
+        # TODOs: more exception handling here
+        # @data = current_user.checkout!(bill_params, order_params)
+        @data = current_user.checkout(bill_params, order_params)
+        @bill = @data[:bill]
+        @orders = @data[:orders]
+        @order = @data[:orders].first
+        @title = "最後確認訂單"
+        render :confirm
+        # redirect_to @data[:bill] and return if @data[:bill].id.present?
+      elsif params[:last_confirmed]
+        @data = current_user.checkout!(bill_params, order_params)
+        redirect_to @data[:bill] and return if @data[:bill].id.present?
+      elsif @cart_items.blank?
+        redirect_to root_path and return
+      else
+        data = current_user.checkout
+        @dup_orders = data[:dup_orders]
+        @orders = data[:orders]
+        @bill = data[:bill]
+        @title = "確認訂位"
+      end
+
+    else # user not check the agreement
+      flash[:error] = "使用者條款未同意"
+      redirect_to cart_items_path
     end
+  end
+
+  def agreement
+    @title = "使用者條款"
+    @cart_items = current_user.cart_items
+    render :user_agreement
   end
 
 
