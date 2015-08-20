@@ -1,0 +1,47 @@
+.content-strip
+  .content-strip-inner
+    h4.strip-title= @h4 || "路線瀏覽"
+    p.strip-description 點擊你想要的路線查看班次吧！
+.container-fuild
+  .row.row-inner-s
+    .routes-container
+      ul.collapsible.routes-list.popout data-collapsible="accordion"
+        - @routes.each do |route|
+          li
+            .collapsible-header
+              .row
+                .col.s12.m8
+                  h5.route-display-name
+                    i.material-icons> directions_bus
+                    = link_to route.short_name, routes_path(root_route: route.id)
+                  p.route-description
+                    = simple_format(route.description).html_safe
+                .col.s12.m4
+                  h5.route-price
+                    a href=routes_path(root_route: route.id)
+                      = "團購價 NT$ #{route.price} "
+                  div style="clear: both;"
+                  a.view-schedules-btn
+                    | 查看班次
+                    i.material-icons keyboard_arrow_down
+
+            .collapsible-body
+              .collection
+                - route.schedules.each do |schedule|
+                  a.collection-item href=routes_path(root_route: route.id)
+                    = "發車時間： #{schedule.departure_time}"
+                    i.material-icons.seco
+                a.collection-item href=routes_path(root_route: route.id)
+                  | 我要訂票
+
+      a.btn.btn--large.teal.darken-1 href="#{new_request_path(route_id: (@root_route && @root_route.id))}"
+        | 我要申請路線
+
+javascript:
+  $(document).ready(function(){
+    $('.collapsible-header:first').addClass('active');
+    $('.collapsible').collapsible({
+      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
+  });
+

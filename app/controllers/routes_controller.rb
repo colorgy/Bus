@@ -6,9 +6,11 @@ class RoutesController < ApplicationController
       @root_route = Route.root.find_by(id: params[:root_route])
 
       if @root_route.present?
+        # The 支線
         @routes = @root_route.subroutes
         @title = @root_route.short_name
-        @h4 = "#{@root_route.short_name} 的路線"
+        @h4 = "從 #{@root_route.display_name} 的所有支線"
+        render :subroutes
       else
         @route = Route.find_by(id: params[:root_route])
         if @route.present? && @route.parent.present?
