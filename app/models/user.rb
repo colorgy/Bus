@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :trackable, :timeoutable,
          :omniauthable, :omniauth_providers => [:colorgy]
 
-  has_many :cart_items, class_name: 'UserCartItem'
+  has_many :cart_items, class_name: 'UserCartItem', dependent: :destroy
   has_many :orders
   has_many :ordered_schedules, class_name: 'Schedule', through: :orders, source: :user
   has_many :bills

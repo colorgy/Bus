@@ -25,12 +25,12 @@
 
         .row
           input-field.col.s12
-            = content_tag 'label', "上車地點（學校）", { 'data-error': "錯誤" , 'for': 'route_request[request_origin]'}
+            = content_tag 'label', "上車地點", { 'data-error': "錯誤" , 'for': 'route_request[request_origin]'}
             = text_field_tag 'route_request[request_origin]', nil, {id: 'route_request[request_origin]', required: '', 'class': 'validate', value: "#{@route && @route.origin}"}
 
         .row
           input-field.col.s12
-            = content_tag 'label', "下車地點", { 'data-error': "錯誤", 'for': 'route_request[request_destination]' }
+            = content_tag 'label', "下車地點（學校）", { 'data-error': "錯誤", 'for': 'route_request[request_destination]' }
             = text_field_tag 'route_request[request_destination]', nil, {id: 'route_request[request_destination]', required: '', 'class': 'validate'}
         .row
           textarea.materialize-textarea name="route_request[message]" id="route_request[message]"

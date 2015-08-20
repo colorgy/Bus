@@ -1,5 +1,5 @@
 class Schedule < ActiveRecord::Base
-  has_many :cart_items, class_name: 'UserCartItem'
+  has_many :cart_items, class_name: 'UserCartItem', dependent: :destroy
   has_many :orders
   has_many :ordered_users, class_name: 'User', through: :orders, source: :schedule
 
