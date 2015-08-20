@@ -11,7 +11,7 @@ class Vehicle < ActiveRecord::Base
   store :seat_info, accessors: [:row, :column, :seating], coder: JSON
 
   def seat_info_string
-    self.seat_info.to_s
+    self.seat_info.to_json
   end
 
   def seat_info_string=(string)
