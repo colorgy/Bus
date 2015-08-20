@@ -54,6 +54,8 @@ gem 'faker'
 # Loads environment variables from `.env`
 gem 'dotenv-rails'
 
+gem "rails-settings-cached", "0.4.1"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -105,6 +107,9 @@ gem 'simple_form', '~> 3.1.0'
 
 gem 'materialize-sass'
 gem 'bootstrap-sass', '~> 3.3.4'
+
+# for markdown parsing
+gem 'redcarpet'
 
 # Logger
 gem 'remote_syslog_logger'
