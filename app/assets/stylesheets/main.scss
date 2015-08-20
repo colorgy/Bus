@@ -46,9 +46,10 @@ i{
 	margin: 0 auto;
 }
 
-.card{
-	width: 100%;
-
+.card {
+    max-width: 1200px;
+    margin: 24px auto;
+    padding: 24px 0;
 }
 .modal-content{
 	position: absolute !important;
