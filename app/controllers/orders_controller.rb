@@ -16,20 +16,30 @@ class OrdersController < ApplicationController
     if params[:user_agreement].present? && params[:user_agreement] == "on"
 
       if params[:confirmed]
-        # TODOs: more exception handling here
-        # @data = current_user.checkout!(bill_params, order_params)
         @data = current_user.checkout(bill_params, order_params)
         @bill = @data[:bill]
         @orders = @data[:orders]
         @order = @data[:orders].first
         @title = "最後確認訂單"
+
         render :confirm
-        # redirect_to @data[:bill] and return if @data[:bill].id.present?
+
       elsif params[:last_confirmed]
-        @data = current_user.checkout!(bill_params, order_params)
-        redirect_to @data[:bill] and return if @data[:bill].id.present?
+        # TODOs: more exception handling here
+        begin
+          @data = current_user.checkout!(bill_params, order_params)
+          redirect_to @data[:bill] and return if @data[:bill].id.present?
+        rescue Exception => e
+          Rails.logger.error e
+          Rails.logger.error e.backtrace
+          flash[:error] = "不好意思！有問題發生了，請您重新下訂"
+          current_user.clear_cart!
+          redirect_to routes_path
+        end
+
       elsif @cart_items.blank?
         redirect_to root_path and return
+
       else
         data = current_user.checkout
         @dup_orders = data[:dup_orders]
