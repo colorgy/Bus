@@ -45,6 +45,6 @@ module ApplicationHelper
   end
 
   def departure_time_format (time)
-    time.strftime('%Y 年 %_m 月 %_d 日 %H:%I')
+    time.strftime('%Y 年 %_m 月 %_d 日 %H:%M')
   end
 end

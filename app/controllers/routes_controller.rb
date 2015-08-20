@@ -33,9 +33,9 @@ class RoutesController < ApplicationController
     elsif @route.parent.nil?
       # it's a root route
       redirect_to routes_path, root_route: @route.id
+    else
+      @title = @route.short_name
+      @root_route = @route.parent
     end
-
-    @title = @route.short_name
-    @root_route = @route.parent
   end
 end
