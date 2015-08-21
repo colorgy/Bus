@@ -1,8 +1,33 @@
+.primary-color-bg{
+	background-color: $primary-color;
+}
 .row{
 	margin-bottom: 0;
 }
 .container , .container-fluid{
 	min-height: 500px;
+}
+.user-guide{
+	padding: 24px 0;
+	.user-guide-title{
+		color: #fff;
+		text-align: center;
+	}
+
+	.user-guide-step{
+		padding: 24px 8px;
+
+		> .guide-content{
+			> h5{
+				color: #fff;
+				text-align: center;
+			}
+			> p {
+				color: #fff;
+				padding: 0 12px;
+			}
+		}
+	}
 }
 .page-sorry-message{
 	text-align: center;
@@ -25,18 +50,18 @@
 	min-height: 600px;
 
 	> .routes-field-title{
-		color: #FFE100;
+		color: #fff;
 		position: relative;
 		text-shadow: 1px 1px 2px rgba(0,0,0,.4);
 		margin-left: 16px;
 
 		> i{
-			color: #FFE100;
+			color: #fff;
 			font-size: 40px !important;
 		}
 	}
 	> .routes-field-description{
-		color: #FFE100;
+		color: #fff;
 		text-shadow: 1px 1px 2px rgba(0,0,0,.4);
 		position: relative;
 		margin-left: 16px;
@@ -44,7 +69,7 @@
 
 	> .line{
 	    height: 2px;
-	    background-color: #FFDC2D;
+	    background-color: #eee;
 	    position: relative;
 	    border-radius: 1px;
 	    margin: 8px 0 16px 0;
@@ -56,7 +81,7 @@
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		background-image: image-url('beach.jpg');
+		background-image: image-url('bus-bg.jpg');
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: cover;
@@ -68,7 +93,7 @@
 		position: absolute;
 		width: 2000px;
 		height: 100%;
-		background-color: rgba(20,20,20,.8);
+		background-color: rgba(30, 57, 115, 0.9);
 		left: -1200px;
 		top: 0;
 		transform: skew(-20deg, 0);
@@ -257,15 +282,13 @@
 }
 
 .route-item{
-	background-color: $primary-color;
+	//background-color: $primary-color;
 	box-shadow: 1px 1px 2px rgba(0,0,0,.2);
 	padding-bottom: 32px;
 	position: relative;
 	//background-image: image-url('beach.jpg');
-	background-repeat: no-repeat;
-	background-size: cover;
-	background-position: center;
 	margin: 0 0 24px 0;
+	overflow: hidden;
 
 
 
@@ -275,7 +298,16 @@
 		bottom: 0;
 		right: 0;
 		left: 0;
-		background-color: rgba(0,0,0,.0);
+		//background-color: rgba(0,0,0,.0);
+		background-image: image-url('bg-sky.jpg');
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+		-webkit-filter: brightness(0.85) contrast(1.2);
+		-o-filter: brightness(0.85) contrast(1.2);
+		-ms-filter: brightness(0.85) contrast(1.2);
+		-moz-filter: brightness(0.85) contrast(1.2);
+
 	}
 
 	> .route-item-inner{
@@ -292,29 +324,29 @@
 	}
 
 	.btn{
-		background-color: #5E5E5F;
+		//background-color: #5E5E5F;
 	}
 }
 
 .col.s6.m4{
 	&:nth-child(2n){
-		> .route-item{
-			background-color: #DE5E6C;
+		.route-item-bg{
+			background-image: image-url('school/nuuu.jpg');
 		}
 	}
 	&:nth-child(3n){
-		> .route-item{
-			background-color: #8B8E8E;
+		.route-item-bg{
+			background-image: image-url('school/ntu.jpg');
 		}
 	}
 	&:nth-child(4n){
-		> .route-item{
-			background-color: #60C549;
+		.route-item-bg{
+			background-image: image-url('school/hehe.jpg');
 		}
 	}
 	&:nth-child(5n){
-		> .route-item{
-			background-color: #49BCC5;
+		.route-item-bg{
+			background-image: image-url('school/57.jpeg');
 		}
 	}
 

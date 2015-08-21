@@ -4,4 +4,8 @@ class PagesController < ApplicationController
       redirect_to routes_path
     end
   end
+
+  def user_guide
+
+  end
 end

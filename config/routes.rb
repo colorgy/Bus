@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   root 'pages#index', :as => :new_user_session
   get '/' => 'pages#index', as: :root
+  get '/user-guide' => 'pages#user_guide'
 
   get 'routes' => 'routes#index', as: :routes
   get 'routes/:id' => 'routes#show', as: :route
