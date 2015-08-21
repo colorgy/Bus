@@ -28,46 +28,46 @@ class OrdersController < ApplicationController
 
       @cart_items = current_user.cart_items
 
-      if params[:user_agreement].present? && params[:user_agreement] == "on"
+      if params[:confirmed] && params[:user_agreement] == "on"
+        # 從 create 到 confirm
 
-        if params[:confirmed]
-          @data = current_user.checkout(bill_params, order_params)
-          @bill = @data[:bill]
-          @orders = @data[:orders]
-          @order = @data[:orders].first
-          @title = "最後確認訂單"
+        @data = current_user.checkout(bill_params, order_params)
+        @bill = @data[:bill]
+        @orders = @data[:orders]
+        @order = @data[:orders].first
+        @title = "最後確認訂單"
 
-          render :confirm
+        render :confirm
 
-        elsif params[:last_confirmed]
-          # TODOs: more exception handling here
-          begin
-            @data = current_user.checkout!(bill_params, order_params)
-            redirect_to @data[:bill] and return if @data[:bill].id.present?
-          rescue Exception => e
-            Rails.logger.error e
-            Rails.logger.error e.backtrace
-            flash[:error] = "不好意思！有問題發生了，請您重新下訂"
-            current_user.clear_cart!
-            redirect_to routes_path
-          end
+      elsif params[:last_confirmed]
+        # 從 confirm 到 建立訂單
 
-        elsif @cart_items.blank?
-          redirect_to root_path and return
-
-        else
-          data = current_user.checkout
-          @dup_orders = data[:dup_orders]
-          @orders = data[:orders]
-          @bill = data[:bill]
-          @title = "確認訂位"
+        begin
+          @data = current_user.checkout!(bill_params, order_params)
+          redirect_to @data[:bill] and return if @data[:bill].id.present?
+        rescue Exception => e
+          Rails.logger.error e
+          Rails.logger.error e.backtrace
+          flash[:error] = "不好意思！有問題發生了，請您重新下訂"
+          current_user.clear_cart!
+          redirect_to routes_path
         end
 
-      else # user not check the agreement
-        flash[:error] = "使用者條款未同意"
-        redirect_to cart_items_path
-      end
+      elsif @cart_items.blank?
+        redirect_to root_path and return
+      else
+        # 從 cart_items 到 create
 
+        data = current_user.checkout
+        @dup_orders = data[:dup_orders]
+        @orders = data[:orders]
+        @bill = data[:bill]
+        @title = "確認訂位"
+
+        if params[:confirmed] && params[:user_agreement].nil?
+          flash[:error] = "使用者條款未同意"
+        end
+      end
     end
   end
 

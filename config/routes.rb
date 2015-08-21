@@ -17,9 +17,9 @@ Rails.application.routes.draw do
   resources 'requests', controller: :route_requests
 
   get '/pay/credit_card/callback' => 'bills#credit_card_callback'
-  get '/user-agreement' => 'orders#agreement', as: :user_agreement
+  # get '/user-agreement' => 'orders#agreement', as: :user_agreement
 
-  post '/update_cart' => 'cart_items#update_cart', as: :update_cart
+  # post '/update_cart' => 'cart_items#update_cart', as: :update_cart
 
   require 'sidekiq/web'
   authenticate :admin_user, ->(u) { u.present? } do

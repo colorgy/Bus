@@ -32,18 +32,13 @@ class User < ActiveRecord::Base
   def add_to_cart!(schedule: nil, quantity: nil)
     raise "Type Error" unless schedule.is_a?(Schedule) # seat.is_a?(Seat) &&
 
-    cart_item = self.cart_items.find_or_create_by(schedule: schedule)
-
-    if quantity == 0
-      cart_item.destroy
-    else
-      cart_item.update_attributes!(
-        quantity: quantity,
-        route: schedule.route,
-        price: schedule.route.price
-      )
+    cart_item = self.cart_items.where(schedule: schedule).first_or_initialize do |cart_item|
+      cart_item.quantity = (cart_item.id.nil?) ? quantity :  (cart_item.quantity.to_i + quantity)
+      cart_item.route = schedule.route
+      cart_item.price = schedule.route.price
     end
 
+    cart_item.save!
   end
 
   def checkout bill_attrs={}, order_attrs={}
