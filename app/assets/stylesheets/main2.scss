@@ -1,3 +1,117 @@
+.row{
+	margin-bottom: 0;
+}
+.container , .container-fluid{
+	min-height: 500px;
+}
+.page-sorry-message{
+	text-align: center;
+	background-color: #fff;
+	margin: 32px auto;
+	box-shadow: 1px 1px 2px rgba(0,0,0,.2);
+	border-radius: 2px;
+    padding: 40px 16px;
+    max-width: 500px;
+
+	> i{
+		color: $dark-gray;
+		font-size: 40px !important;
+	}
+}
+.routes-field{
+	position: relative;
+	padding: 32px 8px 80px 8px;
+	overflow: hidden;
+	min-height: 600px;
+
+	> .routes-field-title{
+		color: #FFE100;
+		position: relative;
+		text-shadow: 1px 1px 2px rgba(0,0,0,.4);
+		margin-left: 16px;
+
+		> i{
+			color: #FFE100;
+			font-size: 40px !important;
+		}
+	}
+	> .routes-field-description{
+		color: #FFE100;
+		text-shadow: 1px 1px 2px rgba(0,0,0,.4);
+		position: relative;
+		margin-left: 16px;
+	}
+
+	> .line{
+	    width: 100%;
+	    height: 4px;
+	    background-color: #FFDC2D;
+	    position: relative;
+	    border-radius: 1px;
+	    margin: 8px 0 24px 0;
+	    max-width: 500px;
+	    margin-left: 16px;
+	}
+
+	> .routes-field-bg{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		background-image: image-url('beach.jpg');
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+		left: 0;
+		top: 0;
+	}
+
+	> .routes-field-skew-bg{
+		position: absolute;
+		width: 2000px;
+		height: 100%;
+		background-color: rgba(20,20,20,.8);
+		left: -1200px;
+		top: 0;
+		transform: skew(-20deg, 0);
+		-webkit-transform: skew(-20deg, 0);
+		-o-transform: skew(-20deg, 0);
+		-ms-transform: skew(-20deg, 0);
+		-moz-transform: skew(-20deg, 0);
+	}
+
+	> .route-list-item{
+		position: relative;
+		list-style-type: none;
+		transition: all .5s;
+		-webkit-transition: all .5s;
+		-o-transition: all .5s;
+		-ms-transition: all .5s;
+		-moz-transition: all .5s;
+
+		&:hover{
+			padding-left: 24px;
+		}
+
+		> a{
+			> h5{
+				color: #fff;
+
+				> i{
+					color: #fff;
+				}
+			}
+		}
+	}
+}
+
+.apply-add-field{
+	padding: 16px;
+	position: relative;
+	> p{
+		color: #fff;
+	}
+}
+
 *[type="submit"]{
 	// margin-top: 32px;
 }

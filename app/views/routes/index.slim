@@ -1,39 +1,23 @@
-.content-strip
-  .content-strip-inner
-    h4.strip-title= @h4 || "主線瀏覽"
-    p.strip-description 點擊你想要的區域主線，並進入查看支線！
+
+
 .container-fuild
-  .row.row-inner-s
-    .routes-container.bg-white
-      ul.popout
-        - @routes.each do |route|
-          li
-            a href=routes_path(root_route: route.id)
-              h5.route-list-header
-                i.material-icons> directions_bus
-                = route.short_name
-                / p.route-description
-                /   = simple_format(route.description).html_safe
-              / .col.s12.m4
-                / h5.route-price = "團購價 NT$ #{route.price} "
-                / div style="clear: both;"
-                / a.view-schedules-btn
-                /   | 查看班次
-                /   i.material-icons keyboard_arrow_down
-          / .collapsible-body
-          /   .collection
-          /     - route.schedules.each do |schedule|
-          /       a.collection-item href="#{schedule_path(schedule.id)}"
-          /         = "路線時間： #{schedule.departure_time}"
-          /         i.material-icons.secondary-content forward
-
-      a.btn.btn--large.teal.darken-1.tooltipped href="#{new_request_path(route_id: (@root_route && @root_route.id))}" data-delay="0" data-position="top" data-tooltip="想搭的路線自己申請！"
-        | 我要申請新路線
-
-javascript:
-  // $(document).ready(function(){
-  //   $('.collapsible-header:first').addClass('active');
-  //   $('.collapsible').collapsible({
-  //     accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-  //   });
-  // });
+  .row
+    .routes-field
+      .routes-field-bg
+      .routes-field-skew-bg
+      h4.routes-field-title
+        i.material-icons> directions_bus
+        = '精選路線'
+      p.routes-field-description = '以下是 Colorgy Bus 目前提供之精選路線，挑一個你想要的吧！'
+      .line
+      - @routes.each do |route|
+        li.route-list-item
+          a href=routes_path(root_route: route.id)
+            h5.route-list-header
+              = route.short_name
+              i.material-icons> keyboard_arrow_right
+      .line
+      .apply-add-field
+        p = '沒有你想要的路線？連署加開吧！'
+        br
+        = link_to '我要申請加開路線' , '#', class: 'btn btn--large'
