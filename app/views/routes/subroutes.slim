@@ -1,4 +1,5 @@
-.content-strip
+.content-strip.image-strip
+  .content-strip-cover
   .content-strip-inner
     a href="#{route_path(@root_route)}"
       h4.strip-title= @h4 || "路線瀏覽"
@@ -27,13 +28,6 @@
                     i.material-icons keyboard_arrow_down
 
             .collapsible-body
-              .collection
-                - route.schedules.each do |schedule|
-                  a.collection-item href=routes_path(root_route: route.id)
-                    = "發車時間： #{departure_time_format(schedule.departure_time)}，還剩 #{schedule.available_seats_count}/#{schedule.seat_count} 位"
-                    i.material-icons.seco
-                a.collection-item href=routes_path(root_route: route.id)
-                  | 我要訂票
 
       a.btn.btn--large.teal.darken-1.tooltipped href="#{new_request_path(route_id: (@root_route && @root_route.id))}" data-delay="0" data-position="top" data-tooltip="想搭的路線自己申請！"
         | 我要申請路線
