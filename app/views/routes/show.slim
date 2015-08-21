@@ -11,24 +11,35 @@
         - @route.schedules.each do |schedule|
           .row
             .col.s6
-              p= "路線時間: #{departure_time_format(schedule.departure_time)}"
+              = radio_button("schedule", "id", schedule.id, {required: ''})
+              label for="schedule_id_#{schedule.id}" = "路線時間: #{departure_time_format(schedule.departure_time)}"
 
             .col.s3
-              - item = current_user.cart_items.find_by(schedule: schedule)
-              input type="number" name="quantity[#{schedule.id}]" min="0" max="3" value="#{item && item.quantity || 0}"
+              / - item = current_user.cart_items.find_by(schedule: schedule)
+
+              / input type="number" name="quantity[#{schedule.id}]" min="0" max="3" value="#{item && item.quantity || 0}"
 
             .col.s3
               = "還剩 #{schedule.available_seats_count}/#{schedule.seat_count} 位"
 
+        input type="number" name="schedule[quantity]" min="1" max="3" value="1"
+
         br
 
+        / - if current_user
         button.btn.btn--large type="submit"
           i.material-icons.list-icon style="color: #fff;" shopping_cart
           | 放入購物車
+        / - else
+        /   a.btn.btn--large href=user_omniauth_authorize_path(:colorgy)
+        /     i.material-icons.list-icon style="color: #fff;" shopping_cart
+        /     | 放入購物車
+
         br
         br
-        - unless current_user.cart_items.empty?
+        - unless current_user && current_user.cart_items.empty?
           a.btn.btn--large.teal.darken-1 href="#{cart_items_path}"
             i.material-icons.list-icon style="color: #fff;" forward
             | 前往結帳去
+
 

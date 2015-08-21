@@ -38,7 +38,8 @@
             / td= order.seat.seat_no
             td
               - cart_item = current_user.cart_items.find_by(schedule: order.schedule)
-              input type="number" name="schedule[#{cart_item.schedule_id}]" min="0" max="3" value="#{cart_item.quantity}"
+              = cart_item.quantity
+              input type="hidden" name="schedule[#{cart_item.schedule_id}]"value="#{cart_item.quantity}"
       .row
         .input-field.col.s11.m5
           = text_field_tag 'order[receiver_name]', nil, {required: '', 'class': 'validate'}
