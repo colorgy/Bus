@@ -5,31 +5,28 @@
       h4.strip-title= @h4 || "路線瀏覽"
     p.strip-description 點擊你想要的路線查看班次吧！
 .container-fuild
-  .row.row-inner-s
+  .row.row-inner
     .routes-container
-      ul.collapsible.routes-list.popout data-collapsible="accordion"
-        - @routes.each do |route|
-          li
-            .collapsible-header
-              .row
-                .col.s12.m8
-                  h5.route-display-name
-                    i.material-icons> directions_bus
-                    = link_to route.short_name, routes_path(root_route: route.id)
-                  p.route-description
-                    = simple_format(route.description).html_safe
-                .col.s12.m4
-                  h5.route-price
-                    a href=routes_path(root_route: route.id)
-                      = "團購價 NT$ #{route.price} "
-                  div style="clear: both;"
-                  a.view-schedules-btn
-                    | 查看班次
-                    i.material-icons keyboard_arrow_down
-
-            .collapsible-body
-
-      a.btn.btn--large.teal.darken-1.tooltipped href="#{new_request_path(route_id: (@root_route && @root_route.id))}" data-delay="0" data-position="top" data-tooltip="想搭的路線自己申請！"
+      - @routes.each do |route|
+        .col.s6.m4
+          .route-item
+            .route-item-bg
+            .route-item-inner
+              h5.route-display-name
+                i.material-icons> directions_bus
+                = link_to route.short_name, routes_path(root_route: route.id)
+              div style="text-align: left;"
+                h5.route-price
+                  = "票價 NT$ #{route.price} "
+              p.route-description
+                = route.description.html_safe
+              div style="clear: both;"
+              div style="text-align: right;"
+                a.view-schedules-btn.btn href=routes_path(root_route: route.id)
+                  | 查看班次
+      div style="clear: both;"
+    div style="text-align: center; padding: 0 0 80px 0;"
+      a.btn.btn--large.tooltipped href="#{new_request_path(route_id: (@root_route && @root_route.id))}" data-delay="0" data-position="top" data-tooltip="想搭的路線自己申請！"
         | 我要申請路線
 
 javascript:
