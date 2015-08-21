@@ -4,7 +4,7 @@
 / route_id
 / request_origin
 / request_destination
-.container-fuild
+.container-fuild style="padding: 30px;"
   .row.row-inner-s
     .col.s12.m12
       h2 我想要申請路線加開！
@@ -29,9 +29,15 @@
             = text_field_tag 'route_request[request_origin]', nil, {id: 'route_request[request_origin]', required: '', 'class': 'validate', value: "#{@route && @route.origin}"}
 
         .row
-          input-field.col.s12
+          input-field.col.m14.s12
             = content_tag 'label', "下車地點（學校）", { 'data-error': "錯誤", 'for': 'route_request[request_destination]' }
             = text_field_tag 'route_request[request_destination]', nil, {id: 'route_request[request_destination]', required: '', 'class': 'validate'}
+
+        h5 預計搭乘時間
+        .row
+          input-field.col.s8
+            = datetime_select('route_request', 'departure_time', prompt: true)
+
         .row
           textarea.materialize-textarea name="route_request[message]" id="route_request[message]"
           label for="route_request[message]" 其它想說的話

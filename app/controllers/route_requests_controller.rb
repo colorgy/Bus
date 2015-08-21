@@ -31,6 +31,6 @@ class RouteRequestsController < ApplicationController
 
   private
     def request_params
-      params.require(:route_request).permit(:name, :email, :phone_number, :route_id, :request_origin, :request_destination, :message)
+      params.require(:route_request).permit(:name, :email, :phone_number, :route_id, :request_origin, :request_destination, :message, :departure_time)
     end
 end
