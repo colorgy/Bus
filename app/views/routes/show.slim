@@ -14,7 +14,7 @@
       p.description
         i class="material-icons"
           = 'flag'
-        = @route.description
+        = @route.description.html_safe
 
       = form_tag(cart_items_path, method: :post)
         label.schedule-label = '請選擇您想要的班次'
