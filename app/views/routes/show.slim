@@ -16,7 +16,7 @@
           = 'flag'
         = @route.description
 
-      = form_tag(cart_items_path)
+      = form_tag(cart_items_path, method: :post)
         label.schedule-label = '請選擇您想要的班次'
         - @route.schedules.each do |schedule|
           .row.schedule-item
@@ -46,6 +46,7 @@
                   = '2張'
                 option value="3"
                   = '3張'
+
 
         br
 
