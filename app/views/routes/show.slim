@@ -1,13 +1,13 @@
 .container-fuild
   .row.row-inner-s
-    .card
+    .card.show-route
       h4= @route.short_name
       p
         | 本車次不劃位入座，採上車看到空位即可入座
       p
         = @route.description
 
-      = form_tag(cart_items_path)
+      = form_tag(cart_items_path, method: :post)
         - @route.schedules.each do |schedule|
           .row
             .col.s6
@@ -22,7 +22,9 @@
             .col.s3
               = "還剩 #{schedule.available_seats_count}/#{schedule.seat_count} 位"
 
-        input type="number" name="schedule[quantity]" min="1" max="3" value="1"
+        .row
+          .col.s3.m1 style="font-size: larger;" 數量
+          input type="number" name="schedule[quantity]" min="1" max="3" value="1" class="col s3 m1" style="text-align: right;"
 
         br
 
