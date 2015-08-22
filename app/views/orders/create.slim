@@ -1,6 +1,6 @@
 = javascript_include_tag 'validate.min'
 .container-fuild.order-form
-  .row.row-inner-s
+  .row.row-inner-s.order-form-block
     / - if @dup_orders.any?
     /   h3 不能訂的位子
     /   p 這些位子已經被別人預訂了！，你可以回到上一步修改，或以可以訂的位子繼續
@@ -17,7 +17,7 @@
     /         td= order.schedule.route.display_name
     /         td= order.seat.seat_no
 
-    h3 確認您的訂位
+    h5 確認訂位資訊
     .col.s12.m12= form_tag orders_path, { name: "orderForm" }
       = hidden_field_tag :confirmed, true
 
@@ -40,6 +40,8 @@
               - cart_item = current_user.cart_items.find_by(schedule: order.schedule)
               = cart_item.quantity
               input type="hidden" name="schedule[#{cart_item.schedule_id}]"value="#{cart_item.quantity}"
+
+      h5 取票者資訊
       .row
         .input-field.col.s11.m5
           = text_field_tag 'order[receiver_name]', nil, {:required=> '', 'class'=> 'validate'}
@@ -60,18 +62,18 @@
       br
       br
 
-      h4 付款資料
+      h5 付款資料
 
       .col.s12
 
-        .input-field.col.s7
+        .input-field.col.s12.m7
           = select_tag('bill[type]', options_for_select(Bill::TYPES[0..2].map{|type| [t(type,  scope: :bill_types), type] }))
           = content_tag 'label', '付款方式'
 
-        .input-field.col.s4
+        .input-field.col.s12.m5
           = select_tag('bill[invoice_type]', options_for_select(Bill::INVOICE_TYPES.map{|invoice_type| [t(invoice_type, scope: :invoice_types), invoice_type]}))
           = content_tag 'label', '發票種類'
-      .row
+      .row.hide
         .input-field.col.s11.m5
           = text_field_tag 'bill[invoice_uni_num]', nil
           = content_tag 'label', "統一編號"
@@ -88,13 +90,13 @@
           = text_field_tag 'bill[invoice_cert]', nil
           = content_tag 'label', "自然人憑證"
 
-      .card.user-agreement-card
-        .user-agreement
+      .user-agreement
+        .user-agreement-inner
           <p><strong>一、訂票約定</strong>：於本網站訂票前，請務必詳閱訂票須知及相關約定。如訂票人非乘客本人，訂票人將居於代理人地位，亦即有義務充分告知乘客本人各行程訂票須知與限制約定，在點選同意後其法律效力及於乘客本人，本公司不接受事後乘客本人以不知或未瞭解等事由做為抗辯理由。<br /><strong>二、開放網路訂票時間</strong>：網路訂票時間24 小時全天開放。<br />本系統可預訂 9月1日至9月14日的返校專車。<br />※ 如遇連續假期，開放預售日期將另行公告。<br /><strong>三、網路訂票實施路線</strong>：開放訂票路線：<br />「台北 &lt;-&gt; 高雄」<br />「桃園 &lt;-&gt; 高雄」<br />「新竹 &lt;-&gt; 高雄」<br />「台北 &lt;-&gt; 台南」<br />「桃園 &lt;-&gt; 台南」<br />「新竹 &lt;-&gt; 台南」<br />「台北 &lt;-&gt; 嘉義」<br />「桃園 &lt;-&gt; 嘉義」<br />「新竹 &lt;-&gt; 嘉義」<br /> *各區域停留之校園依據訂票系統為主，如欲加開可至官網申請。<br /><strong>四、網路訂票限定上車車站</strong>：<br />(一) 台北地區：台北車站東三門。<br />(二) 嘉義地區：嘉義轉運站。<br />(三) 台南地區：火車站後站大遠百。<br />(四) 高雄地區：高雄火車站。<br /><strong>五、開放票種及可購買半票資格</strong>：<span style="font-size: 10px;">(一) 網路開放訂票票種均為學生票。</span></p><p>(二) 可購買學生票資格為：<br />Colorgy 會員。<br /><strong>六、訂票張數</strong>：每次訂購最多3張，未取票前或未取消訂票前每一身分僅能網路訂票一次。<br /><strong>七、取票注意事項</strong>：(一) 乘客訂票完畢後需等候 20分鐘 待系統處理資料，方可至四大超商(統一超商、全家便利商店、萊爾富、OK超商)付款取票。<br />(二) 取票時間規定如下:<br />1. 訂購當天班次，必須於發車前 1 小時完成付費動作。<br />2. 訂購明後天班次，必須於訂票當日23:59前完成付費。<br />3. 訂購第三天之後班次，必須於訂票後48小時內完成付費。<br />※ 特別提醒您:取票限制是依照您操作訂票動作的時間起算，若超過取票時間，<br />系統將自動取消訂位紀錄。<br />(三) 付費方式:<br />1. 至ATM匯款繳費，在於App取電子車票。<br />2. 至全省四大超商付費，在於App取電子車票(若於超商取票，每張車票須多收15元手續費)。<br />3. 網路刷卡付費，在於App取電子車票。<br />（完成刷卡者如需辦理退票請於搭乘班次前三天至Colorgy 線上退票區辦理，退票手續費為每張車票 15 元整）。<br />※ 超商尚未提供刷卡後取票功能，謝謝！<br /><strong>八、其他說明</strong>：(一) 本訂票系統僅暫時保留您所選擇的班次及座位，請於付款期間付款取得電子車票，才算確認您的車票訂票完成。<br />(四) 若欲更改已購買之車票班次，請至本Colorgy 官網辦理。<br />(五) 票證為無記名有價電子票券，請妥為保管，如發生遺失、破損或無法辦識等情形，恕不重新補發，不便之處，敬請見諒。<br />九、取消訂票：請利用Colorgy 官網取消訂票。<br />十、旅客有下列情形之一者，本公司得拒絕其搭乘：<br />(一) 身患傳染病者。<br />(二) 兒童過於幼小無人護送者。<br />(三) 酒醉者或狀似瘋癲者。<br />(四) 攜帶違禁品、危險品、易生變壞或破損之物品，不潔或易污損他物之物品。</p>
 
-      .row
+      .row.agree-block
         input type="checkbox" name="user_agreement" id="user_agreement"
         label for="user_agreement" 我已閱讀並同意此協議
 
-      = link_to '上一步修改訂位', cart_items_path, {"class"=> 'btn btn--large orange lighten-1', 'style'=> "float: left;"}
-      = submit_tag '確認訂位',  {"class"=> 'btn btn--large blue lighten-1', 'style'=> "float: right;"}
+      = link_to '上一步修改訂位', cart_items_path, {"class"=> 'btn btn--large grey darken-2', 'style'=> "float: left;"}
+      = submit_tag '確認訂位',  {"class"=> 'btn btn--large', 'style'=> "float: right;"}

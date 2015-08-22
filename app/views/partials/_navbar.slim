@@ -3,7 +3,13 @@ nav.colorgy-nav.nav-fixed
     .top-bar
       ul
         li
-          a href="https://colorgy.io" target="_blank" 回 Colorgy 首頁
+          a href="https://colorgy.io" target="_blank" Colorgy 首頁
+        li
+          a href="https://table.colorgy.io" target="_blank" TABLE
+        li
+          a href="https://books.colorgy.io" target="_blank" BOOKS
+        li
+          a href="https://colorgytasks.io" target="_blank" TASKS
         li
           a href="#{cart_items_path}"
             i.material-icons.list-icon> shopping_cart
@@ -67,7 +73,6 @@ nav.colorgy-nav.nav-fixed
     .clear style="clear:both;"
 
 javascript:
-  $(".button-collapse").sideNav();
   $('#personal-menu').click(function(){
     $('.personal-menu-collapse').slideToggle(500);
     if($('.personal-menu-trigger').html() == 'keyboard_arrow_down'){

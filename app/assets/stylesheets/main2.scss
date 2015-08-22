@@ -5,6 +5,29 @@ p{
 	color: $dark-gray;
 }
 
+.order-form-block{
+	background-color: #fff;
+	padding: 24px;
+	margin: 24px auto;
+}
+.order-form-block{
+	background-color: #fff;
+	padding: 24px;
+	margin: 24px auto;
+	box-shadow: 1px 1px 3px rgba(0,0,0,.3);
+	border: 1px solid #eee;
+	border-radius: 2px;
+    margin-bottom: 100px !important;
+    .select-wrapper {
+	    position: relative;
+	    margin: 8px 24px;
+	}
+	.agree-block{
+		text-align: center;
+		padding: 0 0 32px 0;
+	}
+}
+
 .route-show-field{
 	.description > i {
 	    font-size: 32px !important;
@@ -441,7 +464,6 @@ p{
 
 // overwrite side-nav
 .side-nav{
-  background-color: white;
 
   li{
     // border-top: solid 1px #fff;
@@ -449,7 +471,7 @@ p{
       border-top: 0px;
     }
     a{
-      color: black;
+      //color: black;
       &:hover{
         // opacity: 0.9;
       }
@@ -457,15 +479,28 @@ p{
   }
 }
 
-.user-agreement-card {
-  padding: 20px;
+.order-confirm{
+    background-color: #fff;
+    padding: 24px;
+    margin: 40px auto;
 
-  .user-agreement {
-    max-height: 400px;
-    overflow-y: visible;
-    overflow-y: hidden;
-    overflow: scroll;
-    margin-bottom: 30px;
+	.oder-confirm-info {
+	    padding: 12px;
+	    margin: 0 0 40px 0;
+	    font-size: 18px;
+	    border: 1px solid #eee;
+	}
+}
+
+.user-agreement {
+
+  .user-agreement-inner {
+    height: 200px;
+    overflow: auto;
+    width: 100%;
+    margin: 140px 0 24px 0;
+    border: 1px solid #eee;
+    padding: 16px;
   }
 }
 
