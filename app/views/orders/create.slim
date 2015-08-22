@@ -42,20 +42,20 @@
               input type="hidden" name="schedule[#{cart_item.schedule_id}]"value="#{cart_item.quantity}"
       .row
         .input-field.col.s11.m5
-          = text_field_tag 'order[receiver_name]', nil, {required: '', 'class': 'validate'}
-          = content_tag 'label', "取票人 - 姓名", { 'data-error': "錯誤" }
+          = text_field_tag 'order[receiver_name]', nil, {:required=> '', 'class'=> 'validate'}
+          = content_tag 'label', "取票人 - 姓名", { 'data-error'=> "錯誤" }
 
         .input-field.col.s11.m5
-          = text_field_tag 'order[receiver_email]', nil, {type: 'email', required: '', 'class': 'validate'}
-          = content_tag 'label', "取票人 - email", { 'data-error': "錯誤" , 'class': 'validate'}
+          = text_field_tag 'order[receiver_email]', nil, {:type=> 'email', :required=> '', 'class'=>'validate'}
+          = content_tag 'label', "取票人 - email", { 'data-error'=> "錯誤" , 'class'=> 'validate'}
 
         .input-field.col.s11.m5
-          = text_field_tag 'order[receiver_phone]', nil, { required: '' }
-          = content_tag 'label', "取票人 - 手機", { 'data-error': "錯誤" }
+          = text_field_tag 'order[receiver_phone]', nil, { :required=> '' }
+          = content_tag 'label', "取票人 - 手機", { 'data-error'=> "錯誤" }
 
         .input-field.col.s11.m5
-          = text_field_tag 'order[receiver_identity_number]', nil, {required: '', 'class': 'validate'}
-          = content_tag 'label', "取票人 - 身份證字號", { 'data-error': "錯誤" }
+          = text_field_tag 'order[receiver_identity_number]', nil, {:required=> '', 'class'=> 'validate'}
+          = content_tag 'label', "取票人 - 身份證字號", { 'data-error'=> "錯誤" }
 
       br
       br
@@ -96,5 +96,5 @@
         input type="checkbox" name="user_agreement" id="user_agreement"
         label for="user_agreement" 我已閱讀並同意此協議
 
-      = link_to '上一步修改訂位', cart_items_path, {"class": 'btn btn--large orange lighten-1', 'style': "float: left;"}
-      = submit_tag '確認訂位',  {"class": 'btn btn--large blue lighten-1', 'style': "float: right;"}
+      = link_to '上一步修改訂位', cart_items_path, {"class"=> 'btn btn--large orange lighten-1', 'style'=> "float: left;"}
+      = submit_tag '確認訂位',  {"class"=> 'btn btn--large blue lighten-1', 'style'=> "float: right;"}
