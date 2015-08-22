@@ -6,6 +6,6 @@ table.cart-table
     / th
   - @orders.each do |order|
     tr
-      td= order.schedule.route.display_name
-      td= departure_time_format(order.schedule.departure_time)
-      td= order.schedule.route.price
+      td= order.schedule && order.schedule.route.display_name
+      td= order.schedule && departure_time_format(order.schedule.departure_time)
+      td= order.schedule && order.schedule.route.price
