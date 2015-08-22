@@ -1,5 +1,5 @@
 .container
-  .row.row-inner
+  .row.row-inner.bill-show-block
     .order-complete
       .payment
         p 付款之後繳款狀態不會立即改變，約十五分鐘後才會變更 :D
@@ -57,4 +57,4 @@
                   .payment-notice
                     i.material-icons warning
                     p 這是測試演示模式的付款方式，不應該在正式網站中出現！
-  = render 'partials/orders_table'
+    = render 'partials/orders_table'
