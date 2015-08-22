@@ -1,8 +1,40 @@
+h1,h2,h3,h4,h5,h6{
+	color: $darker-gray;
+}
+p{
+	color: $dark-gray;
+}
+
+.route-show-field{
+	.description > i {
+	    font-size: 32px !important;
+	    margin-right: 8px;
+	}
+
+	.shopping-actions{
+		max-width: 300px;
+		margin: 32px 0;
+
+		> select{
+			border-color: $dark-gray;
+		}
+	}
+
+	.schedule-label{
+		display: block;
+		margin-bottom: 16px;
+	}
+
+}
+
 .primary-color-bg{
 	background-color: $primary-color;
 }
 .row{
 	margin-bottom: 0;
+}
+.route-show-field{
+	padding: 24px;
 }
 .container , .container-fluid{
 	min-height: 500px;
@@ -235,6 +267,7 @@
 
 	> a{
 		color: #fff;
+		display: inline;
 	}
 
 	> i{
