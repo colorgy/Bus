@@ -245,24 +245,3 @@ section#sign-up-section.sign-up-section
           .fb-page data-adapt-container-width="true" data-hide-cover="false" data-href="https://www.facebook.com/pages/Colorgy/1529686803975150" data-show-facepile="true" data-show-posts="false" data-small-header="false"
 
 javascript:
-  $( function() {
-    // init Isotope
-    var $container = $('.isotope').imagesLoaded(function(){
-      $container.isotope({
-        itemSelector: '.element-item',
-        columnWidth: '.grid-sizer',
-      });
-    });
-  })
-
-  $(window).scroll(function(){
-    var window_height = $(window).height();
-    var window_pos = $(window).scrollTop() + window_height;
-    var table_pos = $('#table-anchor').offset().top;
-
-    if( window_pos > table_pos ){
-      $('.info.table').addClass('active');
-      $('.box-image.table').addClass('active');
-    }
-
-  })
