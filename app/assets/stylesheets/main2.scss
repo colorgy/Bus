@@ -49,6 +49,33 @@ p{
 	}
 
 }
+span.hot-label {
+    background-color: #D22525;
+    display: inline-block;
+    padding: 4px 16px;
+    color: #fff;
+    border-radius: 2px;
+}
+.route-item.hot{
+	position: relative;
+
+	&:before{
+		content: 'HOT!熱門路線';
+		background-color: #D22525;
+		color: #fff;
+		padding: 8px 16px;
+		position: absolute;
+		top: -15px;
+		right: -15px;
+		z-index: 1;
+		border-radius: 2px;
+		transform: rotate(8deg);
+		-moz-transform: rotate(8deg);
+		-webkit-transform: rotate(8deg);
+		-o-transform: rotate(8deg);
+		-ms-transform: rotate(8deg);
+	}
+}
 
 .primary-color-bg{
 	background-color: $primary-color;
@@ -63,16 +90,30 @@ p{
 	min-height: 500px;
 }
 .user-guide{
-	padding: 24px 0;
+	padding: 0 0;
+	.row.row-inner.user-guide-step:nth-child(2n-1) {
+	    background-color: #1C4BB3;
+	}
 	.user-guide-title{
 		color: #fff;
 		text-align: center;
+		margin-bottom: 48px;
+	}
+	h5{
+		color: #fff;
 	}
 
 	.user-guide-step{
 		padding: 24px 8px;
 
-		> .guide-content{
+
+		.guide-content{
+
+			@media screen and (min-width: 600px) {
+				margin-top: 100px;
+			}
+			max-width: 500px;
+
 			> h5{
 				color: #fff;
 				text-align: center;
@@ -81,6 +122,31 @@ p{
 				color: #fff;
 				padding: 0 12px;
 			}
+
+			&.margin-left-auto{
+				margin-left: auto;
+			}
+
+		}
+
+		.guide-icon{
+			text-align: center;
+
+			img{
+				max-width: 300px;
+			}
+		}
+	}
+
+	.row.row-inner.user-guide-step.first{
+
+		> h5{
+			text-align: center;
+		}
+		.guide-content{
+			margin: 0 auto;
+			margin-top: 0px;
+			max-width: 300px;
 		}
 	}
 }
@@ -344,9 +410,6 @@ p{
 	position: relative;
 	//background-image: image-url('beach.jpg');
 	margin: 0 0 24px 0;
-	overflow: hidden;
-
-
 
 	> .route-item-bg{
 		position: absolute;
