@@ -1,8 +1,33 @@
+.primary-color-bg{
+	background-color: $primary-color;
+}
 .row{
 	margin-bottom: 0;
 }
 .container , .container-fluid{
 	min-height: 500px;
+}
+.user-guide{
+	padding: 24px 0;
+	.user-guide-title{
+		color: #fff;
+		text-align: center;
+	}
+
+	.user-guide-step{
+		padding: 24px 8px;
+
+		> .guide-content{
+			> h5{
+				color: #fff;
+				text-align: center;
+			}
+			> p {
+				color: #fff;
+				padding: 0 12px;
+			}
+		}
+	}
 }
 .page-sorry-message{
 	text-align: center;
@@ -20,44 +45,43 @@
 }
 .routes-field{
 	position: relative;
-	padding: 32px 8px 80px 8px;
+	padding: 32px 12px 80px 12px;
 	overflow: hidden;
 	min-height: 600px;
 
 	> .routes-field-title{
-		color: #FFE100;
+		color: #fff;
 		position: relative;
 		text-shadow: 1px 1px 2px rgba(0,0,0,.4);
 		margin-left: 16px;
 
 		> i{
-			color: #FFE100;
+			color: #fff;
 			font-size: 40px !important;
 		}
 	}
 	> .routes-field-description{
-		color: #FFE100;
+		color: #fff;
 		text-shadow: 1px 1px 2px rgba(0,0,0,.4);
 		position: relative;
 		margin-left: 16px;
 	}
 
 	> .line{
-	    width: 100%;
-	    height: 4px;
-	    background-color: #FFDC2D;
+	    height: 2px;
+	    background-color: #eee;
 	    position: relative;
 	    border-radius: 1px;
-	    margin: 8px 0 24px 0;
-	    max-width: 500px;
+	    margin: 8px 0 16px 0;
 	    margin-left: 16px;
+	    max-width: 500px;
 	}
 
 	> .routes-field-bg{
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		background-image: image-url('beach.jpg');
+		background-image: image-url('bus-bg.jpg');
 		background-position: center;
 		background-repeat: no-repeat;
 		background-size: cover;
@@ -69,7 +93,7 @@
 		position: absolute;
 		width: 2000px;
 		height: 100%;
-		background-color: rgba(20,20,20,.8);
+		background-color: rgba(30, 57, 115, 0.9);
 		left: -1200px;
 		top: 0;
 		transform: skew(-20deg, 0);
@@ -80,6 +104,7 @@
 	}
 
 	> .route-list-item{
+		display: inline-block;
 		position: relative;
 		list-style-type: none;
 		transition: all .5s;
@@ -118,7 +143,38 @@
 
 .content-strip{
 	text-align: center;
-  background-color: #444;
+	background-color: #444;
+	position: relative;
+
+	> .content-strip-inner{
+		position: relative;
+
+		.strip-title{
+			text-shadow: 1px 1px 3px rgba(0,0,0,.3);
+		}
+
+		.strip-description{
+			margin: 8px 0;
+			text-shadow: 1px 1px 3px rgba(0,0,0,.3);
+		}
+	}
+
+	&.image-strip{
+		background-image: image-url('beach.jpg');
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: cover;
+		background-color: transparent;
+
+		> .content-strip-cover{
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: rgba(0,0,0,.3);
+		}
+	}
 }
 
 .routes-container{
@@ -175,12 +231,17 @@
 .route-display-name, .schedule-departure-time{
 	margin: 0;
 	padding: 24px 16px 8px 16px;
-	color: $dark-gray;
+	color: #fff;
+
+	> a{
+		color: #fff;
+	}
 
 	> i{
 		font-size: 30px !important;
 		line-height: 1;
 		margin-right: 8px;
+		color: #fff;
 	}
 }
 
@@ -198,21 +259,21 @@
 
 .route-description{
 	margin: 0;
-	padding: 8px 16px 16px 16px;
+	padding: 8px 16px 40px 16px;
     font-size: 14px;
     line-height: 1.6;
-    color: $dark-gray;
+    color: #fff;
 }
 
 .route-price{
 	font-size: 1.4em;
 	padding: 8px 8px 8px 8px;
-	margin: 24px 16px 8px 16px;
+	margin: 8px 16px 8px 16px;
 	border: 2px solid $primary-color;
 	color: $primary-color;
 	border-radius: 2px;
 	display: inline-block;
-	float: right;
+
 
   a {
     color: $primary-color;
@@ -220,9 +281,82 @@
 
 }
 
+.route-item{
+	//background-color: $primary-color;
+	box-shadow: 1px 1px 2px rgba(0,0,0,.2);
+	padding-bottom: 32px;
+	position: relative;
+	//background-image: image-url('beach.jpg');
+	margin: 0 0 24px 0;
+	overflow: hidden;
+
+
+
+	> .route-item-bg{
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		//background-color: rgba(0,0,0,.0);
+		background-image: image-url('bg-sky.jpg');
+		background-repeat: no-repeat;
+		background-size: cover;
+		background-position: center;
+		-webkit-filter: brightness(0.85) contrast(1.2);
+		-o-filter: brightness(0.85) contrast(1.2);
+		-ms-filter: brightness(0.85) contrast(1.2);
+		-moz-filter: brightness(0.85) contrast(1.2);
+
+	}
+
+	> .route-item-inner{
+		position: relative;
+	}
+
+	.route-price{
+		color: #fff;
+		border-color: #fff;
+
+		> a{
+			color: #fff;
+		}
+	}
+
+	.btn{
+		//background-color: #5E5E5F;
+	}
+}
+
+.col.s6.m4{
+	&:nth-child(2n){
+		.route-item-bg{
+			background-image: image-url('school/nuuu.jpg');
+		}
+	}
+	&:nth-child(3n){
+		.route-item-bg{
+			background-image: image-url('school/ntu.jpg');
+		}
+	}
+	&:nth-child(4n){
+		.route-item-bg{
+			background-image: image-url('school/hehe.jpg');
+		}
+	}
+	&:nth-child(5n){
+		.route-item-bg{
+			background-image: image-url('school/57.jpeg');
+		}
+	}
+
+
+}
+
 .view-schedules-btn{
 	font-size: 20px;
-	float: right;
+	margin: 8px 16px;
+
 	> i{
 		float: none;
 		display: inline;

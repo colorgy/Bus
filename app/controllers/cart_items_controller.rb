@@ -7,12 +7,10 @@ class CartItemsController < ApplicationController
   end
 
   def create
-    quantity_h = {} if quantity_h.nil?
-    quantity_h = params[:quantity].reject{|k,v| v.empty?}
+    schedule = Schedule.find_by(id: params[:schedule][:id])
+    quantity = params[:schedule][:quantity].to_i
 
-    schedules = Schedule.where(id: quantity_h.keys)
-
-    total_count = Hash[ current_user.cart_items.map{|ci| [ci.schedule_id.to_s, ci.quantity.to_s] } ].merge(quantity_h).values.map(&:to_i).sum
+    total_count = current_user.cart_items.map(&:quantity).sum + quantity
 
     if total_count > 3
       flash[:error] = "一人限買三張車票"
@@ -21,9 +19,7 @@ class CartItemsController < ApplicationController
 
       begin
         ActiveRecord::Base.transaction do
-          schedules.each do |schedule|
-            current_user.add_to_cart!(schedule: schedule, quantity: quantity_h[schedule.id.to_s].to_i)
-          end
+          current_user.add_to_cart!(schedule: schedule, quantity: quantity)
         end
         flash[:success] = "成功加入購物車"
       rescue ActiveRecord::RecordInvalid

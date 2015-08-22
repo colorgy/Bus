@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   root 'pages#index', :as => :new_user_session
   get '/' => 'pages#index', as: :root
+  get '/user-guide' => 'pages#user_guide'
 
   get 'routes' => 'routes#index', as: :routes
   get 'routes/:id' => 'routes#show', as: :route
@@ -16,9 +17,9 @@ Rails.application.routes.draw do
   resources 'requests', controller: :route_requests
 
   get '/pay/credit_card/callback' => 'bills#credit_card_callback'
-  get '/user-agreement' => 'orders#agreement', as: :user_agreement
+  # get '/user-agreement' => 'orders#agreement', as: :user_agreement
 
-  post '/update_cart' => 'cart_items#update_cart', as: :update_cart
+  # post '/update_cart' => 'cart_items#update_cart', as: :update_cart
 
   require 'sidekiq/web'
   authenticate :admin_user, ->(u) { u.present? } do

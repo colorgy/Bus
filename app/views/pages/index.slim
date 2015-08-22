@@ -47,12 +47,14 @@ section#about-bus
           br
           | 從此ㄧ上ㄧ下，不再讓你上上下下。
       .col.m6.s12.info-picture
+        = image_tag 'landing-page/bus.png'
 
-section#about-charger
+section#about-charging
   .container
     .row
       .col.m6.s12.info-picture
-      .col.m6.s12.offset-m6
+        = image_tag 'landing-page/charging.png'
+      .col.m6.s12.m6
         h4 免費車充，想怎麼滑就怎麼滑
         p 路途漫長，於是擁有了ㄧ種控制不住自己手指頭的情緒
         p
@@ -62,7 +64,7 @@ section#about-charger
           br
           | 每個位置都附有車充，讓你沒有包袱的滑手機～
 
-section#about-beverage
+section#about-drinks
   .container
     .row
       .col.m6.s12
@@ -75,12 +77,14 @@ section#about-beverage
           br
           | 只要你膀胱夠有力，歡迎當自己家！
       .col.m6.s12.info-picture
+        = image_tag 'landing-page/drinks.png'
 
 section#about-wifi
   .container
     .row
       .col.m6.s12.info-picture
-      .col.m6.s12.offset-m6
+        = image_tag 'landing-page/wifi.png'
+      .col.m6.s12.m6
         h4 全車 wifi，ㄧ路漫遊不讓你睡
         p 不管你是吃到飽，還是沒吃飽，
         p
@@ -241,24 +245,3 @@ section#sign-up-section.sign-up-section
           .fb-page data-adapt-container-width="true" data-hide-cover="false" data-href="https://www.facebook.com/pages/Colorgy/1529686803975150" data-show-facepile="true" data-show-posts="false" data-small-header="false"
 
 javascript:
-  $( function() {
-    // init Isotope
-    var $container = $('.isotope').imagesLoaded(function(){
-      $container.isotope({
-        itemSelector: '.element-item',
-        columnWidth: '.grid-sizer',
-      });
-    });
-  })
-
-  $(window).scroll(function(){
-    var window_height = $(window).height();
-    var window_pos = $(window).scrollTop() + window_height;
-    var table_pos = $('#table-anchor').offset().top;
-
-    if( window_pos > table_pos ){
-      $('.info.table').addClass('active');
-      $('.box-image.table').addClass('active');
-    }
-
-  })

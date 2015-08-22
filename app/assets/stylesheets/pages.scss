@@ -117,33 +117,37 @@
   .container {
     padding: 11% 1%;
   }
+
+  .info-picture {
+    display: inline-block;
+  }
 }
 
 #about-bus {
   @extend .block_base;
   background-color: #4B6852;
-  background-image: image-url('landing-page/bus.jpg');
+  background-image: image-url('landing-page/bus_bg.jpg');
   background-size: cover;
 }
 
-#about-charger {
+#about-charging {
   @extend .block_base;
   background-color: #53696A;
-  background-image: image-url('landing-page/charger.jpg');
+  background-image: image-url('landing-page/charging_bg.jpg');
   background-size: cover;
 }
 
-#about-beverage {
+#about-drinks {
   @extend .block_base;
   background-color: #655D4B;
-  background-image: image-url('landing-page/beverage.jpg');
+  background-image: image-url('landing-page/drinks_bg.jpg');
   background-size: cover;
 }
 
 #about-wifi {
   @extend .block_base;
   background-color: #655D4B;
-  background-image: image-url('landing-page/wifi.jpg');
+  background-image: image-url('landing-page/wifi_bg.jpg');
   background-size: cover;
 }
 
