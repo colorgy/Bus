@@ -5,7 +5,8 @@ ActiveAdmin.register Route do
   scope :root
   scope :not_root
 
-  permit_params :origin, :destination, :direction, :price, :description, :announcement, :route_map_url, :_destroy, :id, :parent_id, subroutes_attributes: [
+  permit_params :origin, :destination, :direction, :price, :description, :announcement, :route_map_url, :_destroy, :id, :parent_id, :is_available, :hidden, :fake_full,
+    subroutes_attributes: [
       :origin,
       :destination,
       :direction,
@@ -16,6 +17,9 @@ ActiveAdmin.register Route do
       :_destroy,
       :id,
       :parent_id,
+      :is_available,
+      :hidden,
+      :fake_full,
       # That's real nested Zzz
       schedules_attributes: [
         :departure_time,
@@ -32,10 +36,12 @@ ActiveAdmin.register Route do
     column :id
     column :origin
     column :destination
+    column :parent
     column :direction
     column :price
-    column :route_map_url
-    column :parent
+    column :is_available
+    column :fake_full
+    column :hidden
     actions
   end
 
@@ -44,11 +50,14 @@ ActiveAdmin.register Route do
       row(:origin)
       row(:destination)
       row(:direction)
+      row(:parent) {|rout| rout.parent && rout.parent.short_name }
       row(:price)
       row(:description)
+      row(:is_available)
+      row(:hidden)
+      row(:fake_full)
       row(:announcement)
       row(:route_map_url)
-      row(:parent) {|rout| rout.parent && rout.parent.short_name }
     end
 
     route.subroutes.each do |subroute|
@@ -59,6 +68,9 @@ ActiveAdmin.register Route do
           row :direction
           row :price
           row :description
+          row :is_available
+          row :hidden
+          row :fake_full
           row :announcement
           row :route_map_url
         end
@@ -79,12 +91,15 @@ ActiveAdmin.register Route do
     f.inputs '路線資料' do
       f.input :origin
       f.input :destination
+      f.input :parent_id, as: :select, collection: Route.root.reject{|r| r == @resource}.map {|rout| [rout.short_name, rout.id] }
       f.input :direction, as: :select, collection: %w(North South)
       f.input :price
+      f.input :is_available
+      f.input :hidden
+      f.input :fake_full
+      f.input :route_map_url
       f.input :description
       f.input :announcement
-      f.input :route_map_url
-      f.input :parent_id, as: :select, collection: Route.root.reject{|r| r == @resource}.map {|rout| [rout.short_name, rout.id] }
     end # end route input
 
     panel '子路線' do
@@ -93,6 +108,9 @@ ActiveAdmin.register Route do
         route.input :destination
         route.input :direction, as: :select, collection: %w(North South)
         route.input :price
+        route.input :is_available
+        route.input :hidden
+        route.input :fake_full
         route.input :description
         route.input :announcement
         route.input :route_map_url

@@ -9,7 +9,7 @@
     .routes-container
       - @routes.each do |route|
         .col.s6.m4
-          .route-item
+          .route-item class="#{route.is_available? ? "available" : "not-available"} #{route.is_full? ? "full" : nil}"
             .route-item-bg
             .route-item-inner
               h5.route-display-name
