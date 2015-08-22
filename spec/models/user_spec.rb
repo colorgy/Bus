@@ -21,18 +21,19 @@ RSpec.describe User, type: :model do
       expect(user.cart_items.first.user_id).to eq(user.id)
       expect(user.cart_items.first.route).to eq(schedule.route)
       # expect(user.cart_items.first.seat).to eq(seat)
+      expect(user.cart_items.first.quantity).to eq(3)
       expect(user.cart_items_count).to eq(1)
     end
 
     it "can't add_to_cart if quantity greater than 3 or less than 1" do
       expect{ user.add_to_cart!(schedule: schedule, quantity: 4) }.to raise_error(ActiveRecord::RecordInvalid)
-      user.add_to_cart!(schedule: schedule, quantity: 0)
-      expect(user.cart_items.find_by(schedule: schedule)).to eq(nil)
+      expect{ user.add_to_cart!(schedule: schedule, quantity: 0) }.to raise_error(ActiveRecord::RecordInvalid)
+      # expect(user.cart_items.find_by(schedule: schedule)).to eq(nil)
     end
 
     it "#add_to_cart can update cart_item quantity if schedule is the same" do
       user.add_to_cart!(schedule: schedule, quantity: 1)
-      user.add_to_cart!(schedule: schedule, quantity: 3)
+      user.add_to_cart!(schedule: schedule, quantity: 2)
 
       expect(user.cart_items.find_by(schedule: schedule).quantity).to eq(3)
     end
