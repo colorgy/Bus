@@ -9,6 +9,7 @@ class Route < ActiveRecord::Base
 
   scope :root, -> { where(parent: nil) }
   scope :not_root, -> { where.not(parent: nil) }
+  scope :not_hidden, -> { where(hidden: false) }
 
   accepts_nested_attributes_for :schedules, :subroutes, allow_destroy: true
 
@@ -20,5 +21,13 @@ class Route < ActiveRecord::Base
 
   def short_name
     "#{origin} - #{destination}"
+  end
+
+  def is_available?
+    self.is_available
+  end
+
+  def is_full?
+    self.fake_full
   end
 end

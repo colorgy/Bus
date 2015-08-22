@@ -7,7 +7,7 @@ class RoutesController < ApplicationController
 
       if @root_route.present?
         # The 支線
-        @routes = @root_route.subroutes
+        @routes = @root_route.subroutes.not_hidden
         @title = @root_route.short_name
         @h4 = "從 #{@root_route.display_name} 的所有支線"
         render :subroutes

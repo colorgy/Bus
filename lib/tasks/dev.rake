@@ -9,10 +9,11 @@ namespace :dev do
 
       create(:admin_user, username: 'admin', email: 'admin@dev.tw', password: 'password', password_confirmation: 'password')
 
-      10.times do
+      5.times do
         route = create(:route)
-        Random.rand(3..7).times do
-          create(:schedule, route: route)
+        sub_route = create(:route, parent: route)
+        Random.rand(1..3).times do
+          create(:schedule, route: sub_route)
         end
       end
 
