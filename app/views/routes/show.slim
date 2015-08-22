@@ -51,7 +51,7 @@
         br
 
         / - if current_user
-        button.btn.btn--large type="submit"
+        button.btn.btn--large type="submit" class="add-to-cart-btn"
           i.material-icons.list-icon style="color: #fff;" shopping_cart
           | 放入購物車
         / - else
@@ -67,3 +67,16 @@
             | 前往結帳去
 
 
+javascript:
+  $('.add-to-cart-btn').click(function(){
+    var selected_radio_count = $('input[type="radio"]:checked').length;
+    var select_value = $('select[name="schedule[quantity]"] option:selected').val();
+    if(selected_radio_count == 0){
+      flash.error('你要選擇班次才能加入購物車唷！');
+      return false;
+    }
+    if( select_value != '1' && select_value != '2' && select_value != '3'){
+      flash.error('你沒有選擇要買的張數唷！');
+      return false;
+    }
+  })
