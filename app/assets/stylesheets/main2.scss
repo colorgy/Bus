@@ -49,12 +49,19 @@ p{
 	}
 
 }
+span.hot-label {
+    background-color: #D22525;
+    display: inline-block;
+    padding: 4px 16px;
+    color: #fff;
+    border-radius: 2px;
+}
 .route-item.hot{
 	position: relative;
 
 	&:before{
 		content: 'HOT!熱門路線';
-		background-color: red;
+		background-color: #D22525;
 		color: #fff;
 		padding: 8px 16px;
 		position: absolute;

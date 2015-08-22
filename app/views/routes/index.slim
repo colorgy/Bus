@@ -13,6 +13,7 @@
       - @routes.each do |route|
         li.route-list-item
           a href=routes_path(root_route: route.id)
+            span.hot-label = 'HOT!'
             h5.route-list-header
               = route.short_name
               i.material-icons> keyboard_arrow_right
