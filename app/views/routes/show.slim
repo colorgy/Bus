@@ -7,7 +7,7 @@
       p
         = @route.description
 
-      = form_tag(cart_items_path)
+      = form_tag(cart_items_path, method: :post)
         - @route.schedules.each do |schedule|
           .row
             .col.s6
