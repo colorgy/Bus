@@ -5,9 +5,9 @@
 / request_origin
 / request_destination
 .container-fuild style="padding: 30px;"
-  .row.row-inner-s
+  .row.row-inner-s.request-routes-form-block
     .col.s12.m12
-      h2 我想要申請路線加開！
+      h4 我想要申請路線加開！
 
       = form_tag requests_path
         .row
@@ -39,10 +39,10 @@
             = datetime_select('route_request', 'departure_time', prompt: true)
 
         .row
-          textarea.materialize-textarea name="route_request[message]" id="route_request[message]"
           label for="route_request[message]" 其它想說的話
+          textarea.materialize-textarea name="route_request[message]" id="route_request[message]"
 
           input type="hidden" name="route_request[route_id]" value="#{@route && @route.id}"
 
-        = submit_tag '送出！', 'class': 'btn btn--large teal darken-1'
+        = submit_tag '送出！', 'class': 'btn btn--large'
 

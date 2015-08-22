@@ -25,7 +25,7 @@
                   td = link_to '移除', cart_item_path(cart_item), method: :delete
                   input type="hidden" name="schedule[#{cart_item.schedule_id}]" value="#{cart_item.quantity}"
 
-        = link_to '查看更多路線', routes_path, class: 'btn btn--large teal darken-1'
+        = link_to '查看更多路線', routes_path, class: 'btn btn--large grey darken-2'
 
         - unless current_user.cart_items_count.zero?
-          = submit_tag '已確認，下一步', class: 'btn btn--large teal darken-1', style: "margin-left: 10px; float: right;"
+          = submit_tag '已確認，下一步', class: 'btn btn--large', style: "margin-left: 10px; float: right;"

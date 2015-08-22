@@ -160,8 +160,20 @@
 }
 // End
 
+h1,h2,h3,h4,h5,h6,p{
+	color: #fff;
 
+}
 
+.info-picture{
+	text-align: center;
+
+	> img{
+		max-width: 300px;
+		width: 90%;
+
+	}
+}
 
 // --------
 // 5. 手機版固定 Btn

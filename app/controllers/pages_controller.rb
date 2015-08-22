@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   def index
     if current_user
-      redirect_to routes_path
+      redirect_to user_guide_path
     end
   end
 

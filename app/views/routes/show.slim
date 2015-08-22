@@ -1,15 +1,25 @@
+.content-strip.image-strip
+  .content-strip-cover
+  .content-strip-inner
+    h4.strip-title= @route.short_name || "路線瀏覽"
+    p.strip-description '選擇班次與購買票數並加入購物車'
 .container-fuild
   .row.row-inner-s
-    .card.show-route
+    .card.route-show-field
       h4= @route.short_name
-      p
+      p.description
+        i class="material-icons"
+          = 'info_outline'
         | 本車次不劃位入座，採上車看到空位即可入座
-      p
+      p.description
+        i class="material-icons"
+          = 'flag'
         = @route.description
 
       = form_tag(cart_items_path, method: :post)
+        label.schedule-label = '請選擇您想要的班次'
         - @route.schedules.each do |schedule|
-          .row
+          .row.schedule-item
             .col.s6
               = radio_button("schedule", "id", schedule.id, {required: ''})
               label for="schedule_id_#{schedule.id}" = "路線時間: #{departure_time_format(schedule.departure_time)}"
@@ -20,11 +30,22 @@
               / input type="number" name="quantity[#{schedule.id}]" min="0" max="3" value="#{item && item.quantity || 0}"
 
             .col.s3
-              = "還剩 #{schedule.available_seats_count}/#{schedule.seat_count} 位"
+              = "還剩 #{schedule.available_seats_count} 位"
 
         .row
-          .col.s3.m1 style="font-size: larger;" 數量
-          input type="number" name="schedule[quantity]" min="1" max="3" value="1" class="col s3 m1" style="text-align: right;"
+          .col.s12
+            .shopping-actions
+              label = '購買票數'
+              /input type="number" name="schedule[quantity]" min="1" max="3" value="1"
+              select class="browser-default" name="schedule[quantity]"
+                option value="" disabled="" selected=""
+                  = '選擇購買票數'
+                option value="1"
+                  = '1張'
+                option value="2"
+                  = '2張'
+                option value="3"
+                  = '3張'
 
 
         br
@@ -41,7 +62,7 @@
         br
         br
         - unless current_user && current_user.cart_items.empty?
-          a.btn.btn--large.teal.darken-1 href="#{cart_items_path}"
+          a.btn.btn--large.light-blue.darken-1 href="#{cart_items_path}"
             i.material-icons.list-icon style="color: #fff;" forward
             | 前往結帳去
 

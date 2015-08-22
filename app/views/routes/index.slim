@@ -21,4 +21,4 @@
       .apply-add-field
         p = '沒有你想要的路線？連署加開吧！'
         br
-        = link_to '我要申請加開路線' , '#', class: 'btn btn--large'
+        = link_to '我要申請加開路線' ,href="#{new_request_path(route_id: (@root_route && @root_route.id))}", class: 'btn btn--large'

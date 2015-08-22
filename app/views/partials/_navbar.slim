@@ -3,7 +3,13 @@ nav.colorgy-nav.nav-fixed
     .top-bar
       ul
         li
-          a href="https://colorgy.io" target="_blank" 回 Colorgy 首頁
+          a href="https://colorgy.io" target="_blank" Colorgy 首頁
+        li
+          a href="https://table.colorgy.io" target="_blank" TABLE
+        li
+          a href="https://books.colorgy.io" target="_blank" BOOKS
+        li
+          a href="https://colorgytasks.io" target="_blank" TASKS
         li
           a href="#{cart_items_path}"
             i.material-icons.list-icon> shopping_cart
@@ -38,6 +44,10 @@ nav.colorgy-nav.nav-fixed
         a.tooltipped data-delay="0" data-position="bottom" data-tooltip="檢視你訂購的票券" href="#{bills_path}"
           i.material-icons.list-icon list
           | 我的帳單
+      li
+        a.tooltipped data-delay="0" data-position="bottom" data-tooltip="不知道怎麼訂嗎？看一下購物流程吧" href="#{user_guide_path}"
+          i.material-icons.list-icon subject
+          | 購物流程
       li.nav-bar-drop-down
         a href="#"
           i.material-icons.list-icon more_vert
@@ -61,13 +71,15 @@ nav.colorgy-nav.nav-fixed
         a href="#{bills_path}"
           | 我的帳單
       li
+        a href="#{user_guide_path}"
+          | 購物流程
+      li
         a href="#{sign_out_url}"
           | 登出
 
     .clear style="clear:both;"
 
 javascript:
-  $(".button-collapse").sideNav();
   $('#personal-menu').click(function(){
     $('.personal-menu-collapse').slideToggle(500);
     if($('.personal-menu-trigger').html() == 'keyboard_arrow_down'){
