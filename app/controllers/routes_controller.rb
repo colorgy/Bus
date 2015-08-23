@@ -3,7 +3,7 @@ class RoutesController < ApplicationController
 
   def index
     if params[:root_route]
-      @root_route = Route.root.find_by(id: params[:root_route])
+      @root_route = Route.root.not_hidden.find_by(id: params[:root_route])
 
       if @root_route.present?
         # The 支線
@@ -12,20 +12,22 @@ class RoutesController < ApplicationController
         @h4 = "從 #{@root_route.display_name} 的所有支線"
         render :subroutes
       else
-        @route = Route.find_by(id: params[:root_route])
+        @route = Route.not_hidden.find_by(id: params[:root_route])
         if @route.present? && @route.parent.present?
           # it's subroute
           redirect_to route_path(@route)
+        else
+          redirect_to routes_path
         end
       end
     else
-      @routes = Route.root.order(:direction)
+      @routes = Route.not_hidden.root.order(:direction)
       @title = "路線總覽"
     end
   end
 
   def show
-    @route = Route.find_by(id: params[:id])
+    @route = Route.not_hidden.find_by(id: params[:id])
 
     if @route.nil?
       flash[:error] = "路線錯誤！"
