@@ -20,4 +20,11 @@ module RoutesHelper
       "還剩 #{seat_count} 位"
     end
   end
+
+  def render_route_class route
+    classes = []
+    classes << (route.is_available? ? "available" : "not-available")
+    classes << (route.is_full? ? "full" : nil)
+    classes.join(' ')
+  end
 end

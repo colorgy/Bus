@@ -30,8 +30,8 @@ class RoutesController < ApplicationController
     @route = Route.not_hidden.find_by(id: params[:id])
 
     if @route.nil?
-      flash[:error] = "路線錯誤！"
-      redirect_to root_path
+      flash[:error] = "路線不存在！"
+      redirect_to routes_path
     elsif @route.parent.nil?
       # it's a root route
       redirect_to routes_path, root_route: @route.id
