@@ -27,6 +27,11 @@ ActiveAdmin.register Route do
         :contact,
         :vehicle_id,
         :_destroy,
+        :hidden,
+        :available,
+        :fake_full,
+        :fake_seats,
+        :fake_seats_no,
         :id,
       ]
     ]
@@ -80,12 +85,17 @@ ActiveAdmin.register Route do
             column :departure_time
             column :contact
             column :vehicle_id
+            column :fake_full
+            column :hidden
+            column :available
+            column :fake_seats
+            column :fake_seats_no
             #
           end
-        end
-      end
-    end
-  end
+        end # end schedule panel
+      end # end subroute show panel
+    end # each subroute
+  end # end show
 
   form do |f|
     f.inputs '路線資料' do
@@ -119,10 +129,14 @@ ActiveAdmin.register Route do
           schedule.input :departure_time
           schedule.input :contact
           schedule.input :vehicle_id, as: :select, collection: Vehicle.all.map{|veh| ["#{veh.id}. #{veh.registration_number}, #{veh.name}:#{veh.capacity}", veh.id]}
+          schedule.input :hidden
+          schedule.input :available
+          schedule.input :fake_full
+          schedule.input :fake_seats
+          schedule.input :fake_seats_no
         end
-
-      end
-    end
+      end # end f.has_many subroutes
+    end # end panel subroute
 
     f.actions
   end # end form

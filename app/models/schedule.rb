@@ -21,4 +21,21 @@ class Schedule < ActiveRecord::Base
   def seat_count
     self.vehicle.seats.count
   end
+
+  def is_hidden?
+    self.hidden
+  end
+
+  def is_available?
+    self.available
+  end
+
+  def is_full?
+    self.fake_full || self.available_seats_count == 0
+  end
+
+  def is_faked?
+    self.fake_seats && self.fake_seats_no
+  end
+
 end
