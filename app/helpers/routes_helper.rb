@@ -12,8 +12,7 @@ module RoutesHelper
       "班次已售完！"
     else
       seat_count = schedule.is_faked? ? schedule.fake_seats_no : schedule.available_seats_count
-      unless user.nil?
-        # 真真假假，假假真真
+      if !user.nil? && schedule.is_faked?
         seat_count -= user.orders.where(schedule: schedule).count
         seat_count = 0 if seat_count < 0
       end

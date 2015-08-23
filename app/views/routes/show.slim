@@ -18,7 +18,7 @@
 
       = form_tag(cart_items_path, method: :post)
         label.schedule-label = '請選擇您想要的班次'
-        - @route.schedules.each do |schedule|
+        - @route.schedules.not_hidden.each do |schedule|
           .row.schedule-item
             .col.s6
               = render_schedule_radio(schedule)
