@@ -71,24 +71,24 @@
           = content_tag 'label', '付款方式'
 
         .input-field.col.s12.m5
-          = select_tag('bill[invoice_type]', options_for_select(Bill::INVOICE_TYPES.map{|invoice_type| [t(invoice_type, scope: :invoice_types), invoice_type]}))
+          = select_tag('bill[invoice_type]', options_for_select(Bill::INVOICE_TYPES.select{|type| type == 'digital' }.map{|invoice_type| [t(invoice_type, scope: :invoice_types), invoice_type]}))
           = content_tag 'label', '發票種類'
-      .row.hide
-        .input-field.col.s11.m5
-          = text_field_tag 'bill[invoice_uni_num]', nil
-          = content_tag 'label', "統一編號"
+      / .row.hide
+      /   .input-field.col.s11.m5
+      /     = text_field_tag 'bill[invoice_uni_num]', nil
+      /     = content_tag 'label', "統一編號"
 
-        .input-field.col.s11.m5
-          = text_field_tag 'bill[invoice_love_code]', nil
-          = content_tag 'label', "愛心碼"
+      /   .input-field.col.s11.m5
+      /     = text_field_tag 'bill[invoice_love_code]', nil
+      /     = content_tag 'label', "愛心碼"
 
-        .input-field.col.s11.m5
-          = text_field_tag 'bill[invoice_code]', nil
-          = content_tag 'label', "手機條碼"
+      /   .input-field.col.s11.m5
+      /     = text_field_tag 'bill[invoice_code]', nil
+      /     = content_tag 'label', "手機條碼"
 
-        .input-field.col.s11.m5
-          = text_field_tag 'bill[invoice_cert]', nil
-          = content_tag 'label', "自然人憑證"
+      /   .input-field.col.s11.m5
+      /     = text_field_tag 'bill[invoice_cert]', nil
+      /     = content_tag 'label', "自然人憑證"
 
       .user-agreement
         .user-agreement-inner
