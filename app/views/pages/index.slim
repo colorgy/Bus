@@ -5,26 +5,26 @@ header
   .header-mask
   .header-slogan
     h2 直達學校的專屬巴士
-    p 搶先體驗專屬學生的各種便利服務
+    / p 搶先體驗專屬學生的各種便利服務
   .header-call-to-action
-    = link_to "立即註冊 / 登入", user_omniauth_authorize_path(:colorgy), :class=>'btn btn--large'
+    = link_to "搶先體驗", user_omniauth_authorize_path(:colorgy), :class=>'btn btn--large'
     /! <p><div class="fb-page" data-href="https://www.facebook.com/pages/Colorgy/1529686803975150" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true" data-show-posts="false"></div></p
   .row.row-inner-s style=("margin-top: 48px;")
     .col.m4.s12
       .service
         i.material-icons directions_bus
         p 直達學校
-        small 厭倦到了當地的車站或是轉運站，還要轉車嗎？我們提供直達學校的專車服務，幫你節省時間。
+        small 厭倦轉車嗎？直達學校替你省時間！
     .col.m4.s12
       .service
         i.material-icons face
         p 一車都是學生
-        small 這是一個專屬學生的直達客運，也許你旁邊坐的就會是你未來的好麻吉或是親愛的哈尼、達令。
+        small 同校同鄉同車，順便讓你交朋友！
     .col.m4.s12
       .service
         i.material-icons attach_money
         p 學生優惠
-        small 因為是學生專屬服務，我們能提供優惠學生的價格，也因為是直達，你可以省下轉車、轉捷運的錢。
+        small 超級優惠的學生價，幫你省錢。
   .arrow-down
     / i.material-icons keyboard_arrow_down
     i.material-icons style=("margin-top: -20px;")  keyboard_arrow_down
@@ -33,14 +33,14 @@ section#announcement
   .anno-box 車子由葛瑪蘭&首都客運提供
 
 
-
 section#about-bus
   .container
     .row
       .col.m6.s12
         h4 直達學校，對於路途不再徬徨
-        p 離家＋開學＋路途遙遠＝憂鬱滿點
         p
+          | 離家＋開學＋路途遙遠＝憂鬱滿點......
+          br
           | Colorgy Bus分擔你的憂愁，
           br
           | 從溫暖家鄉直達學校，
@@ -56,11 +56,12 @@ section#about-charging
         = image_tag 'landing-page/charging.png'
       .col.m6.s12.m6
         h4 免費車充，想怎麼滑就怎麼滑
-        p 路途漫長，於是擁有了ㄧ種控制不住自己手指頭的情緒
         p
-          | 別擔心，
+          | 路途漫長，
           br
-          | Colorgy Bus 替你想好了，
+          | 於是擁有了ㄧ種控制不住自己手指頭的情緒。
+          br
+          | 別擔心，Colorgy Bus 替你想好了，
           br
           | 每個位置都附有車充，讓你沒有包袱的滑手機～
 
@@ -69,8 +70,9 @@ section#about-drinks
     .row
       .col.m6.s12
         h4 飲料暢飲，只怕你憋不著尿意
-        p 兄弟，喝了這杯，好上路
         p
+          | 兄弟，喝了這杯，好上路。
+          br
           | Colorgy Bus 不給你渴的機會，
           br
           | 車上飲料無限暢飲，
@@ -86,8 +88,9 @@ section#about-wifi
         = image_tag 'landing-page/wifi.png'
       .col.m6.s12.m6
         h4 全車 wifi，ㄧ路漫遊不讓你睡
-        p 不管你是吃到飽，還是沒吃飽，
         p
+          | 不管你是吃到飽，還是沒吃飽，
+          br
           | Colorgy bus 全程提供Wifi，
           br
           | 讓你光滑就飽，怎麼可能有時間睡覺～
