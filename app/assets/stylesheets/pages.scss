@@ -157,6 +157,7 @@
   color: white;
   font-size: x-large;
   text-align: center;
+  padding: 16px 0;
 }
 // End
 
@@ -422,7 +423,7 @@ header{
 	color: #464646;
 	margin: 8px;
 	padding: 16px 8px 24px 8px;
-	min-height: 215px;
+	// min-height: 200px;
 
 	> h4 {
 		color: darken(#B4B3B3, 30%);
@@ -433,6 +434,7 @@ header{
 		border-bottom: 1px solid #B4B3B3;
 		padding-bottom: 8px;
 		margin-bottom: 8px;
+    color: #464646;
 	}
 	> small{
 		font-size: 1em;
