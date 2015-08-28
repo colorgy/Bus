@@ -24,12 +24,7 @@
               = render_schedule_radio(schedule)
               label for="schedule_id_#{schedule.id}" = "路線時間: #{departure_time_format(schedule.departure_time)}"
 
-            .col.s3
-              / - item = current_user.cart_items.find_by(schedule: schedule)
-
-              / input type="number" name="quantity[#{schedule.id}]" min="0" max="3" value="#{item && item.quantity || 0}"
-
-            .col.s3
+            .col.s6
               = render_available_seats(schedule, user: current_user)
 
         .row

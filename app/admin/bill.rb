@@ -22,7 +22,7 @@ ActiveAdmin.register Bill do
     column(:amount)
     column(:invoice_type)
     column(:type)
-    column(:state) { |bill| status_tag bill.state }
+    column(:state) { |bill| (bill.state == "paid") ? status_tag(bill.state, :ok) : status_tag(bill.state) }
     column(:payment_code)
     column(:virtual_account)
     column(:paid_at)

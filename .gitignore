@@ -20,6 +20,7 @@
 .env
 .powder
 .foreman
+Procfile.dev
 
 # Simplecov
 /coverage
