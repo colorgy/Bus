@@ -4,12 +4,20 @@ class BillsController < ApplicationController
   def index
     @bills = current_user.bills
     @title = "我的帳單"
+
+    # 用 deleted 來當一個狀態選也太 XDDD
+    @deleted_bills = current_user.bills.deleted
   end
 
   def show
-    @bill = current_user.bills.find(params[:id])
-    @orders = @bill.orders
-    @title = "檢視帳單"
+    @bill = current_user.bills.find_by(id: params[:id])
+    if @bill.nil?
+      flash[:error] = "帳單找不到"
+      redirect_to bills_path
+    else
+      @orders = @bill.orders
+      @title = "檢視帳單"
+    end
   end
 
   def credit_card_callback

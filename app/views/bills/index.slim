@@ -1,13 +1,19 @@
 .container
-	h4= '你的帳單'
-	- if @bills.count == 0
-		.page-sorry-message
-			i.material-icons.large-icon>list
-			p = '您目前沒有帳單'
-			= link_to "前往購買車票", routes_path, class: 'btn btn--large'
-	- else
-	  ul.collection
-	    - @bills.each_with_index do |bill, index|
-	      li.collection-item.dismissable
-	        = link_to "訂單編號 No. #{index+1}", bill_path(bill)
+  h4= '你的帳單'
+  - if @bills.count && @deleted_bills.count == 0
+    .page-sorry-message
+      i.material-icons.large-icon>list
+      p = '您目前沒有帳單'
+      = link_to "前往購買車票", routes_path, class: 'btn btn--large'
+  - else
+    ul.collection
+      - @bills.each_with_index do |bill, index|
+        li.collection-item.dismissable
+          = link_to "訂單編號 No. #{index+1}", bill_path(bill)
 
+  h4 已過期訂單
+
+  ul.collection
+    - @deleted_bills.expired.each_with_index do |bill, index|
+      li.collection-item.dismissable
+        = "訂單編號 No. #{index+1} | $ #{bill.amount}"
