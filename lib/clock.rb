@@ -8,5 +8,5 @@ module Clockwork
     config[:logger] = Rails.logger
   end
 
-  every(10.minutes, 'bill.check_pay') { PendingBillCheckWorker.perform_async }
+  # every(10.minutes, 'bill.check_pay') { PendingBillCheckWorker.perform_async }
 end
