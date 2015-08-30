@@ -1,0 +1,37 @@
+<%= @user.name %> 您好，
+
+感謝您使用了 Colorgy Bus 訂購車票，我們寄出此郵件作為您搭車的憑據。
+
+搭乘資訊如下：
+
+==========================
+
+<% @orders.map(&:schedule).uniq.each do |schedule| %>
+## 班次 <%= schedule.route.short_name %>
+<% rows = [] %>
+<% rows << [schedule.departure_time.strftime('%Y/%m/%d %H:%M'), @orders.where(schedule: schedule).count ] %>
+<% table = Terminal::Table.new :headings => ["時間", "張數"], :rows => rows %>
+<% table.style = {:width => 40, :padding_left => 1} %>
+<%= table.to_s %>
+班次資訊：
+<%= schedule.route.description %>
+
+### 取票人資訊
+繳費代碼：<%= @bill.payment_code %>
+繳費金額：<%= @bill.amount %>
+<%= "已繳費" if @bill.paid? %>
+
+取票人姓名：<%= @order.receiver_name %>
+取票人email：<%= @order.receiver_email %>
+取票人手機：<%= @order.receiver_phone %>
+取票人身份證：<%= "#{@order.receiver_identity_number[0..3]}***#{@order.receiver_identity_number[7..-1]}" %>
+<% end %>
+
+==========================
+
+即憑以上乘車資訊至班車發車地點搭乘。
+
+
+Cheers
+--
+Colorgy

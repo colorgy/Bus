@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <style type="text/css">
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <%= @user.name %> 您好，<br/><br/>
+
+    <p>
+      感謝您使用了 Colorgy Bus 訂購車票，我們寄出此郵件作為您搭車的憑據。<br/><br/>
+
+      搭乘資訊如下：<br/><br/>
+    </p>
+
+    <hr>
+
+    <% @orders.map(&:schedule).uniq.each do |schedule| %>
+    <h4>## 班次 <%= schedule.route.short_name %></h4>
+    <% rows = [] %>
+    <% rows << [schedule.departure_time.strftime('%Y/%m/%d %H:%M'), @orders.where(schedule: schedule).count ] %>
+    <% table = Terminal::Table.new :headings => ["時間", "張數"], :rows => rows %>
+    <% table.style = {:width => 40, :padding_left => 1} %>
+    <pre>
+<%= table.to_s %>
+    </pre>
+    <h5>班次資訊：</h5>
+    <%= schedule.route.description %>
+
+    <br/><br/>
+    <h4>### 取票人資訊</h4>
+    繳費代碼：<%= @bill.payment_code %><br/>
+    繳費金額：<%= @bill.amount %><br/>
+    <%= "已繳費" if @bill.paid? %><br/><br/>
+
+    取票人姓名：<%= @order.receiver_name %><br/>
+    取票人email：<%= @order.receiver_email %><br/>
+    取票人手機：<%= @order.receiver_phone %><br/>
+    取票人身份證：<%= "#{@order.receiver_identity_number[0..3]}***#{@order.receiver_identity_number[7..-1]}" %><br/>
+    <% end %>
+
+    <hr>
+
+    憑以上乘車資訊至班車發車地點搭乘 ：D<br/><br/>
+
+
+    Cheers<br/>
+    --<br/>
+    Colorgy<br/>
+
+  </div>
+</body>
+</html>
+
