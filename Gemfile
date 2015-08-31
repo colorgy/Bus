@@ -76,6 +76,12 @@ gem 'cancancan'
 gem 'draper'
 gem 'pundit'
 
+gem 'terminal-table'
+gem 'mailgun_rails'
+
+gem 'premailer-rails'
+gem 'nokogiri'
+
 group :development do
   gem 'better_errors', '~> 2.0.0'
   gem 'binding_of_caller', '~> 0.7.2'
