@@ -4,6 +4,7 @@
       .payment
         p 付款之後繳款狀態不會立即改變，約十五分鐘後才會變更 :D
         p 有任何問題歡迎私訊 Colorgy 粉絲專頁處裡
+        p 若超過繳費期限，我們會將此訂單清除，若要搭乘請重新下定繳費！
         .under-line-title 付款資訊
         - case @bill.type
           - when 'payment_code'
@@ -12,12 +13,18 @@
                 .inner
                   p 繳費代碼：#{@bill.payment_code}
                   p 繳費金額：#{@bill.amount}
+                  p
+                    | 繳費期限：
+                    = @bill.deadline.strftime('%Y/%m/%d %H:%M')
                   - if @bill.paid?
                     p 已由代碼繳費付款！
           - when 'credit_card'
             .col.m6.s12
               .payment-info
                 .inner
+                  p
+                    | 繳費期限：
+                    = @bill.deadline.strftime('%Y/%m/%d %H:%M')
                   - if @bill.paid?
                     p 已由信用卡完成付款！
                   - else
@@ -28,6 +35,9 @@
                 .inner
                   p 付款帳號：#{@bill.virtual_account}
                   p 繳費金額：#{@bill.amount}
+                  p
+                    | 繳費期限：
+                    = @bill.deadline.strftime('%Y/%m/%d %H:%M')
                   - if @bill.paid?
                     p 已由虛擬帳號付款！
                   - else
