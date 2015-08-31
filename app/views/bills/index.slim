@@ -1,6 +1,6 @@
 .container
   h4= '你的帳單'
-  - if @bills.count && @deleted_bills.count == 0
+  - if @bills.count == 0
     .page-sorry-message
       i.material-icons.large-icon>list
       p = '您目前沒有帳單'
