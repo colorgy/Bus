@@ -21,7 +21,7 @@ class Bill < ActiveRecord::Base
   scope :paid, -> { where(state: 'paid') }
   scope :payment_pending, -> { where(state: 'payment_pending') }
   scope :unpaid, -> { where.not(state: 'paid') }
-  scope :expred, -> { where(state: 'expired') }
+  scope :expired, -> { where(state: 'expired') }
 
   store :data, accessors: [:invoice_code, :invoice_love_code, :invoice_uni_num, :invoice_cert]
 
@@ -45,6 +45,8 @@ class Bill < ActiveRecord::Base
     state :payment_pending, initial: true
     state :paid
     state :expired
+    state :canceled # 整筆帳單取消
+    state :refunded
 
     event :pay do
       transitions :from => :payment_pending, :to => :paid do
@@ -62,6 +64,23 @@ class Bill < ActiveRecord::Base
         end
       end
     end
+
+    event :refund do
+      transitions :from => :paid, :to => :refunded do
+        after do
+          orders.each(&:refund!)
+        end
+      end
+    end
+
+    event :cancel do
+      transitions :from => :paid, :to => :canceled do
+        after do
+          orders.each(&:cancel!)
+        end
+      end
+    end
+
   end # end aasm
 
   class << self
