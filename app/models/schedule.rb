@@ -13,11 +13,11 @@ class Schedule < ActiveRecord::Base
 
   def available?
     # or one schedule have some limited
-    Order.where(schedule: self, vehicle: self.vehicle).count < self.vehicle.seats.count
+    Order.ordered.where(schedule: self, vehicle: self.vehicle).count < self.vehicle.seats.count
   end
 
   def available_seats_count
-    self.vehicle.seats.count - Order.where(schedule: self, vehicle: self.vehicle).count
+    self.vehicle.seats.count - Order.ordered.where(schedule: self, vehicle: self.vehicle).count
   end
 
   def seat_count
@@ -37,7 +37,7 @@ class Schedule < ActiveRecord::Base
   end
 
   def is_faked?
-    self.fake_seats && self.fake_seats_no
+    self.fake_seats.present?
   end
 
 end

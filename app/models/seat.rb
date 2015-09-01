@@ -4,6 +4,6 @@ class Seat < ActiveRecord::Base
   has_many :cart_items, class_name: 'UserCartItem'
 
   def can_order? user: nil, schedule: nil
-    Order.find_by(seat: self, schedule: schedule).nil? && user
+    user && Order.where(seat: self, schedule: schedule).ordered.empty?
   end
 end

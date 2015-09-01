@@ -1,10 +1,15 @@
 FactoryGirl.define do
   factory :order do
-    user_id 1
-price 1
-schedule_id 1
-bill_id 1
-state "MyString"
+    user { create(:user) }
+    price { 2000 }
+    schedule { create(:schedule) }
+    bill { create(:bill) }
+    vehicle { create(:vehicle) }
+    seat_no { vehicle.seats.sample.seat_no }
+    receiver_name { Faker::Name.name }
+    receiver_email { user.email }
+    receiver_phone { Faker::PhoneNumber.cell_phone }
+    receiver_identity_number { Faker::Code.ean }
   end
 
 end

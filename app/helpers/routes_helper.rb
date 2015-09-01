@@ -13,7 +13,7 @@ module RoutesHelper
     else
       seat_count = schedule.is_faked? ? schedule.fake_seats_no : schedule.available_seats_count
       if !user.nil? && schedule.is_faked?
-        seat_count -= user.orders.where(schedule: schedule).count
+        seat_count -= user.orders.ordered.where(schedule: schedule).count
         seat_count = 0 if seat_count < 0
       end
       "還剩 #{seat_count} 位"
