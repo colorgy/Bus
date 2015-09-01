@@ -45,6 +45,8 @@ class Bill < ActiveRecord::Base
     state :payment_pending, initial: true
     state :paid
     state :expired
+    state :cancelled # 整筆帳單取消
+    state :refunded
 
     event :pay do
       transitions :from => :payment_pending, :to => :paid do
@@ -62,6 +64,23 @@ class Bill < ActiveRecord::Base
         end
       end
     end
+
+    event :refund do
+      transitions :from => :paid, :to => :refunded do
+        after do
+          orders.each(&:refund!)
+        end
+      end
+    end
+
+    event :cancel do
+      transitions :from => :paid, :to => :refunded do
+        after do
+          orders.each(&:cancel!)
+        end
+      end
+    end
+
   end # end aasm
 
   class << self

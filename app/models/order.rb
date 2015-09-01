@@ -23,6 +23,7 @@ class Order < ActiveRecord::Base
     state :paid  # paid, but can be refund automatically
     state :ready  # order processing, cannot be refund automatically
     state :cancelled  # the order has been cancelled and refunded (if paid)
+    state :refunded
 
     event :bill_created do
       transitions :from => :new, :to => :payment_pending
@@ -43,6 +44,15 @@ class Order < ActiveRecord::Base
       transitions :from => :payment_pending, :to => :expired
       transitions :from => :new, :to => :expired
       transitions :from => :expired, :to => :expired
+    end
+
+    event :refund do
+      transitions :from => :paid, :to => :refunded
+    end
+
+    event :cancel do
+      transitions :from => :paid, :to => :canceled
+      transitions :from => :payment_pending, :to => :canceled
     end
 
   end # end aasm
