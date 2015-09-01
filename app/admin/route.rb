@@ -52,6 +52,7 @@ ActiveAdmin.register Route do
 
   show do
     attributes_table do
+      row(:id)
       row(:origin)
       row(:destination)
       row(:direction)
@@ -68,6 +69,7 @@ ActiveAdmin.register Route do
     route.subroutes.each do |subroute|
       panel "#{subroute.short_name}" do
         attributes_table_for subroute do
+          row :id
           row :origin
           row :destination
           row :direction
@@ -82,6 +84,7 @@ ActiveAdmin.register Route do
 
         panel '時程' do
           table_for subroute.schedules do
+            column :id
             column :departure_time
             column :contact
             column :vehicle_id
@@ -99,6 +102,10 @@ ActiveAdmin.register Route do
 
   form do |f|
     f.inputs '路線資料' do
+      li 'class': 'string input optional stringish' do
+        label "ID", 'class': 'label'
+        para "#{f.object.id}"
+      end
       f.input :origin
       f.input :destination
       f.input :parent_id, as: :select, collection: Route.root.reject{|r| r == @resource}.map {|rout| [rout.short_name, rout.id] }
