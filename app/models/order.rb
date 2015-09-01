@@ -32,7 +32,7 @@ class Order < ActiveRecord::Base
     # end
 
     event :pay do
-      transitions :from => :new, :to => :paid
+      # transitions :from => :new, :to => :paid
       transitions :from => :payment_pending, :to => :paid
     end
 
@@ -43,7 +43,7 @@ class Order < ActiveRecord::Base
 
     event :expire do
       transitions :from => :payment_pending, :to => :expired
-      transitions :from => :new, :to => :expired
+      # transitions :from => :new, :to => :expired
       transitions :from => :expired, :to => :expired
     end
 

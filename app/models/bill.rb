@@ -79,6 +79,12 @@ class Bill < ActiveRecord::Base
           orders.each(&:cancel!)
         end
       end
+
+      transitions :from => :payment_pending, :to => :canceled do
+        after do
+          orders.each(&:cancel!)
+        end
+      end
     end
 
   end # end aasm
