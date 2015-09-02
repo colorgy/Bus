@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150901135904) do
+ActiveRecord::Schema.define(version: 20150902080846) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 20150901135904) do
     t.string   "uuid",                        null: false
     t.string   "type",                        null: false
     t.string   "virtual_account"
+    t.integer  "orders_count"
   end
 
   add_index "bills", ["deleted_at"], name: "index_bills_on_deleted_at"

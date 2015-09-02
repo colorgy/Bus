@@ -6,7 +6,7 @@ class Order < ActiveRecord::Base
 
   belongs_to :schedule
   belongs_to :user
-  belongs_to :bill
+  belongs_to :bill, counter_cache: true
   belongs_to :vehicle
   belongs_to :seat, foreign_key: :seat_no, primary_key: :seat_no
 
