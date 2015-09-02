@@ -40,4 +40,8 @@ class Schedule < ActiveRecord::Base
     self.fake_seats.present?
   end
 
+  def formatted_departure_time
+    self.departure_time.strftime('%Y/%m/%d %H:%M')
+  end
+
 end
