@@ -37,7 +37,7 @@ class Bill < ActiveRecord::Base
   validates :state, presence: true
   validates :deadline, presence: true
 
-  after_initialize :init_uuid, :set_deadline #, :expire_if_deadline_passed
+  after_initialize :init_uuid, :set_deadline # , :expire_if_deadline_passed
   before_create :get_payment_info
 
   # aasm borrow from Colorg Book
@@ -142,7 +142,7 @@ class Bill < ActiveRecord::Base
   end
 
   def expire_if_deadline_passed
-    self.expire! if may_expire? && deadline.present? && Time.now > deadline + PAYMENT_DEADLINE_ADJ
+    self.expire! if may_expire? && deadline.present? && Time.now > deadline
   end
 
   # 偷懶用
