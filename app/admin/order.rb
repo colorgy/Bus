@@ -19,7 +19,7 @@ ActiveAdmin.register Order do
     column(:user)
     column(:price)
 
-    column('Route') do |order|
+    column('Route', sortable: 'routes') do |order|
       if order.schedule && order.schedule.route
         a order.schedule.route.short_name, href: admin_route_path(order.schedule.route.parent)
       else
