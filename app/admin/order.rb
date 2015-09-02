@@ -19,9 +19,15 @@ ActiveAdmin.register Order do
     column(:user)
     column(:price)
 
-    column('Route') { |order| a order.schedule.route.short_name, href: admin_route_path(order.schedule.route.parent) }
+    column('Route') do |order|
+      if order.schedule && order.schedule.route
+        a order.schedule.route.short_name, href: admin_route_path(order.schedule.route.parent)
+      else
+        "null route"
+      end
+    end
 
-    column('Schedule') {|order| order.schedule.formatted_departure_time }
+    column('Schedule') {|order| order.schedule.present? ? order.schedule.formatted_departure_time : "null schedule" }
     column(:bill) { |order| a order.bill.id, href: admin_bill_path(order.bill) }
     column(:seat_no)
     column(:state) do |order|
@@ -36,6 +42,7 @@ ActiveAdmin.register Order do
     end
     column(:created_at)
     column(:updated_at)
+    actions
   end
 
 end
