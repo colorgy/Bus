@@ -199,10 +199,6 @@ GEM
     lumberjack (1.0.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    mailgun_rails (0.7.0)
-      actionmailer (>= 3.2.13)
-      json (>= 1.7.7)
-      rest-client (>= 1.6.7)
     materialize-sass (0.97.0)
       sass (~> 3.3)
     meta_request (0.3.4)
@@ -461,7 +457,6 @@ DEPENDENCIES
   just-datetime-picker
   kaminari
   letter_opener
-  mailgun_rails
   materialize-sass
   meta_request
   newrelic_rpm
