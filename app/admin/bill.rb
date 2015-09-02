@@ -7,6 +7,12 @@ ActiveAdmin.register Bill do
   scope :unpaid
   scope :expired
 
+  controller do
+    def scoped_collection
+      super.includes :user
+    end
+  end
+
   index do
     selectable_column
     column(:id)
