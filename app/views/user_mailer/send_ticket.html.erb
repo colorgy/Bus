@@ -204,7 +204,7 @@ ul li, ol li {
                       <tr>
                         <td><h4>班次資訊</h4></td>
                         <td class="right-td">
-                          <%= schedule.route.description %>
+                          <%= schedule.route.description.gsub("<br>", ' ') %>
                         </td>
                       </tr>
                     </table>
