@@ -77,7 +77,6 @@ gem 'draper'
 gem 'pundit'
 
 gem 'terminal-table'
-gem 'mailgun_rails'
 
 gem 'premailer-rails'
 gem 'nokogiri'
