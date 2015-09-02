@@ -6,7 +6,7 @@ class Order < ActiveRecord::Base
 
   belongs_to :schedule
   belongs_to :user
-  belongs_to :bill
+  belongs_to :bill, counter_cache: true
   belongs_to :vehicle
   belongs_to :seat, foreign_key: :seat_no, primary_key: :seat_no
 
@@ -16,6 +16,10 @@ class Order < ActiveRecord::Base
   validates_uniqueness_of :seat_no, scope: [:schedule_id, :bill_id, :vehicle_id], conditions: -> { where('state = ? OR state = ?', "payment_pending", "paid") }
 
   scope :ordered, -> { where('state = ? OR state = ?', "payment_pending", "paid") }
+  scope :paid, -> { where(state: "paid") }
+  scope :canceled, -> { where(state: "canceled") }
+  scope :refunded, -> { where(state: "refunded") }
+  scope :expired, -> { where(state: "expired") }
 
   # borrow codes from Colorgy Book
   aasm column: :state do

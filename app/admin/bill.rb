@@ -1,32 +1,35 @@
 ActiveAdmin.register Bill do
   menu priority: 119, label: '帳單'
 
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # permit_params :list, :of, :attributes, :on, :model
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:permitted, :attributes]
-  #   permitted << :other if resource.something?
-  #   permitted
-  # end
+  scope :all, default: true
+  scope :paid
+  scope :payment_pending
+  scope :unpaid
+  scope :expired
 
   index do
     selectable_column
+    column(:id)
     column(:uuid)
     column(:user_id) { |bill| a bill.user.name, href: admin_user_path(bill.user) }
     column(:price)
     column(:amount)
     column(:invoice_type)
     column(:type)
-    column(:state) { |bill| (bill.state == "paid") ? status_tag(bill.state, :ok) : status_tag(bill.state) }
+    column(:state) do |bill|
+      tag = nil
+      case bill.state
+      when "paid"
+        tag = :ok
+      when "payment_pending"
+        tag = :warning
+      end
+      tag.nil? ? status_tag(bill.state) : status_tag(bill.state, tag)
+    end
+    column(:quantity) { |bill| bill.orders_count }
     column(:payment_code)
     column(:virtual_account)
     column(:paid_at)
-    column(:used_credits)
     column(:deadline)
     column(:created_at)
     column(:updated_at)
