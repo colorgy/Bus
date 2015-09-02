@@ -7,11 +7,21 @@ ActiveAdmin.register Order do
   scope :refunded
   scope :expired
 
+  controller do
+    def scoped_collection
+      super.includes({schedule: {route: :parent} }, :bill)
+    end
+  end
+
   index do
     selectable_column
+    column(:id)
     column(:user)
     column(:price)
-    column(:schedule) {|order| order.schedule.formatted_departure_time }
+
+    column('Route') { |order| a order.schedule.route.short_name, href: admin_route_path(order.schedule.route.parent) }
+
+    column('Schedule') {|order| order.schedule.formatted_departure_time }
     column(:bill) { |order| a order.bill.id, href: admin_bill_path(order.bill) }
     column(:seat_no)
     column(:state) do |order|
@@ -26,7 +36,6 @@ ActiveAdmin.register Order do
     end
     column(:created_at)
     column(:updated_at)
-    column(:deleted_at)
   end
 
 end
