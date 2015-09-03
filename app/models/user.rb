@@ -127,6 +127,8 @@ class User < ActiveRecord::Base
         bill.amount = total_price
       end
 
+      bill.check_deadline(orders)
+
       bill.save!
       orders.each{|order| order.bill = bill; order.save!}
       clear_cart!

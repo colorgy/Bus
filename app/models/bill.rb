@@ -165,6 +165,14 @@ class Bill < ActiveRecord::Base
     nil
   end
 
+  def check_deadline orders
+    # early deadline first
+    dep_time = orders.map{|ord| ord.schedule.departure_time }.min
+    if dep_time &&  self.deadline > dep_time
+      self.deadline = Time.new(dep_time.year, dep_time.month, dep_time.day, 23, 59, 59) - 1.day
+    end
+  end
+
   private
 
   # Initialize the uuid on creation
