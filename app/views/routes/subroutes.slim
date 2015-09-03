@@ -14,7 +14,7 @@
             .route-item-inner
               h5.route-display-name
                 i.material-icons> directions_bus
-                = link_to route.short_name, routes_path(root_route: route.id)
+                = link_to route.display_name, routes_path(root_route: route.id)
               div style="text-align: left;"
                 h5.route-price
                   = "票價 NT$ #{route.price} "

@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: ENV['MAILER_SENDER']
+  default from: ['"', ENV['MAILER_NAME'], '"', " <#{ENV['MAILER_SENDER']}>"].join
 
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
