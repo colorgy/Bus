@@ -2,7 +2,8 @@ ActiveAdmin.register Route do
 
   menu label: '路線'
 
-  scope :root
+  scope :all
+  scope :root, default: true
   scope :not_root
 
   permit_params :origin, :destination, :direction, :price, :description, :announcement, :route_map_url, :_destroy, :id, :parent_id, :is_available, :hidden, :fake_full,

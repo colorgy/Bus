@@ -1,6 +1,6 @@
 ActiveAdmin.register Vehicle do
 
-  menu label: '車車'
+  menu label: '客運'
 
   permit_params :capacity, :description, :seat_info_string,
                 :registration_number, :name, :_destroy, :id,
