@@ -34,6 +34,11 @@ module Bus
     # add active admin assets to precompile list, loaded from vendor/assets
     config.assets.precompile += %w( active_admin.js active_admin.css.scss )
 
+    # config sidekiq for active job
+    config.active_job.queue_adapter = :sidekiq
+
+    config.action_mailer.default_url_options = { host: ENV['APP_URL'] }
+
     case ENV['LOGGER']
     when 'stdout'
       require 'rails_stdout_logging/rails'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150822143154) do
+ActiveRecord::Schema.define(version: 20150902080846) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 20150822143154) do
     t.string   "uuid",                        null: false
     t.string   "type",                        null: false
     t.string   "virtual_account"
+    t.integer  "orders_count"
   end
 
   add_index "bills", ["deleted_at"], name: "index_bills_on_deleted_at"
@@ -89,7 +90,6 @@ ActiveRecord::Schema.define(version: 20150822143154) do
   end
 
   add_index "orders", ["deleted_at"], name: "index_orders_on_deleted_at"
-  add_index "orders", ["schedule_id", "bill_id", "vehicle_id", "seat_no"], name: "order_uniq_id", unique: true
 
   create_table "route_requests", force: :cascade do |t|
     t.string   "name",                null: false
@@ -122,12 +122,17 @@ ActiveRecord::Schema.define(version: 20150822143154) do
   end
 
   create_table "schedules", force: :cascade do |t|
-    t.datetime "departure_time", null: false
+    t.datetime "departure_time",                 null: false
     t.integer  "route_id"
     t.string   "contact"
     t.integer  "vehicle_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.boolean  "available",      default: false
+    t.boolean  "hidden",         default: false
+    t.boolean  "fake_full",      default: false
+    t.boolean  "fake_seats",     default: false
+    t.integer  "fake_seats_no"
   end
 
   create_table "seats", force: :cascade do |t|

@@ -7,9 +7,14 @@ class BillsController < ApplicationController
   end
 
   def show
-    @bill = current_user.bills.find(params[:id])
-    @orders = @bill.orders
-    @title = "檢視帳單"
+    @bill = current_user.bills.find_by(id: params[:id])
+    if @bill.nil?
+      flash[:error] = "帳單找不到"
+      redirect_to bills_path
+    else
+      @orders = @bill.orders
+      @title = "檢視帳單"
+    end
   end
 
   def credit_card_callback

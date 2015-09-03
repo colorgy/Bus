@@ -24,6 +24,9 @@ class CartItemsController < ApplicationController
       if total_count > 3
         flash[:error] = "一人限買三張車票"
         redirect_to :back
+      elsif !schedule.is_available?
+        flash[:error] = "此班次不可取得"
+        redirect_to :back
       else
 
         begin

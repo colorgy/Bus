@@ -409,7 +409,8 @@ span.hot-label {
 	padding-bottom: 32px;
 	position: relative;
 	//background-image: image-url('beach.jpg');
-	margin: 0 0 24px 0;
+	// margin: 0 0 24px 0;
+  margin: .5em;
 
 	> .route-item-bg{
 		position: absolute;

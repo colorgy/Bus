@@ -2,7 +2,8 @@ ActiveAdmin.register Route do
 
   menu label: '路線'
 
-  scope :root
+  scope :all
+  scope :root, default: true
   scope :not_root
 
   permit_params :origin, :destination, :direction, :price, :description, :announcement, :route_map_url, :_destroy, :id, :parent_id, :is_available, :hidden, :fake_full,
@@ -27,6 +28,11 @@ ActiveAdmin.register Route do
         :contact,
         :vehicle_id,
         :_destroy,
+        :hidden,
+        :available,
+        :fake_full,
+        :fake_seats,
+        :fake_seats_no,
         :id,
       ]
     ]
@@ -47,6 +53,7 @@ ActiveAdmin.register Route do
 
   show do
     attributes_table do
+      row(:id)
       row(:origin)
       row(:destination)
       row(:direction)
@@ -63,6 +70,7 @@ ActiveAdmin.register Route do
     route.subroutes.each do |subroute|
       panel "#{subroute.short_name}" do
         attributes_table_for subroute do
+          row :id
           row :origin
           row :destination
           row :direction
@@ -77,18 +85,28 @@ ActiveAdmin.register Route do
 
         panel '時程' do
           table_for subroute.schedules do
+            column :id
             column :departure_time
             column :contact
             column :vehicle_id
+            column :fake_full
+            column :hidden
+            column :available
+            column :fake_seats
+            column :fake_seats_no
             #
           end
-        end
-      end
-    end
-  end
+        end # end schedule panel
+      end # end subroute show panel
+    end # each subroute
+  end # end show
 
   form do |f|
     f.inputs '路線資料' do
+      li 'class': 'string input optional stringish' do
+        label "ID", 'class': 'label'
+        para "#{f.object.id}"
+      end
       f.input :origin
       f.input :destination
       f.input :parent_id, as: :select, collection: Route.root.reject{|r| r == @resource}.map {|rout| [rout.short_name, rout.id] }
@@ -119,10 +137,14 @@ ActiveAdmin.register Route do
           schedule.input :departure_time
           schedule.input :contact
           schedule.input :vehicle_id, as: :select, collection: Vehicle.all.map{|veh| ["#{veh.id}. #{veh.registration_number}, #{veh.name}:#{veh.capacity}", veh.id]}
+          schedule.input :hidden
+          schedule.input :available
+          schedule.input :fake_full
+          schedule.input :fake_seats
+          schedule.input :fake_seats_no
         end
-
-      end
-    end
+      end # end f.has_many subroutes
+    end # end panel subroute
 
     f.actions
   end # end form

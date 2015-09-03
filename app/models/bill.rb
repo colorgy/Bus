@@ -21,6 +21,7 @@ class Bill < ActiveRecord::Base
   scope :paid, -> { where(state: 'paid') }
   scope :payment_pending, -> { where(state: 'payment_pending') }
   scope :unpaid, -> { where.not(state: 'paid') }
+  scope :expired, -> { where(state: 'expired') }
 
   store :data, accessors: [:invoice_code, :invoice_love_code, :invoice_uni_num, :invoice_cert]
 
@@ -36,7 +37,7 @@ class Bill < ActiveRecord::Base
   validates :state, presence: true
   validates :deadline, presence: true
 
-  after_initialize :init_uuid, :set_deadline #, :expire_if_deadline_passed
+  after_initialize :init_uuid, :set_deadline # , :expire_if_deadline_passed
   before_create :get_payment_info
 
   # aasm borrow from Colorg Book
@@ -44,6 +45,8 @@ class Bill < ActiveRecord::Base
     state :payment_pending, initial: true
     state :paid
     state :expired
+    state :canceled # 整筆帳單取消
+    state :refunded
 
     event :pay do
       transitions :from => :payment_pending, :to => :paid do
@@ -61,6 +64,29 @@ class Bill < ActiveRecord::Base
         end
       end
     end
+
+    event :refund do
+      transitions :from => :paid, :to => :refunded do
+        after do
+          orders.each(&:refund!)
+        end
+      end
+    end
+
+    event :cancel do
+      transitions :from => :paid, :to => :canceled do
+        after do
+          orders.each(&:cancel!)
+        end
+      end
+
+      transitions :from => :payment_pending, :to => :canceled do
+        after do
+          orders.each(&:cancel!)
+        end
+      end
+    end
+
   end # end aasm
 
   class << self
@@ -105,7 +131,7 @@ class Bill < ActiveRecord::Base
   def pay_if_paid!
     case type
     when 'payment_code'
-      pay! if NewebPayService.reget_payment_code(uuid, amount)
+      pay! if NewebPayService.reget_payment_code(uuid, amount) == true
 
     when 'virtual_account'
       pay! if SinoPacService.virtual_account_paid?(uuid)
@@ -113,6 +139,30 @@ class Bill < ActiveRecord::Base
     when 'credit_card'
       pay! if SinoPacService.credit_card_paid?(uuid)
     end
+  end
+
+  def expire_if_deadline_passed
+    self.expire! if may_expire? && deadline.present? && Time.now > deadline
+  end
+
+  # 偷懶用
+  def regenearte_payment_code
+    if self.type == 'payment_code' && (self.state == 'payment_pending' || self.state == 'expired')
+      self.uuid = "ba#{SecureRandom.uuid[2..28]}"
+      self.deadline = Time.now + PAYMENT_DEADLINE_ADJ
+
+      orders.each { |ord| ord.state = "payment_pending"; ord.save! }
+
+      self.save!
+      reload
+
+      get_payment_info
+
+      self.save!
+
+      return self.payment_code
+    end
+    nil
   end
 
   private
@@ -124,6 +174,6 @@ class Bill < ActiveRecord::Base
   end
 
   def set_deadline
-    self.deadline = Time.now + PAYMENT_DEADLINE_ADJ
+    self.deadline ||= Time.now + PAYMENT_DEADLINE_ADJ if self.new_record?
   end
 end

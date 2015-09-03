@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   resources 'requests', controller: :route_requests
 
   get '/pay/credit_card/callback' => 'bills#credit_card_callback'
+
+  get '/tasks/check_bill' => 'tasks#pending_bill_check_task'
   # get '/user-agreement' => 'orders#agreement', as: :user_agreement
 
   # post '/update_cart' => 'cart_items#update_cart', as: :update_cart
