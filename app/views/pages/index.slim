@@ -10,21 +10,14 @@ header
     = link_to "搶先體驗", user_omniauth_authorize_path(:colorgy), :class=>'btn btn--large'
     /! <p><div class="fb-page" data-href="https://www.facebook.com/pages/Colorgy/1529686803975150" data-small-header="true" data-adapt-container-width="true" data-hide-cover="true" data-show-facepile="true" data-show-posts="false"></div></p
   .row.row-inner-s style=("margin-top: 48px;")
-    .col.m4.s12
-      .service
-        i.material-icons directions_bus
-        p 直達學校
-        small 厭倦轉車嗎？直達學校替你省時間！
-    .col.m4.s12
-      .service
-        i.material-icons face
-        p 一車都是學生
-        small 同校同鄉同車，順便讓你交朋友！
-    .col.m4.s12
-      .service
-        i.material-icons attach_money
-        p 學生優惠
-        small 超級優惠的學生價，幫你省錢。
+    .col.m3.s12 style="padding: 0 4px; position: relative;"
+      = image_tag ('landing-page/price-1.jpg')
+    .col.m3.s12 style="padding: 0 4px; position: relative;"
+      = image_tag ('landing-page/price-2.jpg')
+    .col.m3.s12 style="padding: 0 4px; position: relative;"
+      = image_tag ('landing-page/price-3.jpg')
+    .col.m3.s12 style="padding: 0 4px; position: relative;"
+      = image_tag ('landing-page/price-4.jpg')
   .arrow-down
     / i.material-icons keyboard_arrow_down
     i.material-icons style=("margin-top: -20px;")  keyboard_arrow_down
