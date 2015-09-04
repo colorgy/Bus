@@ -6,6 +6,24 @@ ActiveAdmin.register Bill do
   scope :payment_pending
   scope :unpaid
   scope :expired
+  scope :only_deleted
+
+  filter(:id)
+  filter(:uuid)
+  filter(:user_id)
+  filter(:price)
+  filter(:amount)
+  filter(:state)
+  filter(:payment_code)
+  filter(:invoice_type)
+  filter(:type)
+  filter(:virtual_account)
+  filter(:orders_count)
+  filter(:deadline)
+  filter(:paid_at)
+  filter(:created_at)
+  filter(:updated_at)
+  filter(:mail_sent_at)
 
   controller do
     def scoped_collection

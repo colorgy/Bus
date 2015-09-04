@@ -6,6 +6,23 @@ ActiveAdmin.register Order do
   scope :canceled
   scope :refunded
   scope :expired
+  scope :only_deleted
+
+  filter(:id)
+  filter(:user_id)
+  filter(:price)
+  filter(:schedule_id)
+  filter(:bill_id)
+  filter(:vehicle_id)
+  filter(:seat_no)
+  filter(:state)
+  filter(:receiver_name)
+  filter(:receiver_email)
+  filter(:receiver_phone)
+  filter(:receiver_identity_number)
+  filter(:created_at)
+  filter(:updated_at)
+  filter(:deleted_at)
 
   controller do
     def scoped_collection
