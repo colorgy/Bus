@@ -38,7 +38,6 @@ ActiveAdmin.register Bill do
     column(:user_id) { |bill| a bill.user.name, href: admin_user_path(bill.user) }
     column(:price)
     column(:amount)
-    column(:invoice_type)
     column(:type)
     column(:state) do |bill|
       tag = nil
@@ -50,6 +49,7 @@ ActiveAdmin.register Bill do
       end
       tag.nil? ? status_tag(bill.state) : status_tag(bill.state, tag)
     end
+    column('Mail Sent') { |bill| bill.mail_sent_at.present? ? status_tag('是', :ok) : status_tag('否') }
     column(:quantity) { |bill| bill.orders_count }
     column(:payment_code)
     column(:virtual_account)
