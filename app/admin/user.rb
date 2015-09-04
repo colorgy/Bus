@@ -18,15 +18,29 @@ ActiveAdmin.register User do
     permitted = [:email, :username, :name, :avatar_url, :cover_photo_url, :gender, :fbid, :uid, :identity, :organization_code, :department_code]
   end
 
+
+  filter(:email)
+  filter(:username)
+  filter(:name)
+  filter(:cover_photo_url)
+  filter(:gender)
+  filter(:fbid)
+  filter(:uid)
+  filter(:identity)
+  filter(:organization_code)
+  filter(:department_code)
+
   index do
     selectable_column
-    id_column
-    column :email
-    column :name
-    column :username
-    column :current_sign_in_at
-    column :sign_in_count
-    column :created_at
+
+    column(:id)
+    column('fbid'){ |user| a user.fbid, href: "https://facebook.com/#{user.fbid}" }
+    column(:email)
+    column(:name)
+    column(:current_sign_in_at)
+    column(:sign_in_count)
+    column(:created_at)
+
     actions
   end
 
