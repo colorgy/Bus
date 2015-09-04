@@ -6,12 +6,14 @@ class UserMailer < ActionMailer::Base
   #
   #   en.user_mailer.send_ticket.subject
   #
-  def send_ticket(user, bill)
+  def send_ticket(user, bill, mail_address=nil)
     @user = user
     @bill = bill
     @orders = bill.orders
     @order = @orders.first
 
-    mail to: user.email
+    email_address = mail_address || @order.receiver_email || user.email
+
+    mail to: email_address
   end
 end

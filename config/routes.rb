@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get '/pay/credit_card/callback' => 'bills#credit_card_callback'
 
   get '/tasks/check_bill' => 'tasks#pending_bill_check_task'
+  get '/tasks/bill_export' => 'tasks#bill_export', as: :bill_export
   # get '/user-agreement' => 'orders#agreement', as: :user_agreement
 
   # post '/update_cart' => 'cart_items#update_cart', as: :update_cart

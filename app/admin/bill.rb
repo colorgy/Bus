@@ -25,6 +25,10 @@ ActiveAdmin.register Bill do
   filter(:updated_at)
   filter(:mail_sent_at)
 
+  action_item only:[:index] do
+    link_to "匯出帳單", bill_export_path
+  end
+
   controller do
     def scoped_collection
       super.includes :user
