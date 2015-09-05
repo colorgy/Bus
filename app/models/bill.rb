@@ -169,7 +169,7 @@ class Bill < ActiveRecord::Base
     # early deadline first
     dep_time = orders.map{|ord| ord.schedule.departure_time }.min
     if dep_time &&  self.deadline > dep_time
-      self.deadline = Time.new(dep_time.year, dep_time.month, dep_time.day, 23, 59, 59, "+08:00") - 1.day
+      self.deadline = Time.new(dep_time.year, dep_time.month, dep_time.day, 19, 59, 59, "+08:00") - 1.day
     end
   end
 
