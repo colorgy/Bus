@@ -32,12 +32,13 @@ ActiveAdmin.register Order do
 
   index do
     selectable_column
-    column(:id)
+
+    id_column
     column(:user)
     column(:price)
 
     column('Route', sortable: 'routes') do |order|
-      if order.schedule && order.schedule.route
+      if order.schedule.present? && order.schedule.route.present?
         a order.schedule.route.short_name, href: admin_route_path(order.schedule.route.parent)
       else
         "null route"
@@ -45,7 +46,7 @@ ActiveAdmin.register Order do
     end
 
     column('Schedule') {|order| order.schedule.present? ? order.schedule.formatted_departure_time : "null schedule" }
-    column(:bill) { |order| a order.bill.id, href: admin_bill_path(order.bill) }
+    column(:bill) { |order| a order.bill_id, href: admin_bill_path(order.bill_id) }
     column(:seat_no)
     column(:state) do |order|
       tag = nil

@@ -37,8 +37,9 @@ ActiveAdmin.register Bill do
 
   index do
     selectable_column
-    column(:id)
-    column(:uuid)
+
+    id_column
+    # column(:uuid)
     column(:user_id) { |bill| a bill.user.name, href: admin_user_path(bill.user) }
     column(:price)
     column(:amount)
@@ -61,6 +62,7 @@ ActiveAdmin.register Bill do
     column(:deadline)
     column(:created_at)
     column(:updated_at)
+
     actions
   end
 end
