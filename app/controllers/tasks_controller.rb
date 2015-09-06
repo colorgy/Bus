@@ -8,6 +8,15 @@ class TasksController < ApplicationController
       Bill.payment_pending.find_each do |bill|
         bill.pay_if_paid!
         bill.expire_if_deadline_passed
+
+        if bill.paid?
+          UserMailer.delay.send_ticket(bill.user, bill)
+          UserMailer.delay.send_ticket(bill.user, bill, ENV['REPORT_MAIL'])
+          bill.mail_sent_at = Time.now
+          bill.save!
+        elsif bill.expired?
+          # pending: expiration email
+        end
       end
       render json: "Task done."
     else
