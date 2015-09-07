@@ -1,0 +1,11 @@
+<%= @user.name %> 您好，
+
+收到此信，代表您於 <%= @bill.created_at.strftime('%Y/%m/%d %H:%M') %> 時，購買由 <%= @bill.orders.first.schedule.route.display_name %>，於 <%= @bill.orders.first.schedule.formatted_departure_time %> 發車之班次，此訂購票卷之繳費期限已過！
+
+若要搭乘，請於 Colorgy Bus(https://bus.colorgy.io) 網站再次下定，並於繳費期限內繳費即可 ：D
+若有任何問題，歡迎直接回信，或是私訊 Colorgy 粉絲專頁處理
+
+
+Cheers
+--
+Colorgy

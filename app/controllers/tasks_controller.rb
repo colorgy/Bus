@@ -15,7 +15,9 @@ class TasksController < ApplicationController
           bill.mail_sent_at = Time.now
           bill.save!
         elsif bill.expired?
-          # pending: expiration email
+          UserMailer.delay.notify_expired(bill.user, bill)
+          bill.mail_sent_at = Time.now
+          bill.save!
         end
       end
       render json: "Task done."
