@@ -42,7 +42,7 @@ class User < ActiveRecord::Base
     reload
   end
 
-  def checkout bill_attrs={}, order_attrs={}
+  def checkout bill_attrs={}
     return { dup_orders: [], orders: [] } if cart_items.blank?
 
     orders = []
@@ -56,11 +56,6 @@ class User < ActiveRecord::Base
         price: item.price,
         schedule: item.schedule,
         vehicle: item.schedule.vehicle,
-        # seat_no: item.seat.seat_no,
-        receiver_name: order_attrs[:receiver_name] && empty_to_nil(order_attrs[:receiver_name]),
-        receiver_email: order_attrs[:receiver_email] && empty_to_nil(order_attrs[:receiver_email]),
-        receiver_phone: order_attrs[:receiver_phone] && empty_to_nil(order_attrs[:receiver_phone]),
-        receiver_identity_number: order_attrs[:receiver_identity_number] && empty_to_nil(order_attrs[:receiver_identity_number])
       )
       total_price += item.price
       orders << order
@@ -80,7 +75,7 @@ class User < ActiveRecord::Base
     { orders: orders, total_price: total_price, bill: bill }
   end
 
-  def checkout! bill_attrs={}, order_attrs={}
+  def checkout! bill_attrs={}
 
     orders = []
     total_price = 0
@@ -89,28 +84,20 @@ class User < ActiveRecord::Base
     transaction do
       bill = self.bills.build(bill_attrs)
 
-      order_params = {
-        bill: bill,
-        # seat_no: item.seat.seat_no,
-        receiver_name: order_attrs[:receiver_name] && empty_to_nil(order_attrs[:receiver_name]),
-        receiver_email: order_attrs[:receiver_email] && empty_to_nil(order_attrs[:receiver_email]),
-        receiver_phone: order_attrs[:receiver_phone] && empty_to_nil(order_attrs[:receiver_phone]),
-        receiver_identity_number: order_attrs[:receiver_identity_number] && empty_to_nil(order_attrs[:receiver_identity_number])
-      }
-
       cart_items.each do |item, index|
-        available_seats = item.schedule.vehicle.seats.select{|st| st.can_order?(user: self, schedule: item.schedule)}.map(&:seat_no)
+        available_seats_no = item.schedule.vehicle.seats.select{|st| st.can_order?(user: self, schedule: item.schedule)}.map(&:seat_no)
 
-        raise StandardError if item.quantity > available_seats.count
+        raise StandardError if item.quantity > available_seats_no.count
 
-        random_seats = available_seats.sample(item.quantity)
-        random_seats.each do |seat_no|
-          order = self.orders.create!(order_params.merge({
+        random_seats_no = available_seats_no.sample(item.quantity)
+        random_seats_no.each do |seat_no|
+          order = self.orders.create!(
+            bill: bill,
             seat_no: seat_no,
             price: item.price,
             schedule: item.schedule,
             vehicle: item.schedule.vehicle,
-          }))
+          )
           total_price += item.price
           orders << order
         end
@@ -127,13 +114,14 @@ class User < ActiveRecord::Base
         bill.amount = total_price
       end
 
+      # setup bill deadlin
       bill.check_deadline(orders)
-
       bill.save!
+
       orders.each{|order| order.bill = bill; order.save!}
+
       clear_cart!
     end
-
 
     { orders: orders, total_price: total_price, bill: bill }
   end

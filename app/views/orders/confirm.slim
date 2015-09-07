@@ -24,15 +24,15 @@
             input type="hidden" name="schedule[#{cart_item.schedule_id}]" min="0" max="3" value="#{cart_item.quantity}"
 
       .row.oder-confirm-info
-        .col.s12= "取票人 - 姓名：#{@order.receiver_name}"
-        .col.s12= "取票人 - email：#{@order.receiver_email}"
-        .col.s12= "取票人 - 手機：#{@order.receiver_phone}"
-        .col.s12= "取票人 - 身份證字號：#{@order.receiver_identity_number}"
+        .col.s12= "取票人 - 姓名：#{@bill.receiver_name}"
+        .col.s12= "取票人 - email：#{@bill.receiver_email}"
+        .col.s12= "取票人 - 手機：#{@bill.receiver_phone}"
+        .col.s12= "取票人 - 身份證字號：#{@bill.receiver_identity_number}"
 
-        input type="hidden" name="order[receiver_name]" value="#{@order.receiver_name}"
-        input type="hidden" name="order[receiver_email]" value="#{@order.receiver_email}"
-        input type="hidden" name="order[receiver_phone]" value="#{@order.receiver_phone}"
-        input type="hidden" name="order[receiver_identity_number]" value="#{@order.receiver_identity_number}"
+        input type="hidden" name="bill[receiver_name]" value="#{@bill.receiver_name}"
+        input type="hidden" name="bill[receiver_email]" value="#{@bill.receiver_email}"
+        input type="hidden" name="bill[receiver_phone]" value="#{@bill.receiver_phone}"
+        input type="hidden" name="bill[receiver_identity_number]" value="#{@bill.receiver_identity_number}"
 
         .col.s12= "付款方式：#{t(@bill.type,  scope: :bill_types)}"
         .col.s12= "發票種類：#{t(@bill.invoice_type, scope: :invoice_types)}"
