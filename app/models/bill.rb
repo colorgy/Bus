@@ -18,6 +18,7 @@ class Bill < ActiveRecord::Base
 
   self.inheritance_column = :_type_disabled
 
+  scope :shown, -> { where(deleted_at: nil) }
   scope :paid, -> { where(state: 'paid') }
   scope :payment_pending, -> { where(state: 'payment_pending') }
   scope :unpaid, -> { where.not(state: 'paid') }

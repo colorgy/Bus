@@ -1,12 +1,13 @@
 ActiveAdmin.register Order do
   menu priority: 120, label: '訂單'
 
-  scope :all, default: true
+  scope :shown, default: true
   scope :paid
   scope :canceled
   scope :refunded
   scope :expired
   scope :only_deleted
+  scope :all
 
   filter(:id)
   filter(:user_id)
@@ -16,10 +17,6 @@ ActiveAdmin.register Order do
   filter(:vehicle_id)
   filter(:seat_no)
   filter(:state)
-  filter(:receiver_name)
-  filter(:receiver_email)
-  filter(:receiver_phone)
-  filter(:receiver_identity_number)
   filter(:created_at)
   filter(:updated_at)
   filter(:deleted_at)
@@ -58,6 +55,7 @@ ActiveAdmin.register Order do
       end
       tag.nil? ? status_tag(order.state) : status_tag(order.state, tag)
     end
+    column(:deleted) {|order| order.deleted? ? status_tag('是', :ok) : status_tag('否') }
     column(:created_at)
     column(:updated_at)
     actions

@@ -18,7 +18,7 @@ class OrdersController < ApplicationController
     if params[:confirmed] && params[:user_agreement] == "on"
       # 從 create 到 confirm
 
-      @data = current_user.checkout(bill_params, order_params)
+      @data = current_user.checkout(bill_params)
       @bill = @data[:bill]
       @orders = @data[:orders]
       @order = @data[:orders].first
@@ -40,7 +40,7 @@ class OrdersController < ApplicationController
       # 從 confirm 到 建立訂單
 
       begin
-        @data = current_user.checkout!(bill_params, order_params)
+        @data = current_user.checkout!(bill_params)
         redirect_to @data[:bill] and return if @data[:bill].id.present?
       rescue Exception => e
         Rails.logger.error e
@@ -65,10 +65,7 @@ class OrdersController < ApplicationController
   private
 
     def bill_params
-      params.require(:bill).permit(:type, :invoice_type, :invoice_code, :invoice_cert, :invoice_love_code, :invoice_uni_num)
+      params.require(:bill).permit(:type, :invoice_type, :invoice_code, :invoice_cert, :invoice_love_code, :invoice_uni_num, :receiver_name, :receiver_email, :receiver_phone, :receiver_identity_number)
     end
 
-    def order_params
-      params.require(:order).permit(:receiver_name, :receiver_email, :receiver_phone, :receiver_identity_number)
-    end
 end

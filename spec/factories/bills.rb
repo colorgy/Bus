@@ -13,6 +13,10 @@ FactoryGirl.define do
     paid_at "2015-08-01 10:45:34"
     # user_credits 1
     deadline "2015-08-01 10:45:34"
+    receiver_name { Faker::Name.name }
+    receiver_email { user.email }
+    receiver_phone { Faker::PhoneNumber.cell_phone }
+    receiver_identity_number { Faker::Code.ean }
   end
 
 end

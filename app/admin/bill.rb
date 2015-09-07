@@ -1,12 +1,13 @@
 ActiveAdmin.register Bill do
   menu priority: 119, label: '帳單'
 
-  scope :all, default: true
+  scope :shown, default: true
   scope :paid
   scope :payment_pending
   scope :unpaid
   scope :expired
   scope :only_deleted
+  scope :all
 
   filter(:id)
   filter(:uuid)
@@ -14,6 +15,10 @@ ActiveAdmin.register Bill do
   filter(:price)
   filter(:amount)
   filter(:state)
+  filter(:receiver_name)
+  filter(:receiver_email)
+  filter(:receiver_phone)
+  filter(:receiver_identity_number)
   filter(:payment_code)
   filter(:invoice_type)
   filter(:type)
@@ -25,8 +30,12 @@ ActiveAdmin.register Bill do
   filter(:updated_at)
   filter(:mail_sent_at)
 
-  action_item only:[:index] do
+  action_item only: [:index] do
     link_to "匯出帳單", bill_export_path
+  end
+
+  action_item only: [:index] do
+    link_to "匯出發票", invoice_export_path
   end
 
   controller do
@@ -43,7 +52,6 @@ ActiveAdmin.register Bill do
     column(:user_id) { |bill| a bill.user.name, href: admin_user_path(bill.user) }
     column(:price)
     column(:amount)
-    column(:type)
     column(:state) do |bill|
       tag = nil
       case bill.state
@@ -56,10 +64,12 @@ ActiveAdmin.register Bill do
     end
     column('Mail Sent') { |bill| bill.mail_sent_at.present? ? status_tag('是', :ok) : status_tag('否') }
     column(:quantity) { |bill| bill.orders_count }
-    column(:payment_code)
-    column(:virtual_account)
+    column(:receiver_name)
+    column(:receiver_email)
+    column(:receiver_phone)
     column(:paid_at)
     column(:deadline)
+    column(:deleted) {|bill| bill.deleted? ? status_tag('是', :ok) : status_tag('否') }
     column(:created_at)
     column(:updated_at)
 
