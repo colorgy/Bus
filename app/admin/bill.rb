@@ -1,12 +1,13 @@
 ActiveAdmin.register Bill do
   menu priority: 119, label: '帳單'
 
-  scope :all, default: true
+  scope :shown, default: true
   scope :paid
   scope :payment_pending
   scope :unpaid
   scope :expired
   scope :only_deleted
+  scope :all
 
   filter(:id)
   filter(:uuid)
@@ -31,6 +32,10 @@ ActiveAdmin.register Bill do
 
   action_item only: [:index] do
     link_to "匯出帳單", bill_export_path
+  end
+
+  action_item only: [:index] do
+    link_to "匯出發票", invoice_export_path
   end
 
   controller do
@@ -64,6 +69,7 @@ ActiveAdmin.register Bill do
     column(:receiver_phone)
     column(:paid_at)
     column(:deadline)
+    column(:deleted) {|bill| bill.deleted? ? status_tag('是', :ok) : status_tag('否') }
     column(:created_at)
     column(:updated_at)
 
