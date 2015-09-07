@@ -23,10 +23,10 @@
 繳費金額：<%= @bill.amount %>
 繳費期限：<%= @bill.deadline.strftime('%Y/%m/%d %H:%M') %>
 繳費狀態：<%= t(@bill.state, scope: :bill_states) %>
-取票人姓名：<%= @order.receiver_name %>
-取票人email：<%= @order.receiver_email %>
-取票人手機：<%= @order.receiver_phone %>
-取票人身份證：<%= "#{@order.receiver_identity_number[0..3]}***#{@order.receiver_identity_number[7..-1]}" %>
+取票人姓名：<%= @bill.receiver_name %>
+取票人email：<%= @bill.receiver_email %>
+取票人手機：<%= @bill.receiver_phone %>
+取票人身份證：<%= "#{@bill.receiver_identity_number[0..3]}***#{@bill.receiver_identity_number[7..-1]}" %>
 
 ==========================
 

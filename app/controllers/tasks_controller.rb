@@ -41,10 +41,10 @@ class TasksController < ApplicationController
           order.schedule.route.short_name,
           dept_time,
           bill.orders_count,
-          order.receiver_name,
-          order.receiver_email,
-          order.receiver_phone,
-          order.receiver_identity_number
+          bill.receiver_name,
+          bill.receiver_email,
+          bill.receiver_phone,
+          bill.receiver_identity_number
         ]
       end
 
@@ -59,10 +59,10 @@ class TasksController < ApplicationController
           order.schedule.route.short_name,
           dept_time,
           bill.orders_count,
-          order.receiver_name,
-          order.receiver_email,
-          order.receiver_phone,
-          order.receiver_identity_number
+          bill.receiver_name,
+          bill.receiver_email,
+          bill.receiver_phone,
+          bill.receiver_identity_number
         ]
       end
     end
