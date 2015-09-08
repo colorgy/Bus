@@ -115,7 +115,7 @@ class TasksController < ApplicationController
           Date.today.to_s, # 發票日期
           2, # 品名序號，在 Bus 手續費必為第二張，所以 2
           "金流手續費", # 發票品名
-          bill.orders_count, # 數量
+          1, # 數量
           fees, # 單價
           "1", # 課稅別
           "0.05", # 稅率
