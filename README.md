@@ -1,6 +1,8 @@
 Bus
 ===
 
+[![Join the chat at https://gitter.im/colorgy/Bus](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/colorgy/Bus?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Colorgy 專車，便利你的交通生活
 
 ## Development Setup
